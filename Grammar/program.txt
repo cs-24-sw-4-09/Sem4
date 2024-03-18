@@ -3,3 +3,4 @@ time (4/4);
 note A 4;
 note B 4;
 note C 5;
+sample test (Piano) {note A 4;}
