@@ -1,0 +1,5 @@
+bpm (100);
+time (4/4);
+note A 4;
+note B 4;
+note C 5;

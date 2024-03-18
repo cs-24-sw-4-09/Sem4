@@ -1,18 +1,21 @@
 grammar MusicLanguage;
 
-program : statement*;
+program : statement* EOF;
 
 statement : noteStatement
           | chordStatement
-          | tempoStatement
-          | durationStatement;
+          | durationStatement
+          | bpmStatement
+          | timeSignatureStatement;
           // other statements...
 
-noteStatement : 'note' note octave=INT;
+noteStatement : 'note' note octave=INT ';';
 
-chordStatement : 'chord' '[' noteList ']' octave=INT;
+chordStatement : 'chord' '[' noteList ']' octave=INT';';
 
-tempoStatement : 'tempo' tempo=INT;
+bpmStatement : 'bpm' '(' bpm=INT ')'';';
+
+timeSignatureStatement : 'time' '(' time=INT '/' time=INT ')'';';
 
 durationStatement : 'duration' duration=INT;
 
