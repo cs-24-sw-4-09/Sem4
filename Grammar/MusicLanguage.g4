@@ -5,10 +5,10 @@ program : statement*;
 statement : noteStatement
           | chordStatement
           | tempoStatement
-          | durationStatement
+          | durationStatement;
           // other statements...
 
-noteStatement : 'note' note=NOTE octave=INT;
+noteStatement : 'note' note octave=INT;
 
 chordStatement : 'chord' '[' noteList ']' octave=INT;
 
