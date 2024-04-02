@@ -1,4 +1,4 @@
-// Generated from ./MusicLanguage.g4 by ANTLR 4.13.1
+// Generated from MusicLanguage.g4 by ANTLR 4.13.1
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**
@@ -10,7 +10,7 @@ import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
  * operations with no return type.
  */
 @SuppressWarnings("CheckReturnValue")
-public abstract class MusicLanguageBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements MusicLanguageVisitor<T> {
+public class MusicLanguageBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements MusicLanguageVisitor<T> {
 	/**
 	 * {@inheritDoc}
 	 *
@@ -95,6 +95,4 @@ public abstract class MusicLanguageBaseVisitor<T> extends AbstractParseTreeVisit
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitNote(MusicLanguageParser.NoteContext ctx) { return visitChildren(ctx); }
-
-	public abstract void visitProgram();
 }

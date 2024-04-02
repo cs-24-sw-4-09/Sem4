@@ -35,6 +35,8 @@ noteList : note (',' note)*;
 
 note : 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G';
 
+INSTRUMENT : 'instrument';
+
 NOTE : [A-G][0-9]?;
 
 INT : [0-9]+;

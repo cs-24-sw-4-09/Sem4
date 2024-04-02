@@ -1,9 +1,37 @@
-public class Visitor extends MusicLanguageBaseVisitor {
+public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
 
     @Override
-    public void visitProgram(){
+    public ASTNode visitProgram(MusicLanguageParser.ProgramContext ctx) {
+        ASTNode program = new ASTNode("program");
+        for (MusicLanguageParser.StatementContext statementContext : ctx.statement()) {
+            ASTNode statementNode = visit(statementContext);
+            program.addChild(visit(statementContext));
+        }
 
+        return program;
     }
 
+    @Override
+    public ASTNode visitBpmStatement(MusicLanguageParser.BpmStatementContext ctx) {
+        int bpm = Integer.parseInt(ctx.INT().getText());
+        return new BpmStatement(bpm);
+    }
+
+    @Override
+    public ASTNode visitNoteStatement(MusicLanguageParser.NoteStatementContext ctx) {
+        String note = ctx.NOTE().getText();
+        return new NoteStatement(note);
+    }
+
+    @Override
+    public ASTNode visitSampleStatement(MusicLanguageParser.SampleStatementContext ctx) {
+        String sample = ctx.STRING().getText();
+        String instrument = ctx.instrument().getText();
+        SampleStatement sampleStatement = new SampleStatement(sample, instrument);
+        for (MusicLanguageParser.StatementContext statementContext : ctx.statement()) {
+            sampleStatement.addChild(visit(statementContext));
+        }
+        return sampleStatement;
+    }
 
 }
