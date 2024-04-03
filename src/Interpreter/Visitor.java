@@ -1,3 +1,6 @@
+package Interpreter;
+
+import Grammar.*;
 public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
 
     @Override

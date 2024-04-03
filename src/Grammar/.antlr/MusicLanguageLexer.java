@@ -1,4 +1,4 @@
-// Generated from c:/Users/Jacob Østergaard/Documents/Sem4/Grammar/MusicLanguage.g4 by ANTLR 4.13.1
+// Generated from c:/Users/wojte/Documents/GitHub/Sem4/src/Grammar/MusicLanguage.g4 by ANTLR 4.13.1
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;

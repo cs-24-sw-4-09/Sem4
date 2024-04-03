@@ -1,5 +1,8 @@
+
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
+import Grammar.*;
+import Interpreter.*;
 
 import java.io.*;
 
@@ -7,7 +10,7 @@ import java.io.*;
 public class app {
     public static void main(String[] args) throws IOException {
         // Read the content of the text file
-        String inputFile = "Grammar/program.txt";
+        String inputFile = "program.txt";
         String inputText = readFile(inputFile);
 
         // Create a CharStream from the input text
