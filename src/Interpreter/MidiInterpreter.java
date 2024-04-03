@@ -95,7 +95,6 @@ public class MidiInterpreter {
     private void interpretNoteStatement(NoteStatement node) {
         String note = node.getNote();
         try {
-
             channels[0].noteOn(noteToMidi(note), bpm);
             System.out.println();
             Thread.sleep(500);
