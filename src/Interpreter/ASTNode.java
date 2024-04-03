@@ -1,5 +1,6 @@
 package Interpreter;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,7 @@ public class ASTNode {
     public ASTNode(String type) {
         this.type = type;
         this.children = new ArrayList<>();
+        
     }
 
     public void addChild(ASTNode child) {
@@ -23,6 +25,8 @@ public class ASTNode {
     public List<ASTNode> getChildren() {
         return children;
     }
+
+    
 
 }
 
@@ -179,4 +183,5 @@ class PlayStatement extends ASTNode {
         this.sample = sample;
     }
 }
+
 

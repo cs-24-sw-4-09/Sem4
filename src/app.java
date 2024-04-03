@@ -24,7 +24,6 @@ public class app {
 
         // Create a parser
         MusicLanguageParser parser = new MusicLanguageParser(tokens);
-
         // Parse the input and build the parse tree
         ParseTree tree = parser.program();
 
@@ -34,6 +33,7 @@ public class app {
         ASTNode ast = astBuilder.visit(tree);
         MidiInterpreter interpreter = new MidiInterpreter(120);
         interpreter.interpretAST(ast);
+        interpreter.setEOF(parser.isMatchedEOF());
 
         // Print the parse tree to the console
         System.out.println(tree.toStringTree(parser));

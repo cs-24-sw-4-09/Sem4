@@ -9,10 +9,13 @@ statement : noteStatement
           | timeSignatureStatement
           | sampleStatement
           | playStatement;
+          //noteInSampleStatement
+          //combinationStatement;
           // combinationStatement;
           // other statements...
 
 noteStatement : 'note' octave=NOTE ';';
+//noteInSampleStatement : octave=NOTE;
 
 chordStatement : 'chord' '[' noteList ']' octave=INT';';
 
@@ -26,8 +29,9 @@ sampleStatement : 'sample' sample=STRING '(' instrument ')' '{' statement* '}'';
 
 playStatement : 'play' sample=STRING '{'  '}';
 
-// TODO
-//combinationStatement : 'combination' combination=STRING '{' sample1=STRING '&' sample2=STRING '}';
+//combinationStatement : 'combination' combination=STRING '{' sampleList '}' ';';
+
+//sampleList : sample=STRING ('&' sample=STRING)*;
 
 instrument : 'Piano' | 'Guitar' | 'Bass' | 'Drums';
 
@@ -48,3 +52,4 @@ INDENT : [ \t]+ -> skip;
 DEDENT : [ \n]+ -> skip;
 
 WS : [ \t\r\n]+ -> skip;
+
