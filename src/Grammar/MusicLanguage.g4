@@ -37,7 +37,7 @@ instrument : 'Piano' | 'Guitar' | 'Bass' | 'Drums';
 
 noteList : note (',' note)*;
 
-note : 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G';
+note : 'A' | 'A#' | 'B' | 'C' | 'C#' | 'D' | 'D#' | 'E' | 'F' | 'F#' | 'G' | 'G#';
 
 INSTRUMENT : 'instrument';
 

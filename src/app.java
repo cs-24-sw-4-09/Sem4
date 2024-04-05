@@ -31,9 +31,8 @@ public class app {
 
         // Build the AST from the parse tree
         ASTNode ast = astBuilder.visit(tree);
-        MidiInterpreter interpreter = new MidiInterpreter(120);
+        MidiInterpreter interpreter = new MidiInterpreter();
         interpreter.interpretAST(ast);
-        interpreter.setEOF(parser.isMatchedEOF());
 
         // Print the parse tree to the console
         System.out.println(tree.toStringTree(parser));

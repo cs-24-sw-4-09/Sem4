@@ -1,19 +1,4 @@
 bpm (113);
-sample test (Guitar) {note A3; note B3; note C3;};
-note D3;
-note E3;
-note G2;
-sample test (Flute) {note A3; note B3; note C3;};
-note E3;
-note B3;
-note B3;
-note A3;
-note D3;
-note E3;
-sample test (Saxophone) {note A3; note B3; note C3;};
-note G2;
-note E3;
-note A3;
-note A3;
-note G2;
 time (4/4);
+sample test (Piano) {note A3; note B3; note C3;};
+

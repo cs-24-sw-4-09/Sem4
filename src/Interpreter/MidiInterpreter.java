@@ -1,6 +1,8 @@
 package Interpreter;
 
 import Grammar.*;
+import Util.*;
+
 import java.util.List;
 import javax.sound.midi.*;
 import java.io.EOFException;
@@ -10,68 +12,25 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 public class MidiInterpreter {
     private int bpm;
     private StringBuilder interpretationResult;
-    private Synthesizer synthesizer;
-    private MidiChannel[] channels;
-    private boolean isSynthOpen;
+    private TimingHandler timingHandler;
 
-    public MidiInterpreter(int bpm) {
-        this.bpm = 120; //default bpm
+    public MidiInterpreter() {
         this.interpretationResult = new StringBuilder();
-        this.isSynthOpen = false;
-        try {
-            this.synthesizer = MidiSystem.getSynthesizer();
-            this.synthesizer.open();
-            this.channels = synthesizer.getChannels();
-        } catch (MidiUnavailableException e ) {
-            e.printStackTrace();
-        }
     }
 
-    public void openSynth(){
-        try {
-            this.synthesizer = MidiSystem.getSynthesizer();
-            this.synthesizer.open();
-            this.channels = synthesizer.getChannels();
-            isSynthOpen = true;
-            System.out.println("Synth open");
-        } catch (MidiUnavailableException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void closeSynth(){
-        if (isSynthOpen) {
-            try {
-                synthesizer.close();
-                System.out.println("Synth closed");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-    
-    public void setEOF(boolean EOF){
-        closeSynth();
-    }
-
-    public void interpretAST(ASTNode node){
-        if (!isSynthOpen) {
-            openSynth();
-        }
-        if(node == null) {
-            return;         
+    public void interpretAST(ASTNode node) {
+        if (node == null) {
+            return;
         }
 
-        if(node instanceof BpmStatement){
+        if (node instanceof BpmStatement) {
             interpretBPMStatement((BpmStatement) node);
-        }
-        else if(node instanceof SampleStatement){
+        } else if (node instanceof SampleStatement) {
             interpretSampleStatement((SampleStatement) node);
-        }
-        else if(node instanceof NoteStatement){
+        } else if (node instanceof NoteStatement) {
             interpretNoteStatement((NoteStatement) node);
         } else {
-            for(ASTNode child : node.getChildren()){
+            for (ASTNode child : node.getChildren()) {
                 interpretAST(child);
             }
         }
@@ -80,70 +39,81 @@ public class MidiInterpreter {
     private void interpretSampleStatement(SampleStatement node) {
         String sample = node.getSample();
         String instrument = node.getInstrument();
-        
-        channels[0].programChange(getInstrument(instrument));
+
         interpretationResult.append("Played sample: ").append(sample).append(" " + instrument).append("\n");
-        
+
         List<ASTNode> statements = node.getChildren();
         for (ASTNode statement : statements) {
-            interpretAST(statement);
+            if (statement instanceof NoteStatement) {
+                interpretNoteStatement((NoteStatement) statement);
+            } else {
+                interpretAST(statement);
+            }
         }
-        channels[0].programChange(0);
-        
+        try {
+            timingHandler.play();
+        } catch (Exception e) {
+            // TODO: sug cok
+        }
     }
 
     private void interpretNoteStatement(NoteStatement node) {
         String note = node.getNote();
-        try {
-            channels[0].noteOn(noteToMidi(note), bpm);
-            System.out.println();
-            Thread.sleep(500);
-            channels[0].noteOff(noteToMidi(note));
-            
-            interpretationResult.append("Played note: ").append(note).append("\n");
-            System.out.println("Updated interpretation result: " + interpretationResult.toString());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        timingHandler.addNote(new Note(100, noteToMidi(note), 4), "default");
+        interpretationResult.append("Played note: ").append(note).append("\n");
     }
 
     private void interpretBPMStatement(BpmStatement node) {
-        this.bpm = node.getBpm();}{
-
+        this.bpm = node.getBpm();
+        {
+            try {
+                timingHandler = new TimingHandler(4, bpm);
+            } catch (Exception e) {
+                throw new RuntimeException("Nu-uhuh");
+            }
+        }
+        interpretationResult.append("Set BPM to: ").append(bpm).append("\n");
     }
 
     private int noteToMidi(String note) {
-        char noteName = note.charAt(0);
-        int octave = Integer.parseInt(note.substring(1));
-
-        int noteValue;
-        switch (note.charAt(0)) {
-            case 'C':
-                noteValue = 60;
-                break;
-            case 'D':
-                noteValue = 62;
-                break;
-            case 'E':
-                noteValue = 64;
-                break;
-            case 'F':
-                noteValue = 65;
-                break;
-            case 'G':
-                noteValue = 67;
-                break;
-            case 'A':
-                noteValue = 69;
-                break;
-            case 'B':
-                noteValue = 71;
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid note name: " + note);
+        char noteName;
+        int octave;
+        int noteValue = 0;
+        if (note.contains("#")) {
+            noteName = note.charAt(0);
+            noteValue += 1;
+            octave = Integer.parseInt(note.substring(2));
+        } else {
+            noteName = note.charAt(0);
+            octave = Integer.parseInt(note.substring(1));
         }
 
-        return noteValue + (12 * (octave - 4));
+        switch (noteName) {
+            case 'A':
+                noteValue += 1;
+                break;
+            case 'B':
+                noteValue += 3;
+                break;
+            case 'C':
+                noteValue += 4;
+                break;
+            case 'D':
+                noteValue += 6;
+                break;
+            case 'E':
+                noteValue += 8;
+                break;
+            case 'F':
+                noteValue += 9;
+                break;
+            case 'G':
+                noteValue += 11;
+                break;
+        }
+
+        return noteValue + (octave * 12) + 20; // Note value from parsed from A-G + octave * 12 (there are 12 different
+                                               // tones) + 20 (The Scale starts at 21)
     }
 
     public int getInstrument(String instrument) {
@@ -170,7 +140,6 @@ public class MidiInterpreter {
                 throw new IllegalArgumentException("Invalid instrument: " + instrument);
         }
     }
-
 
     public String getInterpretationResult() {
         return interpretationResult.toString();
