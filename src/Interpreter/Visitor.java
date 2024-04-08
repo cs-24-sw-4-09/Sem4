@@ -37,4 +37,14 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
         return sampleStatement;
     }
 
-}
+    @Override
+    public ASTNode visitPlayStatement(MusicLanguageParser.PlayStatementContext ctx) {   
+        String sample = ctx.getText();
+        PlayStatement playStatement = new PlayStatement(sample);
+        for (MusicLanguageParser.SampleStatementContext sampleStatementContext : ctx.sampleStatement()) {
+            playStatement.addChild(visit(sampleStatementContext));
+        }
+        return playStatement;
+    }
+
+}   

@@ -28,7 +28,7 @@ public class TimingHandler { // Name is up for debate, pls
     }
   }
 
-  public void addNote(Note[] notes, String trackName) {
+  public void addNote(Note[] notes, String trackName) { // USED EXCLUSIVELY FOR RICKROLL; DO NOT ASK ABOUT IT
     for (Note note : notes) {
       try {
         Track track = tracks.get(trackName);

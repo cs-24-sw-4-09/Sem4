@@ -38,6 +38,7 @@ class NoteStatement extends ASTNode {
         this.note = note;
     }
 
+
     public String getNote() {
         return note;
     }
@@ -76,23 +77,6 @@ class ChordStatement extends ASTNode {
 
     public void setOctave(int octave) {
         this.octave = octave;
-    }
-}
-
-class DurationStatement extends ASTNode {
-    private int duration;
-
-    public DurationStatement(int duration) {
-        super("durationStatement");
-        this.duration = duration;
-    }
-
-    public int getDuration() {
-        return duration;
-    }
-
-    public void setDuration(int duration) {
-        this.duration = duration;
     }
 }
 

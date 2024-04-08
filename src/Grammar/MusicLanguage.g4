@@ -4,7 +4,6 @@ program : statement* EOF;
 
 statement : noteStatement
           | chordStatement
-          | durationStatement
           | bpmStatement
           | timeSignatureStatement
           | sampleStatement
@@ -14,7 +13,7 @@ statement : noteStatement
           // combinationStatement;
           // other statements...
 
-noteStatement : 'note' octave=NOTE ';';
+noteStatement :  'note' octave=NOTE ';';
 //noteInSampleStatement : octave=NOTE;
 
 chordStatement : 'chord' '[' noteList ']' octave=INT';';
@@ -23,11 +22,11 @@ bpmStatement : 'bpm' '(' bpm=INT ')'';';
 
 timeSignatureStatement : 'time' '(' time=INT '/' time=INT ')'';';
 
-durationStatement : 'duration' duration=INT;
+//durationStatement : 'duration' duration=INT;
 
 sampleStatement : 'sample' sample=STRING '(' instrument ')' '{' statement* '}'';';
 
-playStatement : 'play' sample=STRING '{'  '}';
+playStatement : 'play' '{' sampleStatement* '}' ';';
 
 //combinationStatement : 'combination' combination=STRING '{' sampleList '}' ';';
 
@@ -41,7 +40,7 @@ note : 'A' | 'A#' | 'B' | 'C' | 'C#' | 'D' | 'D#' | 'E' | 'F' | 'F#' | 'G' | 'G#
 
 INSTRUMENT : 'instrument';
 
-NOTE : [A-G][0-9]?;
+NOTE : [0-9][A-G][0-9]?;
 
 INT : [0-9]+;
 

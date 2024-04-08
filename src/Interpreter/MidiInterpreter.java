@@ -3,7 +3,10 @@ package Interpreter;
 import Grammar.*;
 import Util.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.sound.midi.*;
 import java.io.EOFException;
 
@@ -14,8 +17,10 @@ public class MidiInterpreter {
     private StringBuilder interpretationResult;
     private TimingHandler timingHandler;
 
+
     public MidiInterpreter() {
         this.interpretationResult = new StringBuilder();
+        
     }
 
     public void interpretAST(ASTNode node) {
@@ -25,22 +30,38 @@ public class MidiInterpreter {
 
         if (node instanceof BpmStatement) {
             interpretBPMStatement((BpmStatement) node);
-        } else if (node instanceof SampleStatement) {
-            interpretSampleStatement((SampleStatement) node);
-        } else if (node instanceof NoteStatement) {
-            interpretNoteStatement((NoteStatement) node);
+        } else if (node instanceof PlayStatement) {
+            interpretPlayStatement((PlayStatement) node);
         } else {
             for (ASTNode child : node.getChildren()) {
                 interpretAST(child);
             }
         }
     }
+    
+    private void interpretPlayStatement(PlayStatement node) { 
+        List<ASTNode> statements = node.getChildren();
+        for (ASTNode statement : statements) {
+            if (statement instanceof SampleStatement) {
+                interpretSampleStatement((SampleStatement) statement);
+            } else {
+                System.out.println("Error: Invalid statement in play block");
+            }
+        }
+        interpretationResult.append("Playing: ").append(statements).append("\n");
+        try {
+            timingHandler.play();
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+    }
 
     private void interpretSampleStatement(SampleStatement node) {
         String sample = node.getSample();
         String instrument = node.getInstrument();
-
         interpretationResult.append("Played sample: ").append(sample).append(" " + instrument).append("\n");
+
+        
 
         List<ASTNode> statements = node.getChildren();
         for (ASTNode statement : statements) {
@@ -50,16 +71,15 @@ public class MidiInterpreter {
                 interpretAST(statement);
             }
         }
-        try {
-            timingHandler.play();
-        } catch (Exception e) {
-            // TODO: sug cok
-        }
     }
+    
 
     private void interpretNoteStatement(NoteStatement node) {
         String note = node.getNote();
-        timingHandler.addNote(new Note(100, noteToMidi(note), 4), "default");
+        int duration = Integer.parseInt(note.substring(0, 1));
+        note = note.substring(1);
+        System.out.println("Note: " + note);
+        timingHandler.addNote(new Note(100, noteToMidi(note), duration), "default");
         interpretationResult.append("Played note: ").append(note).append("\n");
     }
 
@@ -145,3 +165,4 @@ public class MidiInterpreter {
         return interpretationResult.toString();
     }
 }
+
