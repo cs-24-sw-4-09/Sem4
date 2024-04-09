@@ -1,0 +1,10 @@
+bpm (100);
+time (4/4);
+sample test (Piano) {note 2A3; note 3B3; note 3C3;};
+play {
+    sample test (Piano) {
+        note 4A3 ;
+        note 5B3 ;
+        note 8C3 ;
+    };
+};
