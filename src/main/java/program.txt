@@ -1,37 +1,16 @@
-bpm (40);
+bpm (113);
 time (4/4);
 sample test (Guitar) {note 2A3; note 3B3; note 3C3;};
 play {
     sample test (Guitar) {
-        note 1E5;
+        
 note 1D5;
-note 1C5;
+pause 10;
 note 1D5;
-note 1E5;
-note 1E5;
-note 1E5;
-    note 1A9;
+pause 20;
 note 1D5;
+pause 30;
 note 1D5;
-note 1D5;
-    note 1A9;
-note 1E5;
-note 1E5;
-note 1E5;
-    note 1A9;
-note 1E5;
-note 1D5;
-note 1C5;
-note 1D5;
-note 1E5;
-note 1E5;
-note 1E5;
-    note 1A9;
-note 1E5;
-note 1D5;
-note 1D5;
-note 1E5;
-note 1D5;
-note 1C5;
+pause 40;
     };
 };

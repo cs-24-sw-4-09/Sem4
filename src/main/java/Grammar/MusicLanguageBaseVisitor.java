@@ -1,5 +1,6 @@
-// Generated from MusicLanguage.g4 by ANTLR 4.13.1
+// Generated from ./MusicLanguage.g4 by ANTLR 4.13.1
 package Grammar;
+
 
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
@@ -34,6 +35,13 @@ public class MusicLanguageBaseVisitor<T> extends AbstractParseTreeVisitor<T> imp
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitNoteStatement(MusicLanguageParser.NoteStatementContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitPauseStatement(MusicLanguageParser.PauseStatementContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -1,4 +1,4 @@
-// Generated from MusicLanguage.g4 by ANTLR 4.13.1
+// Generated from ./MusicLanguage.g4 by ANTLR 4.13.1
 package Grammar;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -48,6 +48,18 @@ public class MusicLanguageBaseListener implements MusicLanguageListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitNoteStatement(MusicLanguageParser.NoteStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPauseStatement(MusicLanguageParser.PauseStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPauseStatement(MusicLanguageParser.PauseStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

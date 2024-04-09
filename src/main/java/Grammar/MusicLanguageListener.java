@@ -1,4 +1,4 @@
-// Generated from MusicLanguage.g4 by ANTLR 4.13.1
+// Generated from ./MusicLanguage.g4 by ANTLR 4.13.1
 package Grammar;
 
 import org.antlr.v4.runtime.tree.ParseTreeListener;
@@ -38,6 +38,16 @@ public interface MusicLanguageListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitNoteStatement(MusicLanguageParser.NoteStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MusicLanguageParser#pauseStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterPauseStatement(MusicLanguageParser.PauseStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MusicLanguageParser#pauseStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitPauseStatement(MusicLanguageParser.PauseStatementContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MusicLanguageParser#chordStatement}.
 	 * @param ctx the parse tree

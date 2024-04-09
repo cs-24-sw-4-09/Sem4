@@ -1,4 +1,4 @@
-// Generated from MusicLanguage.g4 by ANTLR 4.13.1
+// Generated from ./MusicLanguage.g4 by ANTLR 4.13.1
 package Grammar;
 
 import org.antlr.v4.runtime.atn.*;
@@ -22,26 +22,28 @@ public class MusicLanguageParser extends Parser {
 		T__9=10, T__10=11, T__11=12, T__12=13, T__13=14, T__14=15, T__15=16, T__16=17, 
 		T__17=18, T__18=19, T__19=20, T__20=21, T__21=22, T__22=23, T__23=24, 
 		T__24=25, T__25=26, T__26=27, T__27=28, T__28=29, T__29=30, T__30=31, 
-		INSTRUMENT=32, NOTE=33, INT=34, STRING=35, INDENT=36, DEDENT=37, WS=38;
+		T__31=32, INSTRUMENT=33, NOTE=34, INT=35, STRING=36, INDENT=37, DEDENT=38, 
+		WS=39;
 	public static final int
-		RULE_program = 0, RULE_statement = 1, RULE_noteStatement = 2, RULE_chordStatement = 3, 
-		RULE_bpmStatement = 4, RULE_timeSignatureStatement = 5, RULE_sampleStatement = 6, 
-		RULE_playStatement = 7, RULE_instrument = 8, RULE_noteList = 9, RULE_note = 10;
+		RULE_program = 0, RULE_statement = 1, RULE_noteStatement = 2, RULE_pauseStatement = 3, 
+		RULE_chordStatement = 4, RULE_bpmStatement = 5, RULE_timeSignatureStatement = 6, 
+		RULE_sampleStatement = 7, RULE_playStatement = 8, RULE_instrument = 9, 
+		RULE_noteList = 10, RULE_note = 11;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"program", "statement", "noteStatement", "chordStatement", "bpmStatement", 
-			"timeSignatureStatement", "sampleStatement", "playStatement", "instrument", 
-			"noteList", "note"
+			"program", "statement", "noteStatement", "pauseStatement", "chordStatement", 
+			"bpmStatement", "timeSignatureStatement", "sampleStatement", "playStatement", 
+			"instrument", "noteList", "note"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'note'", "';'", "'chord'", "'['", "']'", "'bpm'", "'('", "')'", 
-			"'time'", "'/'", "'sample'", "'{'", "'}'", "'play'", "'Piano'", "'Guitar'", 
-			"'Bass'", "'Drums'", "','", "'A'", "'A#'", "'B'", "'C'", "'C#'", "'D'", 
-			"'D#'", "'E'", "'F'", "'F#'", "'G'", "'G#'", "'instrument'"
+			null, "'note'", "';'", "'pause'", "'chord'", "'['", "']'", "'bpm'", "'('", 
+			"')'", "'time'", "'/'", "'sample'", "'{'", "'}'", "'play'", "'Piano'", 
+			"'Guitar'", "'Bass'", "'Drums'", "','", "'A'", "'A#'", "'B'", "'C'", 
+			"'C#'", "'D'", "'D#'", "'E'", "'F'", "'F#'", "'G'", "'G#'", "'instrument'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
@@ -49,7 +51,7 @@ public class MusicLanguageParser extends Parser {
 		return new String[] {
 			null, null, null, null, null, null, null, null, null, null, null, null, 
 			null, null, null, null, null, null, null, null, null, null, null, null, 
-			null, null, null, null, null, null, null, null, "INSTRUMENT", "NOTE", 
+			null, null, null, null, null, null, null, null, null, "INSTRUMENT", "NOTE", 
 			"INT", "STRING", "INDENT", "DEDENT", "WS"
 		};
 	}
@@ -139,21 +141,21 @@ public class MusicLanguageParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(25);
+			setState(27);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 19018L) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 38042L) != 0)) {
 				{
 				{
-				setState(22);
+				setState(24);
 				statement();
 				}
 				}
-				setState(27);
+				setState(29);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(28);
+			setState(30);
 			match(EOF);
 			}
 		}
@@ -172,6 +174,9 @@ public class MusicLanguageParser extends Parser {
 	public static class StatementContext extends ParserRuleContext {
 		public NoteStatementContext noteStatement() {
 			return getRuleContext(NoteStatementContext.class,0);
+		}
+		public PauseStatementContext pauseStatement() {
+			return getRuleContext(PauseStatementContext.class,0);
 		}
 		public ChordStatementContext chordStatement() {
 			return getRuleContext(ChordStatementContext.class,0);
@@ -211,48 +216,55 @@ public class MusicLanguageParser extends Parser {
 		StatementContext _localctx = new StatementContext(_ctx, getState());
 		enterRule(_localctx, 2, RULE_statement);
 		try {
-			setState(36);
+			setState(39);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case T__0:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(30);
+				setState(32);
 				noteStatement();
 				}
 				break;
 			case T__2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(31);
+				setState(33);
+				pauseStatement();
+				}
+				break;
+			case T__3:
+				enterOuterAlt(_localctx, 3);
+				{
+				setState(34);
 				chordStatement();
 				}
 				break;
-			case T__5:
-				enterOuterAlt(_localctx, 3);
+			case T__6:
+				enterOuterAlt(_localctx, 4);
 				{
-				setState(32);
+				setState(35);
 				bpmStatement();
 				}
 				break;
-			case T__8:
-				enterOuterAlt(_localctx, 4);
+			case T__9:
+				enterOuterAlt(_localctx, 5);
 				{
-				setState(33);
+				setState(36);
 				timeSignatureStatement();
 				}
 				break;
-			case T__10:
-				enterOuterAlt(_localctx, 5);
+			case T__11:
+				enterOuterAlt(_localctx, 6);
 				{
-				setState(34);
+				setState(37);
 				sampleStatement();
 				}
 				break;
-			case T__13:
-				enterOuterAlt(_localctx, 6);
+			case T__14:
+				enterOuterAlt(_localctx, 7);
 				{
-				setState(35);
+				setState(38);
 				playStatement();
 				}
 				break;
@@ -300,11 +312,59 @@ public class MusicLanguageParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(38);
+			setState(41);
 			match(T__0);
-			setState(39);
+			setState(42);
 			((NoteStatementContext)_localctx).octave = match(NOTE);
-			setState(40);
+			setState(43);
+			match(T__1);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class PauseStatementContext extends ParserRuleContext {
+		public Token duration;
+		public TerminalNode INT() { return getToken(MusicLanguageParser.INT, 0); }
+		public PauseStatementContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_pauseStatement; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).enterPauseStatement(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).exitPauseStatement(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MusicLanguageVisitor ) return ((MusicLanguageVisitor<? extends T>)visitor).visitPauseStatement(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final PauseStatementContext pauseStatement() throws RecognitionException {
+		PauseStatementContext _localctx = new PauseStatementContext(_ctx, getState());
+		enterRule(_localctx, 6, RULE_pauseStatement);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(45);
+			match(T__2);
+			setState(46);
+			((PauseStatementContext)_localctx).duration = match(INT);
+			setState(47);
 			match(T__1);
 			}
 		}
@@ -347,21 +407,21 @@ public class MusicLanguageParser extends Parser {
 
 	public final ChordStatementContext chordStatement() throws RecognitionException {
 		ChordStatementContext _localctx = new ChordStatementContext(_ctx, getState());
-		enterRule(_localctx, 6, RULE_chordStatement);
+		enterRule(_localctx, 8, RULE_chordStatement);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(42);
-			match(T__2);
-			setState(43);
+			setState(49);
 			match(T__3);
-			setState(44);
-			noteList();
-			setState(45);
+			setState(50);
 			match(T__4);
-			setState(46);
+			setState(51);
+			noteList();
+			setState(52);
+			match(T__5);
+			setState(53);
 			((ChordStatementContext)_localctx).octave = match(INT);
-			setState(47);
+			setState(54);
 			match(T__1);
 			}
 		}
@@ -401,19 +461,19 @@ public class MusicLanguageParser extends Parser {
 
 	public final BpmStatementContext bpmStatement() throws RecognitionException {
 		BpmStatementContext _localctx = new BpmStatementContext(_ctx, getState());
-		enterRule(_localctx, 8, RULE_bpmStatement);
+		enterRule(_localctx, 10, RULE_bpmStatement);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(49);
-			match(T__5);
-			setState(50);
+			setState(56);
 			match(T__6);
-			setState(51);
-			((BpmStatementContext)_localctx).bpm = match(INT);
-			setState(52);
+			setState(57);
 			match(T__7);
-			setState(53);
+			setState(58);
+			((BpmStatementContext)_localctx).bpm = match(INT);
+			setState(59);
+			match(T__8);
+			setState(60);
 			match(T__1);
 			}
 		}
@@ -456,23 +516,23 @@ public class MusicLanguageParser extends Parser {
 
 	public final TimeSignatureStatementContext timeSignatureStatement() throws RecognitionException {
 		TimeSignatureStatementContext _localctx = new TimeSignatureStatementContext(_ctx, getState());
-		enterRule(_localctx, 10, RULE_timeSignatureStatement);
+		enterRule(_localctx, 12, RULE_timeSignatureStatement);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(55);
-			match(T__8);
-			setState(56);
-			match(T__6);
-			setState(57);
-			((TimeSignatureStatementContext)_localctx).time = match(INT);
-			setState(58);
+			setState(62);
 			match(T__9);
-			setState(59);
-			((TimeSignatureStatementContext)_localctx).time = match(INT);
-			setState(60);
+			setState(63);
 			match(T__7);
-			setState(61);
+			setState(64);
+			((TimeSignatureStatementContext)_localctx).time = match(INT);
+			setState(65);
+			match(T__10);
+			setState(66);
+			((TimeSignatureStatementContext)_localctx).time = match(INT);
+			setState(67);
+			match(T__8);
+			setState(68);
 			match(T__1);
 			}
 		}
@@ -521,40 +581,40 @@ public class MusicLanguageParser extends Parser {
 
 	public final SampleStatementContext sampleStatement() throws RecognitionException {
 		SampleStatementContext _localctx = new SampleStatementContext(_ctx, getState());
-		enterRule(_localctx, 12, RULE_sampleStatement);
+		enterRule(_localctx, 14, RULE_sampleStatement);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(63);
-			match(T__10);
-			setState(64);
-			((SampleStatementContext)_localctx).sample = match(STRING);
-			setState(65);
-			match(T__6);
-			setState(66);
-			instrument();
-			setState(67);
-			match(T__7);
-			setState(68);
+			setState(70);
 			match(T__11);
+			setState(71);
+			((SampleStatementContext)_localctx).sample = match(STRING);
 			setState(72);
+			match(T__7);
+			setState(73);
+			instrument();
+			setState(74);
+			match(T__8);
+			setState(75);
+			match(T__12);
+			setState(79);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 19018L) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 38042L) != 0)) {
 				{
 				{
-				setState(69);
+				setState(76);
 				statement();
 				}
 				}
-				setState(74);
+				setState(81);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(75);
-			match(T__12);
-			setState(76);
+			setState(82);
+			match(T__13);
+			setState(83);
 			match(T__1);
 			}
 		}
@@ -598,32 +658,32 @@ public class MusicLanguageParser extends Parser {
 
 	public final PlayStatementContext playStatement() throws RecognitionException {
 		PlayStatementContext _localctx = new PlayStatementContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_playStatement);
+		enterRule(_localctx, 16, RULE_playStatement);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(78);
-			match(T__13);
-			setState(79);
-			match(T__11);
-			setState(83);
+			setState(85);
+			match(T__14);
+			setState(86);
+			match(T__12);
+			setState(90);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==T__10) {
+			while (_la==T__11) {
 				{
 				{
-				setState(80);
+				setState(87);
 				sampleStatement();
 				}
 				}
-				setState(85);
+				setState(92);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(86);
-			match(T__12);
-			setState(87);
+			setState(93);
+			match(T__13);
+			setState(94);
 			match(T__1);
 			}
 		}
@@ -661,14 +721,14 @@ public class MusicLanguageParser extends Parser {
 
 	public final InstrumentContext instrument() throws RecognitionException {
 		InstrumentContext _localctx = new InstrumentContext(_ctx, getState());
-		enterRule(_localctx, 16, RULE_instrument);
+		enterRule(_localctx, 18, RULE_instrument);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(89);
+			setState(96);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 491520L) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 983040L) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -718,26 +778,26 @@ public class MusicLanguageParser extends Parser {
 
 	public final NoteListContext noteList() throws RecognitionException {
 		NoteListContext _localctx = new NoteListContext(_ctx, getState());
-		enterRule(_localctx, 18, RULE_noteList);
+		enterRule(_localctx, 20, RULE_noteList);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(91);
+			setState(98);
 			note();
-			setState(96);
+			setState(103);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==T__18) {
+			while (_la==T__19) {
 				{
 				{
-				setState(92);
-				match(T__18);
-				setState(93);
+				setState(99);
+				match(T__19);
+				setState(100);
 				note();
 				}
 				}
-				setState(98);
+				setState(105);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -777,14 +837,14 @@ public class MusicLanguageParser extends Parser {
 
 	public final NoteContext note() throws RecognitionException {
 		NoteContext _localctx = new NoteContext(_ctx, getState());
-		enterRule(_localctx, 20, RULE_note);
+		enterRule(_localctx, 22, RULE_note);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(99);
+			setState(106);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 4293918720L) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 8587837440L) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -806,62 +866,65 @@ public class MusicLanguageParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001&f\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002\u0002"+
-		"\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002\u0005"+
-		"\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007\u0002\b\u0007"+
-		"\b\u0002\t\u0007\t\u0002\n\u0007\n\u0001\u0000\u0005\u0000\u0018\b\u0000"+
-		"\n\u0000\f\u0000\u001b\t\u0000\u0001\u0000\u0001\u0000\u0001\u0001\u0001"+
-		"\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0003\u0001%\b"+
-		"\u0001\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0003\u0001"+
-		"\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001"+
-		"\u0004\u0001\u0004\u0001\u0004\u0001\u0004\u0001\u0004\u0001\u0004\u0001"+
-		"\u0005\u0001\u0005\u0001\u0005\u0001\u0005\u0001\u0005\u0001\u0005\u0001"+
-		"\u0005\u0001\u0005\u0001\u0006\u0001\u0006\u0001\u0006\u0001\u0006\u0001"+
-		"\u0006\u0001\u0006\u0001\u0006\u0005\u0006G\b\u0006\n\u0006\f\u0006J\t"+
-		"\u0006\u0001\u0006\u0001\u0006\u0001\u0006\u0001\u0007\u0001\u0007\u0001"+
-		"\u0007\u0005\u0007R\b\u0007\n\u0007\f\u0007U\t\u0007\u0001\u0007\u0001"+
-		"\u0007\u0001\u0007\u0001\b\u0001\b\u0001\t\u0001\t\u0001\t\u0005\t_\b"+
-		"\t\n\t\f\tb\t\t\u0001\n\u0001\n\u0001\n\u0000\u0000\u000b\u0000\u0002"+
-		"\u0004\u0006\b\n\f\u000e\u0010\u0012\u0014\u0000\u0002\u0001\u0000\u000f"+
-		"\u0012\u0001\u0000\u0014\u001fc\u0000\u0019\u0001\u0000\u0000\u0000\u0002"+
-		"$\u0001\u0000\u0000\u0000\u0004&\u0001\u0000\u0000\u0000\u0006*\u0001"+
-		"\u0000\u0000\u0000\b1\u0001\u0000\u0000\u0000\n7\u0001\u0000\u0000\u0000"+
-		"\f?\u0001\u0000\u0000\u0000\u000eN\u0001\u0000\u0000\u0000\u0010Y\u0001"+
-		"\u0000\u0000\u0000\u0012[\u0001\u0000\u0000\u0000\u0014c\u0001\u0000\u0000"+
-		"\u0000\u0016\u0018\u0003\u0002\u0001\u0000\u0017\u0016\u0001\u0000\u0000"+
-		"\u0000\u0018\u001b\u0001\u0000\u0000\u0000\u0019\u0017\u0001\u0000\u0000"+
-		"\u0000\u0019\u001a\u0001\u0000\u0000\u0000\u001a\u001c\u0001\u0000\u0000"+
-		"\u0000\u001b\u0019\u0001\u0000\u0000\u0000\u001c\u001d\u0005\u0000\u0000"+
-		"\u0001\u001d\u0001\u0001\u0000\u0000\u0000\u001e%\u0003\u0004\u0002\u0000"+
-		"\u001f%\u0003\u0006\u0003\u0000 %\u0003\b\u0004\u0000!%\u0003\n\u0005"+
-		"\u0000\"%\u0003\f\u0006\u0000#%\u0003\u000e\u0007\u0000$\u001e\u0001\u0000"+
-		"\u0000\u0000$\u001f\u0001\u0000\u0000\u0000$ \u0001\u0000\u0000\u0000"+
-		"$!\u0001\u0000\u0000\u0000$\"\u0001\u0000\u0000\u0000$#\u0001\u0000\u0000"+
-		"\u0000%\u0003\u0001\u0000\u0000\u0000&\'\u0005\u0001\u0000\u0000\'(\u0005"+
-		"!\u0000\u0000()\u0005\u0002\u0000\u0000)\u0005\u0001\u0000\u0000\u0000"+
-		"*+\u0005\u0003\u0000\u0000+,\u0005\u0004\u0000\u0000,-\u0003\u0012\t\u0000"+
-		"-.\u0005\u0005\u0000\u0000./\u0005\"\u0000\u0000/0\u0005\u0002\u0000\u0000"+
-		"0\u0007\u0001\u0000\u0000\u000012\u0005\u0006\u0000\u000023\u0005\u0007"+
-		"\u0000\u000034\u0005\"\u0000\u000045\u0005\b\u0000\u000056\u0005\u0002"+
-		"\u0000\u00006\t\u0001\u0000\u0000\u000078\u0005\t\u0000\u000089\u0005"+
-		"\u0007\u0000\u00009:\u0005\"\u0000\u0000:;\u0005\n\u0000\u0000;<\u0005"+
-		"\"\u0000\u0000<=\u0005\b\u0000\u0000=>\u0005\u0002\u0000\u0000>\u000b"+
-		"\u0001\u0000\u0000\u0000?@\u0005\u000b\u0000\u0000@A\u0005#\u0000\u0000"+
-		"AB\u0005\u0007\u0000\u0000BC\u0003\u0010\b\u0000CD\u0005\b\u0000\u0000"+
-		"DH\u0005\f\u0000\u0000EG\u0003\u0002\u0001\u0000FE\u0001\u0000\u0000\u0000"+
-		"GJ\u0001\u0000\u0000\u0000HF\u0001\u0000\u0000\u0000HI\u0001\u0000\u0000"+
-		"\u0000IK\u0001\u0000\u0000\u0000JH\u0001\u0000\u0000\u0000KL\u0005\r\u0000"+
-		"\u0000LM\u0005\u0002\u0000\u0000M\r\u0001\u0000\u0000\u0000NO\u0005\u000e"+
-		"\u0000\u0000OS\u0005\f\u0000\u0000PR\u0003\f\u0006\u0000QP\u0001\u0000"+
-		"\u0000\u0000RU\u0001\u0000\u0000\u0000SQ\u0001\u0000\u0000\u0000ST\u0001"+
-		"\u0000\u0000\u0000TV\u0001\u0000\u0000\u0000US\u0001\u0000\u0000\u0000"+
-		"VW\u0005\r\u0000\u0000WX\u0005\u0002\u0000\u0000X\u000f\u0001\u0000\u0000"+
-		"\u0000YZ\u0007\u0000\u0000\u0000Z\u0011\u0001\u0000\u0000\u0000[`\u0003"+
-		"\u0014\n\u0000\\]\u0005\u0013\u0000\u0000]_\u0003\u0014\n\u0000^\\\u0001"+
-		"\u0000\u0000\u0000_b\u0001\u0000\u0000\u0000`^\u0001\u0000\u0000\u0000"+
-		"`a\u0001\u0000\u0000\u0000a\u0013\u0001\u0000\u0000\u0000b`\u0001\u0000"+
-		"\u0000\u0000cd\u0007\u0001\u0000\u0000d\u0015\u0001\u0000\u0000\u0000"+
-		"\u0005\u0019$HS`";
+		"\u0004\u0001\'m\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
+		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002"+
+		"\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007\u0002"+
+		"\b\u0007\b\u0002\t\u0007\t\u0002\n\u0007\n\u0002\u000b\u0007\u000b\u0001"+
+		"\u0000\u0005\u0000\u001a\b\u0000\n\u0000\f\u0000\u001d\t\u0000\u0001\u0000"+
+		"\u0001\u0000\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001"+
+		"\u0001\u0001\u0001\u0001\u0003\u0001(\b\u0001\u0001\u0002\u0001\u0002"+
+		"\u0001\u0002\u0001\u0002\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003"+
+		"\u0001\u0004\u0001\u0004\u0001\u0004\u0001\u0004\u0001\u0004\u0001\u0004"+
+		"\u0001\u0004\u0001\u0005\u0001\u0005\u0001\u0005\u0001\u0005\u0001\u0005"+
+		"\u0001\u0005\u0001\u0006\u0001\u0006\u0001\u0006\u0001\u0006\u0001\u0006"+
+		"\u0001\u0006\u0001\u0006\u0001\u0006\u0001\u0007\u0001\u0007\u0001\u0007"+
+		"\u0001\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0005\u0007N\b\u0007"+
+		"\n\u0007\f\u0007Q\t\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0001\b"+
+		"\u0001\b\u0001\b\u0005\bY\b\b\n\b\f\b\\\t\b\u0001\b\u0001\b\u0001\b\u0001"+
+		"\t\u0001\t\u0001\n\u0001\n\u0001\n\u0005\nf\b\n\n\n\f\ni\t\n\u0001\u000b"+
+		"\u0001\u000b\u0001\u000b\u0000\u0000\f\u0000\u0002\u0004\u0006\b\n\f\u000e"+
+		"\u0010\u0012\u0014\u0016\u0000\u0002\u0001\u0000\u0010\u0013\u0001\u0000"+
+		"\u0015 j\u0000\u001b\u0001\u0000\u0000\u0000\u0002\'\u0001\u0000\u0000"+
+		"\u0000\u0004)\u0001\u0000\u0000\u0000\u0006-\u0001\u0000\u0000\u0000\b"+
+		"1\u0001\u0000\u0000\u0000\n8\u0001\u0000\u0000\u0000\f>\u0001\u0000\u0000"+
+		"\u0000\u000eF\u0001\u0000\u0000\u0000\u0010U\u0001\u0000\u0000\u0000\u0012"+
+		"`\u0001\u0000\u0000\u0000\u0014b\u0001\u0000\u0000\u0000\u0016j\u0001"+
+		"\u0000\u0000\u0000\u0018\u001a\u0003\u0002\u0001\u0000\u0019\u0018\u0001"+
+		"\u0000\u0000\u0000\u001a\u001d\u0001\u0000\u0000\u0000\u001b\u0019\u0001"+
+		"\u0000\u0000\u0000\u001b\u001c\u0001\u0000\u0000\u0000\u001c\u001e\u0001"+
+		"\u0000\u0000\u0000\u001d\u001b\u0001\u0000\u0000\u0000\u001e\u001f\u0005"+
+		"\u0000\u0000\u0001\u001f\u0001\u0001\u0000\u0000\u0000 (\u0003\u0004\u0002"+
+		"\u0000!(\u0003\u0006\u0003\u0000\"(\u0003\b\u0004\u0000#(\u0003\n\u0005"+
+		"\u0000$(\u0003\f\u0006\u0000%(\u0003\u000e\u0007\u0000&(\u0003\u0010\b"+
+		"\u0000\' \u0001\u0000\u0000\u0000\'!\u0001\u0000\u0000\u0000\'\"\u0001"+
+		"\u0000\u0000\u0000\'#\u0001\u0000\u0000\u0000\'$\u0001\u0000\u0000\u0000"+
+		"\'%\u0001\u0000\u0000\u0000\'&\u0001\u0000\u0000\u0000(\u0003\u0001\u0000"+
+		"\u0000\u0000)*\u0005\u0001\u0000\u0000*+\u0005\"\u0000\u0000+,\u0005\u0002"+
+		"\u0000\u0000,\u0005\u0001\u0000\u0000\u0000-.\u0005\u0003\u0000\u0000"+
+		"./\u0005#\u0000\u0000/0\u0005\u0002\u0000\u00000\u0007\u0001\u0000\u0000"+
+		"\u000012\u0005\u0004\u0000\u000023\u0005\u0005\u0000\u000034\u0003\u0014"+
+		"\n\u000045\u0005\u0006\u0000\u000056\u0005#\u0000\u000067\u0005\u0002"+
+		"\u0000\u00007\t\u0001\u0000\u0000\u000089\u0005\u0007\u0000\u00009:\u0005"+
+		"\b\u0000\u0000:;\u0005#\u0000\u0000;<\u0005\t\u0000\u0000<=\u0005\u0002"+
+		"\u0000\u0000=\u000b\u0001\u0000\u0000\u0000>?\u0005\n\u0000\u0000?@\u0005"+
+		"\b\u0000\u0000@A\u0005#\u0000\u0000AB\u0005\u000b\u0000\u0000BC\u0005"+
+		"#\u0000\u0000CD\u0005\t\u0000\u0000DE\u0005\u0002\u0000\u0000E\r\u0001"+
+		"\u0000\u0000\u0000FG\u0005\f\u0000\u0000GH\u0005$\u0000\u0000HI\u0005"+
+		"\b\u0000\u0000IJ\u0003\u0012\t\u0000JK\u0005\t\u0000\u0000KO\u0005\r\u0000"+
+		"\u0000LN\u0003\u0002\u0001\u0000ML\u0001\u0000\u0000\u0000NQ\u0001\u0000"+
+		"\u0000\u0000OM\u0001\u0000\u0000\u0000OP\u0001\u0000\u0000\u0000PR\u0001"+
+		"\u0000\u0000\u0000QO\u0001\u0000\u0000\u0000RS\u0005\u000e\u0000\u0000"+
+		"ST\u0005\u0002\u0000\u0000T\u000f\u0001\u0000\u0000\u0000UV\u0005\u000f"+
+		"\u0000\u0000VZ\u0005\r\u0000\u0000WY\u0003\u000e\u0007\u0000XW\u0001\u0000"+
+		"\u0000\u0000Y\\\u0001\u0000\u0000\u0000ZX\u0001\u0000\u0000\u0000Z[\u0001"+
+		"\u0000\u0000\u0000[]\u0001\u0000\u0000\u0000\\Z\u0001\u0000\u0000\u0000"+
+		"]^\u0005\u000e\u0000\u0000^_\u0005\u0002\u0000\u0000_\u0011\u0001\u0000"+
+		"\u0000\u0000`a\u0007\u0000\u0000\u0000a\u0013\u0001\u0000\u0000\u0000"+
+		"bg\u0003\u0016\u000b\u0000cd\u0005\u0014\u0000\u0000df\u0003\u0016\u000b"+
+		"\u0000ec\u0001\u0000\u0000\u0000fi\u0001\u0000\u0000\u0000ge\u0001\u0000"+
+		"\u0000\u0000gh\u0001\u0000\u0000\u0000h\u0015\u0001\u0000\u0000\u0000"+
+		"ig\u0001\u0000\u0000\u0000jk\u0007\u0001\u0000\u0000k\u0017\u0001\u0000"+
+		"\u0000\u0000\u0005\u001b\'OZg";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

@@ -17,10 +17,9 @@ public class MidiInterpreter {
     private StringBuilder interpretationResult;
     private TimingHandler timingHandler;
 
-
     public MidiInterpreter() {
         this.interpretationResult = new StringBuilder();
-        
+
     }
 
     public void interpretAST(ASTNode node) {
@@ -38,8 +37,8 @@ public class MidiInterpreter {
             }
         }
     }
-    
-    private void interpretPlayStatement(PlayStatement node) { 
+
+    private void interpretPlayStatement(PlayStatement node) {
         List<ASTNode> statements = node.getChildren();
         for (ASTNode statement : statements) {
             if (statement instanceof SampleStatement) {
@@ -61,18 +60,17 @@ public class MidiInterpreter {
         String instrument = node.getInstrument();
         interpretationResult.append("Played sample: ").append(sample).append(" " + instrument).append("\n");
 
-        
-
         List<ASTNode> statements = node.getChildren();
         for (ASTNode statement : statements) {
             if (statement instanceof NoteStatement) {
                 interpretNoteStatement((NoteStatement) statement);
+            } else if (statement instanceof PauseStatement) {
+                interpretPauseStatement((PauseStatement) statement);
             } else {
                 interpretAST(statement);
             }
         }
     }
-    
 
     private void interpretNoteStatement(NoteStatement node) {
         String note = node.getNote();
@@ -93,6 +91,16 @@ public class MidiInterpreter {
             }
         }
         interpretationResult.append("Set BPM to: ").append(bpm).append("\n");
+    }
+
+    private void interpretPauseStatement(PauseStatement node) {
+        long duration = node.getDuration();
+        interpretationResult.append("Paused for: ").append(duration).append("\n");
+        try {
+            timingHandler.addPause(duration, "default");
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
     }
 
     public int noteToMidi(String note) {
@@ -132,8 +140,9 @@ public class MidiInterpreter {
                 break;
         }
 
-        return noteValue + (octave * 12) + 20 - 12; // Note value from parsed from A-G + octave * 12 (there are 12 different
-                                               // tones) + 20 (The Scale starts at 21)
+        return noteValue + (octave * 12) + 20 - 12; // Note value from parsed from A-G + octave * 12 (there are 12
+                                                    // different
+        // tones) + 20 (The Scale starts at 21)
     }
 
     public int getInstrument(String instrument) {
@@ -165,4 +174,3 @@ public class MidiInterpreter {
         return interpretationResult.toString();
     }
 }
-

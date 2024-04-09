@@ -1,4 +1,4 @@
-// Generated from MusicLanguage.g4 by ANTLR 4.13.1
+// Generated from ./MusicLanguage.g4 by ANTLR 4.13.1
 package Grammar;
 
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
@@ -29,6 +29,12 @@ public interface MusicLanguageVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitNoteStatement(MusicLanguageParser.NoteStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MusicLanguageParser#pauseStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPauseStatement(MusicLanguageParser.PauseStatementContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MusicLanguageParser#chordStatement}.
 	 * @param ctx the parse tree

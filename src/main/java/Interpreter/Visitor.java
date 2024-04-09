@@ -1,6 +1,7 @@
 package Interpreter;
 
 import Grammar.*;
+
 public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
 
     @Override
@@ -38,7 +39,7 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
     }
 
     @Override
-    public ASTNode visitPlayStatement(MusicLanguageParser.PlayStatementContext ctx) {   
+    public ASTNode visitPlayStatement(MusicLanguageParser.PlayStatementContext ctx) {
         String sample = ctx.getText();
         PlayStatement playStatement = new PlayStatement(sample);
         for (MusicLanguageParser.SampleStatementContext sampleStatementContext : ctx.sampleStatement()) {
@@ -47,4 +48,10 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
         return playStatement;
     }
 
-}   
+    @Override
+    public ASTNode visitPauseStatement(MusicLanguageParser.PauseStatementContext ctx) {
+        int duration = Integer.parseInt(ctx.INT().getText());
+        PauseStatement pauseStatement = new PauseStatement(duration);
+        return pauseStatement;
+    }
+}

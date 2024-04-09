@@ -3,6 +3,7 @@ grammar MusicLanguage;
 program : statement* EOF;
 
 statement : noteStatement
+          | pauseStatement
           | chordStatement
           | bpmStatement
           | timeSignatureStatement
@@ -15,6 +16,8 @@ statement : noteStatement
 
 noteStatement :  'note' octave=NOTE ';';
 //noteInSampleStatement : octave=NOTE;
+
+pauseStatement : 'pause' duration=INT ';';
 
 chordStatement : 'chord' '[' noteList ']' octave=INT';';
 

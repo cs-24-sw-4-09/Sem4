@@ -168,4 +168,20 @@ class PlayStatement extends ASTNode {
     }
 }
 
+class PauseStatement extends ASTNode {
+    private int duration;
+    public PauseStatement(int duration) {
+        super("pauseStatement");
+        this.duration = duration;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+}
+
 
