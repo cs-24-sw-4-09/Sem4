@@ -132,7 +132,7 @@ public class MidiInterpreter {
                 break;
         }
 
-        return noteValue + (octave * 12) + 20; // Note value from parsed from A-G + octave * 12 (there are 12 different
+        return noteValue + (octave * 12) + 20 - 12; // Note value from parsed from A-G + octave * 12 (there are 12 different
                                                // tones) + 20 (The Scale starts at 21)
     }
 
