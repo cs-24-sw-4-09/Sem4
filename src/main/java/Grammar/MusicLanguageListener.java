@@ -1,6 +1,5 @@
 // Generated from MusicLanguage.g4 by ANTLR 4.13.1
 package Grammar;
-
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -99,6 +98,16 @@ public interface MusicLanguageListener extends ParseTreeListener {
 	 */
 	void exitWhileStatement(MusicLanguageParser.WhileStatementContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link MusicLanguageParser#assignementStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterAssignementStatement(MusicLanguageParser.AssignementStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MusicLanguageParser#assignementStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitAssignementStatement(MusicLanguageParser.AssignementStatementContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link MusicLanguageParser#expressionStatement}.
 	 * @param ctx the parse tree
 	 */
@@ -109,53 +118,15 @@ public interface MusicLanguageListener extends ParseTreeListener {
 	 */
 	void exitExpressionStatement(MusicLanguageParser.ExpressionStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Pause}
-	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * Enter a parse tree produced by {@link MusicLanguageParser#soundStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterPause(MusicLanguageParser.PauseContext ctx);
+	void enterSoundStatement(MusicLanguageParser.SoundStatementContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code Pause}
-	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * Exit a parse tree produced by {@link MusicLanguageParser#soundStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitPause(MusicLanguageParser.PauseContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code notOperation}
-	 * labeled alternative in {@link MusicLanguageParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterNotOperation(MusicLanguageParser.NotOperationContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code notOperation}
-	 * labeled alternative in {@link MusicLanguageParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitNotOperation(MusicLanguageParser.NotOperationContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code String}
-	 * labeled alternative in {@link MusicLanguageParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterString(MusicLanguageParser.StringContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code String}
-	 * labeled alternative in {@link MusicLanguageParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitString(MusicLanguageParser.StringContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code Assignment}
-	 * labeled alternative in {@link MusicLanguageParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterAssignment(MusicLanguageParser.AssignmentContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code Assignment}
-	 * labeled alternative in {@link MusicLanguageParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitAssignment(MusicLanguageParser.AssignmentContext ctx);
+	void exitSoundStatement(MusicLanguageParser.SoundStatementContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code LogicalOperation}
 	 * labeled alternative in {@link MusicLanguageParser#expression}.
@@ -181,6 +152,18 @@ public interface MusicLanguageListener extends ParseTreeListener {
 	 */
 	void exitParenthesis(MusicLanguageParser.ParenthesisContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code Pause}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterPause(MusicLanguageParser.PauseContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Pause}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitPause(MusicLanguageParser.PauseContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code Number}
 	 * labeled alternative in {@link MusicLanguageParser#expression}.
 	 * @param ctx the parse tree
@@ -205,6 +188,18 @@ public interface MusicLanguageListener extends ParseTreeListener {
 	 */
 	void exitComparison(MusicLanguageParser.ComparisonContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code notOperation}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterNotOperation(MusicLanguageParser.NotOperationContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code notOperation}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitNotOperation(MusicLanguageParser.NotOperationContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code Note}
 	 * labeled alternative in {@link MusicLanguageParser#expression}.
 	 * @param ctx the parse tree
@@ -228,6 +223,18 @@ public interface MusicLanguageListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitSampleCall(MusicLanguageParser.SampleCallContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code String}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterString(MusicLanguageParser.StringContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code String}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitString(MusicLanguageParser.StringContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code Boolean}
 	 * labeled alternative in {@link MusicLanguageParser#expression}.

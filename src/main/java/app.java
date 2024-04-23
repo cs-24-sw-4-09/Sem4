@@ -9,6 +9,7 @@ import java.io.*;
 
 public class app {
     public static void main(String[] args) throws IOException {
+
         // Read the content of the text file
         String inputFile = "src/main/java/program.txt";
         String inputText = readFile(inputFile);

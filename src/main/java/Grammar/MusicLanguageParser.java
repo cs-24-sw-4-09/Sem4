@@ -1,6 +1,6 @@
 // Generated from MusicLanguage.g4 by ANTLR 4.13.1
-package Grammar;
 
+package Grammar;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -21,18 +21,19 @@ public class MusicLanguageParser extends Parser {
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
 		T__9=10, T__10=11, T__11=12, T__12=13, T__13=14, T__14=15, T__15=16, T__16=17, 
 		T__17=18, T__18=19, T__19=20, T__20=21, T__21=22, T__22=23, T__23=24, 
-		T__24=25, T__25=26, T__26=27, T__27=28, INSTRUMENT=29, NOTE=30, PAUSE=31, 
-		CHORD=32, INT=33, BOOL=34, STRING=35, INDENT=36, DEDENT=37, WS=38, ENDLINE=39;
+		T__24=25, T__25=26, T__26=27, T__27=28, T__28=29, INSTRUMENT=30, NOTE=31, 
+		PAUSE=32, CHORD=33, INT=34, BOOL=35, STRING=36, INDENT=37, DEDENT=38, 
+		WS=39, ENDLINE=40;
 	public static final int
 		RULE_program = 0, RULE_statement = 1, RULE_bpmStatement = 2, RULE_sampleStatement = 3, 
 		RULE_playStatement = 4, RULE_repeatStatement = 5, RULE_letStatement = 6, 
-		RULE_ifStatement = 7, RULE_whileStatement = 8, RULE_expressionStatement = 9, 
-		RULE_expression = 10;
+		RULE_ifStatement = 7, RULE_whileStatement = 8, RULE_assignementStatement = 9, 
+		RULE_expressionStatement = 10, RULE_soundStatement = 11, RULE_expression = 12;
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"program", "statement", "bpmStatement", "sampleStatement", "playStatement", 
-			"repeatStatement", "letStatement", "ifStatement", "whileStatement", "expressionStatement", 
-			"expression"
+			"repeatStatement", "letStatement", "ifStatement", "whileStatement", "assignementStatement", 
+			"expressionStatement", "soundStatement", "expression"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -40,9 +41,9 @@ public class MusicLanguageParser extends Parser {
 	private static String[] makeLiteralNames() {
 		return new String[] {
 			null, "'bpm'", "'('", "')'", "'sample'", "'{'", "'}'", "'play'", "'repeat'", 
-			"'let'", "'if'", "'else'", "'while'", "'()'", "'&'", "'='", "'+'", "'-'", 
-			"'*'", "'/'", "'=='", "'!='", "'<'", "'<='", "'>='", "'>'", "'&&'", "'||'", 
-			"'!'"
+			"'let'", "'='", "'if'", "'else'", "'while'", "'sound'", "'()'", "'&'", 
+			"'+'", "'-'", "'*'", "'/'", "'=='", "'!='", "'<'", "'<='", "'>='", "'>'", 
+			"'&&'", "'||'", "'!'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
@@ -50,7 +51,7 @@ public class MusicLanguageParser extends Parser {
 		return new String[] {
 			null, null, null, null, null, null, null, null, null, null, null, null, 
 			null, null, null, null, null, null, null, null, null, null, null, null, 
-			null, null, null, null, null, "INSTRUMENT", "NOTE", "PAUSE", "CHORD", 
+			null, null, null, null, null, null, "INSTRUMENT", "NOTE", "PAUSE", "CHORD", 
 			"INT", "BOOL", "STRING", "INDENT", "DEDENT", "WS", "ENDLINE"
 		};
 	}
@@ -140,21 +141,21 @@ public class MusicLanguageParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(25);
+			setState(29);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 67914176406L) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 135828368278L) != 0)) {
 				{
 				{
-				setState(22);
+				setState(26);
 				statement();
 				}
 				}
-				setState(27);
+				setState(31);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(28);
+			setState(32);
 			match(EOF);
 			}
 		}
@@ -192,11 +193,14 @@ public class MusicLanguageParser extends Parser {
 		public RepeatStatementContext repeatStatement() {
 			return getRuleContext(RepeatStatementContext.class,0);
 		}
-		public ExpressionContext expression() {
-			return getRuleContext(ExpressionContext.class,0);
-		}
 		public ExpressionStatementContext expressionStatement() {
 			return getRuleContext(ExpressionStatementContext.class,0);
+		}
+		public AssignementStatementContext assignementStatement() {
+			return getRuleContext(AssignementStatementContext.class,0);
+		}
+		public SoundStatementContext soundStatement() {
+			return getRuleContext(SoundStatementContext.class,0);
 		}
 		public StatementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -221,70 +225,77 @@ public class MusicLanguageParser extends Parser {
 		StatementContext _localctx = new StatementContext(_ctx, getState());
 		enterRule(_localctx, 2, RULE_statement);
 		try {
-			setState(39);
+			setState(44);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(30);
+				setState(34);
 				bpmStatement();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(31);
+				setState(35);
 				sampleStatement();
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(32);
+				setState(36);
 				playStatement();
 				}
 				break;
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(33);
+				setState(37);
 				letStatement();
 				}
 				break;
 			case 5:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(34);
+				setState(38);
 				ifStatement();
 				}
 				break;
 			case 6:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(35);
+				setState(39);
 				whileStatement();
 				}
 				break;
 			case 7:
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(36);
+				setState(40);
 				repeatStatement();
 				}
 				break;
 			case 8:
 				enterOuterAlt(_localctx, 8);
 				{
-				setState(37);
-				expression(0);
+				setState(41);
+				expressionStatement();
 				}
 				break;
 			case 9:
 				enterOuterAlt(_localctx, 9);
 				{
-				setState(38);
-				expressionStatement();
+				setState(42);
+				assignementStatement();
+				}
+				break;
+			case 10:
+				enterOuterAlt(_localctx, 10);
+				{
+				setState(43);
+				soundStatement();
 				}
 				break;
 			}
@@ -329,15 +340,15 @@ public class MusicLanguageParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(41);
+			setState(46);
 			match(T__0);
-			setState(42);
+			setState(47);
 			match(T__1);
-			setState(43);
+			setState(48);
 			match(INT);
-			setState(44);
+			setState(49);
 			match(T__2);
-			setState(45);
+			setState(50);
 			match(ENDLINE);
 			}
 		}
@@ -389,35 +400,35 @@ public class MusicLanguageParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(47);
-			match(T__3);
-			setState(48);
-			match(STRING);
-			setState(49);
-			match(T__1);
-			setState(50);
-			match(INSTRUMENT);
-			setState(51);
-			match(T__2);
 			setState(52);
-			match(T__4);
+			match(T__3);
+			setState(53);
+			match(STRING);
+			setState(54);
+			match(T__1);
+			setState(55);
+			match(INSTRUMENT);
 			setState(56);
+			match(T__2);
+			setState(57);
+			match(T__4);
+			setState(61);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 67914176406L) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 135828368278L) != 0)) {
 				{
 				{
-				setState(53);
+				setState(58);
 				statement();
 				}
 				}
-				setState(58);
+				setState(63);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(59);
+			setState(64);
 			match(T__5);
-			setState(60);
+			setState(65);
 			match(ENDLINE);
 			}
 		}
@@ -467,27 +478,27 @@ public class MusicLanguageParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(62);
-			match(T__6);
-			setState(63);
-			match(T__4);
 			setState(67);
+			match(T__6);
+			setState(68);
+			match(T__4);
+			setState(72);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 67914176406L) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 135828368278L) != 0)) {
 				{
 				{
-				setState(64);
+				setState(69);
 				statement();
 				}
 				}
-				setState(69);
+				setState(74);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(70);
+			setState(75);
 			match(T__5);
-			setState(71);
+			setState(76);
 			match(ENDLINE);
 			}
 		}
@@ -538,33 +549,33 @@ public class MusicLanguageParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(73);
+			setState(78);
 			match(T__7);
-			setState(74);
+			setState(79);
 			match(T__1);
-			setState(75);
+			setState(80);
 			match(INT);
-			setState(76);
-			match(T__2);
-			setState(77);
-			match(T__4);
 			setState(81);
+			match(T__2);
+			setState(82);
+			match(T__4);
+			setState(86);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 67914176406L) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 135828368278L) != 0)) {
 				{
 				{
-				setState(78);
+				setState(83);
 				statement();
 				}
 				}
-				setState(83);
+				setState(88);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(84);
+			setState(89);
 			match(T__5);
-			setState(85);
+			setState(90);
 			match(ENDLINE);
 			}
 		}
@@ -581,10 +592,13 @@ public class MusicLanguageParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class LetStatementContext extends ParserRuleContext {
+		public Token variable;
+		public ExpressionContext value;
+		public TerminalNode ENDLINE() { return getToken(MusicLanguageParser.ENDLINE, 0); }
+		public TerminalNode STRING() { return getToken(MusicLanguageParser.STRING, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
-		public TerminalNode ENDLINE() { return getToken(MusicLanguageParser.ENDLINE, 0); }
 		public LetStatementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -610,11 +624,15 @@ public class MusicLanguageParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(87);
+			setState(92);
 			match(T__8);
-			setState(88);
-			expression(0);
-			setState(89);
+			setState(93);
+			((LetStatementContext)_localctx).variable = match(STRING);
+			setState(94);
+			match(T__9);
+			setState(95);
+			((LetStatementContext)_localctx).value = expression(0);
+			setState(96);
 			match(ENDLINE);
 			}
 		}
@@ -667,61 +685,61 @@ public class MusicLanguageParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(91);
-			match(T__9);
-			setState(92);
-			match(T__1);
-			setState(93);
-			expression(0);
-			setState(94);
-			match(T__2);
-			setState(95);
-			match(T__4);
+			setState(98);
+			match(T__10);
 			setState(99);
+			match(T__1);
+			setState(100);
+			expression(0);
+			setState(101);
+			match(T__2);
+			setState(102);
+			match(T__4);
+			setState(106);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 67914176406L) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 135828368278L) != 0)) {
 				{
 				{
-				setState(96);
+				setState(103);
 				statement();
 				}
 				}
-				setState(101);
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-			}
-			setState(102);
-			match(T__5);
-			setState(112);
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			if (_la==T__10) {
-				{
-				setState(103);
-				match(T__10);
-				setState(104);
-				match(T__4);
 				setState(108);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 67914176406L) != 0)) {
+			}
+			setState(109);
+			match(T__5);
+			setState(119);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if (_la==T__11) {
+				{
+				setState(110);
+				match(T__11);
+				setState(111);
+				match(T__4);
+				setState(115);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 135828368278L) != 0)) {
 					{
 					{
-					setState(105);
+					setState(112);
 					statement();
 					}
 					}
-					setState(110);
+					setState(117);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
-				setState(111);
+				setState(118);
 				match(T__5);
 				}
 			}
 
-			setState(114);
+			setState(121);
 			match(ENDLINE);
 			}
 		}
@@ -774,33 +792,88 @@ public class MusicLanguageParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(116);
-			match(T__11);
-			setState(117);
-			match(T__1);
-			setState(118);
-			expression(0);
-			setState(119);
-			match(T__2);
-			setState(120);
-			match(T__4);
+			setState(123);
+			match(T__12);
 			setState(124);
+			match(T__1);
+			setState(125);
+			expression(0);
+			setState(126);
+			match(T__2);
+			setState(127);
+			match(T__4);
+			setState(131);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 67914176406L) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 135828368278L) != 0)) {
 				{
 				{
-				setState(121);
+				setState(128);
 				statement();
 				}
 				}
-				setState(126);
+				setState(133);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(127);
+			setState(134);
 			match(T__5);
-			setState(128);
+			setState(135);
+			match(ENDLINE);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class AssignementStatementContext extends ParserRuleContext {
+		public Token variable;
+		public ExpressionContext value;
+		public TerminalNode ENDLINE() { return getToken(MusicLanguageParser.ENDLINE, 0); }
+		public TerminalNode STRING() { return getToken(MusicLanguageParser.STRING, 0); }
+		public ExpressionContext expression() {
+			return getRuleContext(ExpressionContext.class,0);
+		}
+		public AssignementStatementContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_assignementStatement; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).enterAssignementStatement(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).exitAssignementStatement(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MusicLanguageVisitor ) return ((MusicLanguageVisitor<? extends T>)visitor).visitAssignementStatement(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final AssignementStatementContext assignementStatement() throws RecognitionException {
+		AssignementStatementContext _localctx = new AssignementStatementContext(_ctx, getState());
+		enterRule(_localctx, 18, RULE_assignementStatement);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(137);
+			((AssignementStatementContext)_localctx).variable = match(STRING);
+			setState(138);
+			match(T__9);
+			setState(139);
+			((AssignementStatementContext)_localctx).value = expression(0);
+			setState(140);
 			match(ENDLINE);
 			}
 		}
@@ -842,13 +915,66 @@ public class MusicLanguageParser extends Parser {
 
 	public final ExpressionStatementContext expressionStatement() throws RecognitionException {
 		ExpressionStatementContext _localctx = new ExpressionStatementContext(_ctx, getState());
-		enterRule(_localctx, 18, RULE_expressionStatement);
+		enterRule(_localctx, 20, RULE_expressionStatement);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(130);
+			setState(142);
 			expression(0);
-			setState(131);
+			setState(143);
+			match(ENDLINE);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class SoundStatementContext extends ParserRuleContext {
+		public Token variable;
+		public TerminalNode ENDLINE() { return getToken(MusicLanguageParser.ENDLINE, 0); }
+		public TerminalNode STRING() { return getToken(MusicLanguageParser.STRING, 0); }
+		public SoundStatementContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_soundStatement; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).enterSoundStatement(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).exitSoundStatement(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MusicLanguageVisitor ) return ((MusicLanguageVisitor<? extends T>)visitor).visitSoundStatement(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final SoundStatementContext soundStatement() throws RecognitionException {
+		SoundStatementContext _localctx = new SoundStatementContext(_ctx, getState());
+		enterRule(_localctx, 22, RULE_soundStatement);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(145);
+			match(T__13);
+			setState(146);
+			match(T__1);
+			setState(147);
+			((SoundStatementContext)_localctx).variable = match(STRING);
+			setState(148);
+			match(T__2);
+			setState(149);
 			match(ENDLINE);
 			}
 		}
@@ -873,83 +999,6 @@ public class MusicLanguageParser extends Parser {
 		public ExpressionContext() { }
 		public void copyFrom(ExpressionContext ctx) {
 			super.copyFrom(ctx);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
-	public static class PauseContext extends ExpressionContext {
-		public TerminalNode PAUSE() { return getToken(MusicLanguageParser.PAUSE, 0); }
-		public PauseContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).enterPause(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).exitPause(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MusicLanguageVisitor ) return ((MusicLanguageVisitor<? extends T>)visitor).visitPause(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
-	public static class NotOperationContext extends ExpressionContext {
-		public ExpressionContext expression() {
-			return getRuleContext(ExpressionContext.class,0);
-		}
-		public NotOperationContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).enterNotOperation(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).exitNotOperation(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MusicLanguageVisitor ) return ((MusicLanguageVisitor<? extends T>)visitor).visitNotOperation(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
-	public static class StringContext extends ExpressionContext {
-		public TerminalNode STRING() { return getToken(MusicLanguageParser.STRING, 0); }
-		public StringContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).enterString(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).exitString(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MusicLanguageVisitor ) return ((MusicLanguageVisitor<? extends T>)visitor).visitString(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
-	public static class AssignmentContext extends ExpressionContext {
-		public TerminalNode STRING() { return getToken(MusicLanguageParser.STRING, 0); }
-		public ExpressionContext expression() {
-			return getRuleContext(ExpressionContext.class,0);
-		}
-		public AssignmentContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).enterAssignment(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).exitAssignment(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MusicLanguageVisitor ) return ((MusicLanguageVisitor<? extends T>)visitor).visitAssignment(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
@@ -997,6 +1046,24 @@ public class MusicLanguageParser extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
+	public static class PauseContext extends ExpressionContext {
+		public TerminalNode PAUSE() { return getToken(MusicLanguageParser.PAUSE, 0); }
+		public PauseContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).enterPause(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).exitPause(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MusicLanguageVisitor ) return ((MusicLanguageVisitor<? extends T>)visitor).visitPause(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
 	public static class NumberContext extends ExpressionContext {
 		public TerminalNode INT() { return getToken(MusicLanguageParser.INT, 0); }
 		public NumberContext(ExpressionContext ctx) { copyFrom(ctx); }
@@ -1039,6 +1106,26 @@ public class MusicLanguageParser extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
+	public static class NotOperationContext extends ExpressionContext {
+		public ExpressionContext expression() {
+			return getRuleContext(ExpressionContext.class,0);
+		}
+		public NotOperationContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).enterNotOperation(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).exitNotOperation(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MusicLanguageVisitor ) return ((MusicLanguageVisitor<? extends T>)visitor).visitNotOperation(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
 	public static class NoteContext extends ExpressionContext {
 		public TerminalNode NOTE() { return getToken(MusicLanguageParser.NOTE, 0); }
 		public NoteContext(ExpressionContext ctx) { copyFrom(ctx); }
@@ -1074,6 +1161,24 @@ public class MusicLanguageParser extends Parser {
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MusicLanguageVisitor ) return ((MusicLanguageVisitor<? extends T>)visitor).visitSampleCall(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class StringContext extends ExpressionContext {
+		public TerminalNode STRING() { return getToken(MusicLanguageParser.STRING, 0); }
+		public StringContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).enterString(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).exitString(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MusicLanguageVisitor ) return ((MusicLanguageVisitor<? extends T>)visitor).visitString(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1147,14 +1252,14 @@ public class MusicLanguageParser extends Parser {
 		int _parentState = getState();
 		ExpressionContext _localctx = new ExpressionContext(_ctx, _parentState);
 		ExpressionContext _prevctx = _localctx;
-		int _startState = 20;
-		enterRecursionRule(_localctx, 20, RULE_expression, _p);
+		int _startState = 24;
+		enterRecursionRule(_localctx, 24, RULE_expression, _p);
 		int _la;
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(159);
+			setState(174);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,10,_ctx) ) {
 			case 1:
@@ -1163,27 +1268,27 @@ public class MusicLanguageParser extends Parser {
 				_ctx = _localctx;
 				_prevctx = _localctx;
 
-				setState(134);
+				setState(152);
 				match(STRING);
-				setState(135);
-				match(T__12);
-				setState(141);
+				setState(153);
+				match(T__14);
+				setState(159);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,9,_ctx);
 				while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 					if ( _alt==1 ) {
 						{
 						{
-						setState(136);
-						match(T__13);
-						setState(137);
+						setState(154);
+						match(T__15);
+						setState(155);
 						match(STRING);
-						setState(138);
-						match(T__12);
+						setState(156);
+						match(T__14);
 						}
 						} 
 					}
-					setState(143);
+					setState(161);
 					_errHandler.sync(this);
 					_alt = getInterpreter().adaptivePredict(_input,9,_ctx);
 				}
@@ -1191,98 +1296,85 @@ public class MusicLanguageParser extends Parser {
 				break;
 			case 2:
 				{
-				_localctx = new AssignmentContext(_localctx);
+				_localctx = new NotOperationContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(144);
-				match(STRING);
-				setState(145);
-				match(T__14);
-				setState(146);
-				expression(12);
+				setState(162);
+				match(T__28);
+				setState(163);
+				expression(8);
 				}
 				break;
 			case 3:
 				{
-				_localctx = new NotOperationContext(_localctx);
+				_localctx = new ParenthesisContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(147);
-				match(T__27);
-				setState(148);
-				expression(8);
+				setState(164);
+				match(T__1);
+				setState(165);
+				expression(0);
+				setState(166);
+				match(T__2);
 				}
 				break;
 			case 4:
 				{
-				_localctx = new ParenthesisContext(_localctx);
+				_localctx = new ChordContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(149);
-				match(T__1);
-				setState(150);
-				expression(0);
-				setState(151);
-				match(T__2);
+				setState(168);
+				match(CHORD);
 				}
 				break;
 			case 5:
 				{
-				_localctx = new ChordContext(_localctx);
+				_localctx = new NoteContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(153);
-				match(CHORD);
+				setState(169);
+				match(NOTE);
 				}
 				break;
 			case 6:
 				{
-				_localctx = new NoteContext(_localctx);
+				_localctx = new PauseContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(154);
-				match(NOTE);
+				setState(170);
+				match(PAUSE);
 				}
 				break;
 			case 7:
 				{
-				_localctx = new PauseContext(_localctx);
+				_localctx = new BooleanContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(155);
-				match(PAUSE);
+				setState(171);
+				match(BOOL);
 				}
 				break;
 			case 8:
 				{
-				_localctx = new BooleanContext(_localctx);
+				_localctx = new StringContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(156);
-				match(BOOL);
+				setState(172);
+				match(STRING);
 				}
 				break;
 			case 9:
 				{
-				_localctx = new StringContext(_localctx);
-				_ctx = _localctx;
-				_prevctx = _localctx;
-				setState(157);
-				match(STRING);
-				}
-				break;
-			case 10:
-				{
 				_localctx = new NumberContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(158);
+				setState(173);
 				match(INT);
 				}
 				break;
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(172);
+			setState(187);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,12,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
@@ -1290,19 +1382,19 @@ public class MusicLanguageParser extends Parser {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					setState(170);
+					setState(185);
 					_errHandler.sync(this);
 					switch ( getInterpreter().adaptivePredict(_input,11,_ctx) ) {
 					case 1:
 						{
 						_localctx = new ArithmeticOperationContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(161);
+						setState(176);
 						if (!(precpred(_ctx, 11))) throw new FailedPredicateException(this, "precpred(_ctx, 11)");
-						setState(162);
+						setState(177);
 						((ArithmeticOperationContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
-						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 983040L) != 0)) ) {
+						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 1966080L) != 0)) ) {
 							((ArithmeticOperationContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 						}
 						else {
@@ -1310,7 +1402,7 @@ public class MusicLanguageParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(163);
+						setState(178);
 						expression(12);
 						}
 						break;
@@ -1318,12 +1410,12 @@ public class MusicLanguageParser extends Parser {
 						{
 						_localctx = new ComparisonContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(164);
+						setState(179);
 						if (!(precpred(_ctx, 10))) throw new FailedPredicateException(this, "precpred(_ctx, 10)");
-						setState(165);
+						setState(180);
 						((ComparisonContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
-						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 66060288L) != 0)) ) {
+						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 132120576L) != 0)) ) {
 							((ComparisonContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 						}
 						else {
@@ -1331,7 +1423,7 @@ public class MusicLanguageParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(166);
+						setState(181);
 						expression(11);
 						}
 						break;
@@ -1339,12 +1431,12 @@ public class MusicLanguageParser extends Parser {
 						{
 						_localctx = new LogicalOperationContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(167);
+						setState(182);
 						if (!(precpred(_ctx, 9))) throw new FailedPredicateException(this, "precpred(_ctx, 9)");
-						setState(168);
+						setState(183);
 						((LogicalOperationContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
-						if ( !(_la==T__25 || _la==T__26) ) {
+						if ( !(_la==T__26 || _la==T__27) ) {
 							((LogicalOperationContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 						}
 						else {
@@ -1352,14 +1444,14 @@ public class MusicLanguageParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(169);
+						setState(184);
 						expression(10);
 						}
 						break;
 					}
 					} 
 				}
-				setState(174);
+				setState(189);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,12,_ctx);
 			}
@@ -1378,7 +1470,7 @@ public class MusicLanguageParser extends Parser {
 
 	public boolean sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
 		switch (ruleIndex) {
-		case 10:
+		case 12:
 			return expression_sempred((ExpressionContext)_localctx, predIndex);
 		}
 		return true;
@@ -1396,112 +1488,121 @@ public class MusicLanguageParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001\'\u00b0\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
+		"\u0004\u0001(\u00bf\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
 		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002"+
 		"\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007\u0002"+
-		"\b\u0007\b\u0002\t\u0007\t\u0002\n\u0007\n\u0001\u0000\u0005\u0000\u0018"+
-		"\b\u0000\n\u0000\f\u0000\u001b\t\u0000\u0001\u0000\u0001\u0000\u0001\u0001"+
+		"\b\u0007\b\u0002\t\u0007\t\u0002\n\u0007\n\u0002\u000b\u0007\u000b\u0002"+
+		"\f\u0007\f\u0001\u0000\u0005\u0000\u001c\b\u0000\n\u0000\f\u0000\u001f"+
+		"\t\u0000\u0001\u0000\u0001\u0000\u0001\u0001\u0001\u0001\u0001\u0001\u0001"+
 		"\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001"+
-		"\u0001\u0001\u0001\u0001\u0003\u0001(\b\u0001\u0001\u0002\u0001\u0002"+
-		"\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0003\u0001\u0003"+
-		"\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0005\u0003"+
-		"7\b\u0003\n\u0003\f\u0003:\t\u0003\u0001\u0003\u0001\u0003\u0001\u0003"+
-		"\u0001\u0004\u0001\u0004\u0001\u0004\u0005\u0004B\b\u0004\n\u0004\f\u0004"+
-		"E\t\u0004\u0001\u0004\u0001\u0004\u0001\u0004\u0001\u0005\u0001\u0005"+
-		"\u0001\u0005\u0001\u0005\u0001\u0005\u0001\u0005\u0005\u0005P\b\u0005"+
-		"\n\u0005\f\u0005S\t\u0005\u0001\u0005\u0001\u0005\u0001\u0005\u0001\u0006"+
-		"\u0001\u0006\u0001\u0006\u0001\u0006\u0001\u0007\u0001\u0007\u0001\u0007"+
-		"\u0001\u0007\u0001\u0007\u0001\u0007\u0005\u0007b\b\u0007\n\u0007\f\u0007"+
-		"e\t\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0005\u0007"+
-		"k\b\u0007\n\u0007\f\u0007n\t\u0007\u0001\u0007\u0003\u0007q\b\u0007\u0001"+
-		"\u0007\u0001\u0007\u0001\b\u0001\b\u0001\b\u0001\b\u0001\b\u0001\b\u0005"+
-		"\b{\b\b\n\b\f\b~\t\b\u0001\b\u0001\b\u0001\b\u0001\t\u0001\t\u0001\t\u0001"+
-		"\n\u0001\n\u0001\n\u0001\n\u0001\n\u0001\n\u0005\n\u008c\b\n\n\n\f\n\u008f"+
-		"\t\n\u0001\n\u0001\n\u0001\n\u0001\n\u0001\n\u0001\n\u0001\n\u0001\n\u0001"+
-		"\n\u0001\n\u0001\n\u0001\n\u0001\n\u0001\n\u0001\n\u0003\n\u00a0\b\n\u0001"+
-		"\n\u0001\n\u0001\n\u0001\n\u0001\n\u0001\n\u0001\n\u0001\n\u0001\n\u0005"+
-		"\n\u00ab\b\n\n\n\f\n\u00ae\t\n\u0001\n\u0000\u0001\u0014\u000b\u0000\u0002"+
-		"\u0004\u0006\b\n\f\u000e\u0010\u0012\u0014\u0000\u0003\u0001\u0000\u0010"+
-		"\u0013\u0001\u0000\u0014\u0019\u0001\u0000\u001a\u001b\u00c1\u0000\u0019"+
-		"\u0001\u0000\u0000\u0000\u0002\'\u0001\u0000\u0000\u0000\u0004)\u0001"+
-		"\u0000\u0000\u0000\u0006/\u0001\u0000\u0000\u0000\b>\u0001\u0000\u0000"+
-		"\u0000\nI\u0001\u0000\u0000\u0000\fW\u0001\u0000\u0000\u0000\u000e[\u0001"+
-		"\u0000\u0000\u0000\u0010t\u0001\u0000\u0000\u0000\u0012\u0082\u0001\u0000"+
-		"\u0000\u0000\u0014\u009f\u0001\u0000\u0000\u0000\u0016\u0018\u0003\u0002"+
-		"\u0001\u0000\u0017\u0016\u0001\u0000\u0000\u0000\u0018\u001b\u0001\u0000"+
-		"\u0000\u0000\u0019\u0017\u0001\u0000\u0000\u0000\u0019\u001a\u0001\u0000"+
-		"\u0000\u0000\u001a\u001c\u0001\u0000\u0000\u0000\u001b\u0019\u0001\u0000"+
-		"\u0000\u0000\u001c\u001d\u0005\u0000\u0000\u0001\u001d\u0001\u0001\u0000"+
-		"\u0000\u0000\u001e(\u0003\u0004\u0002\u0000\u001f(\u0003\u0006\u0003\u0000"+
-		" (\u0003\b\u0004\u0000!(\u0003\f\u0006\u0000\"(\u0003\u000e\u0007\u0000"+
-		"#(\u0003\u0010\b\u0000$(\u0003\n\u0005\u0000%(\u0003\u0014\n\u0000&(\u0003"+
-		"\u0012\t\u0000\'\u001e\u0001\u0000\u0000\u0000\'\u001f\u0001\u0000\u0000"+
-		"\u0000\' \u0001\u0000\u0000\u0000\'!\u0001\u0000\u0000\u0000\'\"\u0001"+
-		"\u0000\u0000\u0000\'#\u0001\u0000\u0000\u0000\'$\u0001\u0000\u0000\u0000"+
-		"\'%\u0001\u0000\u0000\u0000\'&\u0001\u0000\u0000\u0000(\u0003\u0001\u0000"+
-		"\u0000\u0000)*\u0005\u0001\u0000\u0000*+\u0005\u0002\u0000\u0000+,\u0005"+
-		"!\u0000\u0000,-\u0005\u0003\u0000\u0000-.\u0005\'\u0000\u0000.\u0005\u0001"+
-		"\u0000\u0000\u0000/0\u0005\u0004\u0000\u000001\u0005#\u0000\u000012\u0005"+
-		"\u0002\u0000\u000023\u0005\u001d\u0000\u000034\u0005\u0003\u0000\u0000"+
-		"48\u0005\u0005\u0000\u000057\u0003\u0002\u0001\u000065\u0001\u0000\u0000"+
-		"\u00007:\u0001\u0000\u0000\u000086\u0001\u0000\u0000\u000089\u0001\u0000"+
-		"\u0000\u00009;\u0001\u0000\u0000\u0000:8\u0001\u0000\u0000\u0000;<\u0005"+
-		"\u0006\u0000\u0000<=\u0005\'\u0000\u0000=\u0007\u0001\u0000\u0000\u0000"+
-		">?\u0005\u0007\u0000\u0000?C\u0005\u0005\u0000\u0000@B\u0003\u0002\u0001"+
-		"\u0000A@\u0001\u0000\u0000\u0000BE\u0001\u0000\u0000\u0000CA\u0001\u0000"+
-		"\u0000\u0000CD\u0001\u0000\u0000\u0000DF\u0001\u0000\u0000\u0000EC\u0001"+
-		"\u0000\u0000\u0000FG\u0005\u0006\u0000\u0000GH\u0005\'\u0000\u0000H\t"+
-		"\u0001\u0000\u0000\u0000IJ\u0005\b\u0000\u0000JK\u0005\u0002\u0000\u0000"+
-		"KL\u0005!\u0000\u0000LM\u0005\u0003\u0000\u0000MQ\u0005\u0005\u0000\u0000"+
-		"NP\u0003\u0002\u0001\u0000ON\u0001\u0000\u0000\u0000PS\u0001\u0000\u0000"+
-		"\u0000QO\u0001\u0000\u0000\u0000QR\u0001\u0000\u0000\u0000RT\u0001\u0000"+
-		"\u0000\u0000SQ\u0001\u0000\u0000\u0000TU\u0005\u0006\u0000\u0000UV\u0005"+
-		"\'\u0000\u0000V\u000b\u0001\u0000\u0000\u0000WX\u0005\t\u0000\u0000XY"+
-		"\u0003\u0014\n\u0000YZ\u0005\'\u0000\u0000Z\r\u0001\u0000\u0000\u0000"+
-		"[\\\u0005\n\u0000\u0000\\]\u0005\u0002\u0000\u0000]^\u0003\u0014\n\u0000"+
-		"^_\u0005\u0003\u0000\u0000_c\u0005\u0005\u0000\u0000`b\u0003\u0002\u0001"+
-		"\u0000a`\u0001\u0000\u0000\u0000be\u0001\u0000\u0000\u0000ca\u0001\u0000"+
-		"\u0000\u0000cd\u0001\u0000\u0000\u0000df\u0001\u0000\u0000\u0000ec\u0001"+
-		"\u0000\u0000\u0000fp\u0005\u0006\u0000\u0000gh\u0005\u000b\u0000\u0000"+
-		"hl\u0005\u0005\u0000\u0000ik\u0003\u0002\u0001\u0000ji\u0001\u0000\u0000"+
-		"\u0000kn\u0001\u0000\u0000\u0000lj\u0001\u0000\u0000\u0000lm\u0001\u0000"+
-		"\u0000\u0000mo\u0001\u0000\u0000\u0000nl\u0001\u0000\u0000\u0000oq\u0005"+
-		"\u0006\u0000\u0000pg\u0001\u0000\u0000\u0000pq\u0001\u0000\u0000\u0000"+
-		"qr\u0001\u0000\u0000\u0000rs\u0005\'\u0000\u0000s\u000f\u0001\u0000\u0000"+
-		"\u0000tu\u0005\f\u0000\u0000uv\u0005\u0002\u0000\u0000vw\u0003\u0014\n"+
-		"\u0000wx\u0005\u0003\u0000\u0000x|\u0005\u0005\u0000\u0000y{\u0003\u0002"+
-		"\u0001\u0000zy\u0001\u0000\u0000\u0000{~\u0001\u0000\u0000\u0000|z\u0001"+
-		"\u0000\u0000\u0000|}\u0001\u0000\u0000\u0000}\u007f\u0001\u0000\u0000"+
-		"\u0000~|\u0001\u0000\u0000\u0000\u007f\u0080\u0005\u0006\u0000\u0000\u0080"+
-		"\u0081\u0005\'\u0000\u0000\u0081\u0011\u0001\u0000\u0000\u0000\u0082\u0083"+
-		"\u0003\u0014\n\u0000\u0083\u0084\u0005\'\u0000\u0000\u0084\u0013\u0001"+
-		"\u0000\u0000\u0000\u0085\u0086\u0006\n\uffff\uffff\u0000\u0086\u0087\u0005"+
-		"#\u0000\u0000\u0087\u008d\u0005\r\u0000\u0000\u0088\u0089\u0005\u000e"+
-		"\u0000\u0000\u0089\u008a\u0005#\u0000\u0000\u008a\u008c\u0005\r\u0000"+
-		"\u0000\u008b\u0088\u0001\u0000\u0000\u0000\u008c\u008f\u0001\u0000\u0000"+
-		"\u0000\u008d\u008b\u0001\u0000\u0000\u0000\u008d\u008e\u0001\u0000\u0000"+
-		"\u0000\u008e\u00a0\u0001\u0000\u0000\u0000\u008f\u008d\u0001\u0000\u0000"+
-		"\u0000\u0090\u0091\u0005#\u0000\u0000\u0091\u0092\u0005\u000f\u0000\u0000"+
-		"\u0092\u00a0\u0003\u0014\n\f\u0093\u0094\u0005\u001c\u0000\u0000\u0094"+
-		"\u00a0\u0003\u0014\n\b\u0095\u0096\u0005\u0002\u0000\u0000\u0096\u0097"+
-		"\u0003\u0014\n\u0000\u0097\u0098\u0005\u0003\u0000\u0000\u0098\u00a0\u0001"+
-		"\u0000\u0000\u0000\u0099\u00a0\u0005 \u0000\u0000\u009a\u00a0\u0005\u001e"+
-		"\u0000\u0000\u009b\u00a0\u0005\u001f\u0000\u0000\u009c\u00a0\u0005\"\u0000"+
-		"\u0000\u009d\u00a0\u0005#\u0000\u0000\u009e\u00a0\u0005!\u0000\u0000\u009f"+
-		"\u0085\u0001\u0000\u0000\u0000\u009f\u0090\u0001\u0000\u0000\u0000\u009f"+
-		"\u0093\u0001\u0000\u0000\u0000\u009f\u0095\u0001\u0000\u0000\u0000\u009f"+
-		"\u0099\u0001\u0000\u0000\u0000\u009f\u009a\u0001\u0000\u0000\u0000\u009f"+
-		"\u009b\u0001\u0000\u0000\u0000\u009f\u009c\u0001\u0000\u0000\u0000\u009f"+
-		"\u009d\u0001\u0000\u0000\u0000\u009f\u009e\u0001\u0000\u0000\u0000\u00a0"+
-		"\u00ac\u0001\u0000\u0000\u0000\u00a1\u00a2\n\u000b\u0000\u0000\u00a2\u00a3"+
-		"\u0007\u0000\u0000\u0000\u00a3\u00ab\u0003\u0014\n\f\u00a4\u00a5\n\n\u0000"+
-		"\u0000\u00a5\u00a6\u0007\u0001\u0000\u0000\u00a6\u00ab\u0003\u0014\n\u000b"+
-		"\u00a7\u00a8\n\t\u0000\u0000\u00a8\u00a9\u0007\u0002\u0000\u0000\u00a9"+
-		"\u00ab\u0003\u0014\n\n\u00aa\u00a1\u0001\u0000\u0000\u0000\u00aa\u00a4"+
-		"\u0001\u0000\u0000\u0000\u00aa\u00a7\u0001\u0000\u0000\u0000\u00ab\u00ae"+
-		"\u0001\u0000\u0000\u0000\u00ac\u00aa\u0001\u0000\u0000\u0000\u00ac\u00ad"+
-		"\u0001\u0000\u0000\u0000\u00ad\u0015\u0001\u0000\u0000\u0000\u00ae\u00ac"+
-		"\u0001\u0000\u0000\u0000\r\u0019\'8CQclp|\u008d\u009f\u00aa\u00ac";
+		"\u0001\u0003\u0001-\b\u0001\u0001\u0002\u0001\u0002\u0001\u0002\u0001"+
+		"\u0002\u0001\u0002\u0001\u0002\u0001\u0003\u0001\u0003\u0001\u0003\u0001"+
+		"\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0005\u0003<\b\u0003\n\u0003"+
+		"\f\u0003?\t\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0004\u0001"+
+		"\u0004\u0001\u0004\u0005\u0004G\b\u0004\n\u0004\f\u0004J\t\u0004\u0001"+
+		"\u0004\u0001\u0004\u0001\u0004\u0001\u0005\u0001\u0005\u0001\u0005\u0001"+
+		"\u0005\u0001\u0005\u0001\u0005\u0005\u0005U\b\u0005\n\u0005\f\u0005X\t"+
+		"\u0005\u0001\u0005\u0001\u0005\u0001\u0005\u0001\u0006\u0001\u0006\u0001"+
+		"\u0006\u0001\u0006\u0001\u0006\u0001\u0006\u0001\u0007\u0001\u0007\u0001"+
+		"\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0005\u0007i\b\u0007\n\u0007"+
+		"\f\u0007l\t\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0005"+
+		"\u0007r\b\u0007\n\u0007\f\u0007u\t\u0007\u0001\u0007\u0003\u0007x\b\u0007"+
+		"\u0001\u0007\u0001\u0007\u0001\b\u0001\b\u0001\b\u0001\b\u0001\b\u0001"+
+		"\b\u0005\b\u0082\b\b\n\b\f\b\u0085\t\b\u0001\b\u0001\b\u0001\b\u0001\t"+
+		"\u0001\t\u0001\t\u0001\t\u0001\t\u0001\n\u0001\n\u0001\n\u0001\u000b\u0001"+
+		"\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0001\f\u0001\f"+
+		"\u0001\f\u0001\f\u0001\f\u0001\f\u0005\f\u009e\b\f\n\f\f\f\u00a1\t\f\u0001"+
+		"\f\u0001\f\u0001\f\u0001\f\u0001\f\u0001\f\u0001\f\u0001\f\u0001\f\u0001"+
+		"\f\u0001\f\u0001\f\u0003\f\u00af\b\f\u0001\f\u0001\f\u0001\f\u0001\f\u0001"+
+		"\f\u0001\f\u0001\f\u0001\f\u0001\f\u0005\f\u00ba\b\f\n\f\f\f\u00bd\t\f"+
+		"\u0001\f\u0000\u0001\u0018\r\u0000\u0002\u0004\u0006\b\n\f\u000e\u0010"+
+		"\u0012\u0014\u0016\u0018\u0000\u0003\u0001\u0000\u0011\u0014\u0001\u0000"+
+		"\u0015\u001a\u0001\u0000\u001b\u001c\u00ce\u0000\u001d\u0001\u0000\u0000"+
+		"\u0000\u0002,\u0001\u0000\u0000\u0000\u0004.\u0001\u0000\u0000\u0000\u0006"+
+		"4\u0001\u0000\u0000\u0000\bC\u0001\u0000\u0000\u0000\nN\u0001\u0000\u0000"+
+		"\u0000\f\\\u0001\u0000\u0000\u0000\u000eb\u0001\u0000\u0000\u0000\u0010"+
+		"{\u0001\u0000\u0000\u0000\u0012\u0089\u0001\u0000\u0000\u0000\u0014\u008e"+
+		"\u0001\u0000\u0000\u0000\u0016\u0091\u0001\u0000\u0000\u0000\u0018\u00ae"+
+		"\u0001\u0000\u0000\u0000\u001a\u001c\u0003\u0002\u0001\u0000\u001b\u001a"+
+		"\u0001\u0000\u0000\u0000\u001c\u001f\u0001\u0000\u0000\u0000\u001d\u001b"+
+		"\u0001\u0000\u0000\u0000\u001d\u001e\u0001\u0000\u0000\u0000\u001e \u0001"+
+		"\u0000\u0000\u0000\u001f\u001d\u0001\u0000\u0000\u0000 !\u0005\u0000\u0000"+
+		"\u0001!\u0001\u0001\u0000\u0000\u0000\"-\u0003\u0004\u0002\u0000#-\u0003"+
+		"\u0006\u0003\u0000$-\u0003\b\u0004\u0000%-\u0003\f\u0006\u0000&-\u0003"+
+		"\u000e\u0007\u0000\'-\u0003\u0010\b\u0000(-\u0003\n\u0005\u0000)-\u0003"+
+		"\u0014\n\u0000*-\u0003\u0012\t\u0000+-\u0003\u0016\u000b\u0000,\"\u0001"+
+		"\u0000\u0000\u0000,#\u0001\u0000\u0000\u0000,$\u0001\u0000\u0000\u0000"+
+		",%\u0001\u0000\u0000\u0000,&\u0001\u0000\u0000\u0000,\'\u0001\u0000\u0000"+
+		"\u0000,(\u0001\u0000\u0000\u0000,)\u0001\u0000\u0000\u0000,*\u0001\u0000"+
+		"\u0000\u0000,+\u0001\u0000\u0000\u0000-\u0003\u0001\u0000\u0000\u0000"+
+		"./\u0005\u0001\u0000\u0000/0\u0005\u0002\u0000\u000001\u0005\"\u0000\u0000"+
+		"12\u0005\u0003\u0000\u000023\u0005(\u0000\u00003\u0005\u0001\u0000\u0000"+
+		"\u000045\u0005\u0004\u0000\u000056\u0005$\u0000\u000067\u0005\u0002\u0000"+
+		"\u000078\u0005\u001e\u0000\u000089\u0005\u0003\u0000\u00009=\u0005\u0005"+
+		"\u0000\u0000:<\u0003\u0002\u0001\u0000;:\u0001\u0000\u0000\u0000<?\u0001"+
+		"\u0000\u0000\u0000=;\u0001\u0000\u0000\u0000=>\u0001\u0000\u0000\u0000"+
+		">@\u0001\u0000\u0000\u0000?=\u0001\u0000\u0000\u0000@A\u0005\u0006\u0000"+
+		"\u0000AB\u0005(\u0000\u0000B\u0007\u0001\u0000\u0000\u0000CD\u0005\u0007"+
+		"\u0000\u0000DH\u0005\u0005\u0000\u0000EG\u0003\u0002\u0001\u0000FE\u0001"+
+		"\u0000\u0000\u0000GJ\u0001\u0000\u0000\u0000HF\u0001\u0000\u0000\u0000"+
+		"HI\u0001\u0000\u0000\u0000IK\u0001\u0000\u0000\u0000JH\u0001\u0000\u0000"+
+		"\u0000KL\u0005\u0006\u0000\u0000LM\u0005(\u0000\u0000M\t\u0001\u0000\u0000"+
+		"\u0000NO\u0005\b\u0000\u0000OP\u0005\u0002\u0000\u0000PQ\u0005\"\u0000"+
+		"\u0000QR\u0005\u0003\u0000\u0000RV\u0005\u0005\u0000\u0000SU\u0003\u0002"+
+		"\u0001\u0000TS\u0001\u0000\u0000\u0000UX\u0001\u0000\u0000\u0000VT\u0001"+
+		"\u0000\u0000\u0000VW\u0001\u0000\u0000\u0000WY\u0001\u0000\u0000\u0000"+
+		"XV\u0001\u0000\u0000\u0000YZ\u0005\u0006\u0000\u0000Z[\u0005(\u0000\u0000"+
+		"[\u000b\u0001\u0000\u0000\u0000\\]\u0005\t\u0000\u0000]^\u0005$\u0000"+
+		"\u0000^_\u0005\n\u0000\u0000_`\u0003\u0018\f\u0000`a\u0005(\u0000\u0000"+
+		"a\r\u0001\u0000\u0000\u0000bc\u0005\u000b\u0000\u0000cd\u0005\u0002\u0000"+
+		"\u0000de\u0003\u0018\f\u0000ef\u0005\u0003\u0000\u0000fj\u0005\u0005\u0000"+
+		"\u0000gi\u0003\u0002\u0001\u0000hg\u0001\u0000\u0000\u0000il\u0001\u0000"+
+		"\u0000\u0000jh\u0001\u0000\u0000\u0000jk\u0001\u0000\u0000\u0000km\u0001"+
+		"\u0000\u0000\u0000lj\u0001\u0000\u0000\u0000mw\u0005\u0006\u0000\u0000"+
+		"no\u0005\f\u0000\u0000os\u0005\u0005\u0000\u0000pr\u0003\u0002\u0001\u0000"+
+		"qp\u0001\u0000\u0000\u0000ru\u0001\u0000\u0000\u0000sq\u0001\u0000\u0000"+
+		"\u0000st\u0001\u0000\u0000\u0000tv\u0001\u0000\u0000\u0000us\u0001\u0000"+
+		"\u0000\u0000vx\u0005\u0006\u0000\u0000wn\u0001\u0000\u0000\u0000wx\u0001"+
+		"\u0000\u0000\u0000xy\u0001\u0000\u0000\u0000yz\u0005(\u0000\u0000z\u000f"+
+		"\u0001\u0000\u0000\u0000{|\u0005\r\u0000\u0000|}\u0005\u0002\u0000\u0000"+
+		"}~\u0003\u0018\f\u0000~\u007f\u0005\u0003\u0000\u0000\u007f\u0083\u0005"+
+		"\u0005\u0000\u0000\u0080\u0082\u0003\u0002\u0001\u0000\u0081\u0080\u0001"+
+		"\u0000\u0000\u0000\u0082\u0085\u0001\u0000\u0000\u0000\u0083\u0081\u0001"+
+		"\u0000\u0000\u0000\u0083\u0084\u0001\u0000\u0000\u0000\u0084\u0086\u0001"+
+		"\u0000\u0000\u0000\u0085\u0083\u0001\u0000\u0000\u0000\u0086\u0087\u0005"+
+		"\u0006\u0000\u0000\u0087\u0088\u0005(\u0000\u0000\u0088\u0011\u0001\u0000"+
+		"\u0000\u0000\u0089\u008a\u0005$\u0000\u0000\u008a\u008b\u0005\n\u0000"+
+		"\u0000\u008b\u008c\u0003\u0018\f\u0000\u008c\u008d\u0005(\u0000\u0000"+
+		"\u008d\u0013\u0001\u0000\u0000\u0000\u008e\u008f\u0003\u0018\f\u0000\u008f"+
+		"\u0090\u0005(\u0000\u0000\u0090\u0015\u0001\u0000\u0000\u0000\u0091\u0092"+
+		"\u0005\u000e\u0000\u0000\u0092\u0093\u0005\u0002\u0000\u0000\u0093\u0094"+
+		"\u0005$\u0000\u0000\u0094\u0095\u0005\u0003\u0000\u0000\u0095\u0096\u0005"+
+		"(\u0000\u0000\u0096\u0017\u0001\u0000\u0000\u0000\u0097\u0098\u0006\f"+
+		"\uffff\uffff\u0000\u0098\u0099\u0005$\u0000\u0000\u0099\u009f\u0005\u000f"+
+		"\u0000\u0000\u009a\u009b\u0005\u0010\u0000\u0000\u009b\u009c\u0005$\u0000"+
+		"\u0000\u009c\u009e\u0005\u000f\u0000\u0000\u009d\u009a\u0001\u0000\u0000"+
+		"\u0000\u009e\u00a1\u0001\u0000\u0000\u0000\u009f\u009d\u0001\u0000\u0000"+
+		"\u0000\u009f\u00a0\u0001\u0000\u0000\u0000\u00a0\u00af\u0001\u0000\u0000"+
+		"\u0000\u00a1\u009f\u0001\u0000\u0000\u0000\u00a2\u00a3\u0005\u001d\u0000"+
+		"\u0000\u00a3\u00af\u0003\u0018\f\b\u00a4\u00a5\u0005\u0002\u0000\u0000"+
+		"\u00a5\u00a6\u0003\u0018\f\u0000\u00a6\u00a7\u0005\u0003\u0000\u0000\u00a7"+
+		"\u00af\u0001\u0000\u0000\u0000\u00a8\u00af\u0005!\u0000\u0000\u00a9\u00af"+
+		"\u0005\u001f\u0000\u0000\u00aa\u00af\u0005 \u0000\u0000\u00ab\u00af\u0005"+
+		"#\u0000\u0000\u00ac\u00af\u0005$\u0000\u0000\u00ad\u00af\u0005\"\u0000"+
+		"\u0000\u00ae\u0097\u0001\u0000\u0000\u0000\u00ae\u00a2\u0001\u0000\u0000"+
+		"\u0000\u00ae\u00a4\u0001\u0000\u0000\u0000\u00ae\u00a8\u0001\u0000\u0000"+
+		"\u0000\u00ae\u00a9\u0001\u0000\u0000\u0000\u00ae\u00aa\u0001\u0000\u0000"+
+		"\u0000\u00ae\u00ab\u0001\u0000\u0000\u0000\u00ae\u00ac\u0001\u0000\u0000"+
+		"\u0000\u00ae\u00ad\u0001\u0000\u0000\u0000\u00af\u00bb\u0001\u0000\u0000"+
+		"\u0000\u00b0\u00b1\n\u000b\u0000\u0000\u00b1\u00b2\u0007\u0000\u0000\u0000"+
+		"\u00b2\u00ba\u0003\u0018\f\f\u00b3\u00b4\n\n\u0000\u0000\u00b4\u00b5\u0007"+
+		"\u0001\u0000\u0000\u00b5\u00ba\u0003\u0018\f\u000b\u00b6\u00b7\n\t\u0000"+
+		"\u0000\u00b7\u00b8\u0007\u0002\u0000\u0000\u00b8\u00ba\u0003\u0018\f\n"+
+		"\u00b9\u00b0\u0001\u0000\u0000\u0000\u00b9\u00b3\u0001\u0000\u0000\u0000"+
+		"\u00b9\u00b6\u0001\u0000\u0000\u0000\u00ba\u00bd\u0001\u0000\u0000\u0000"+
+		"\u00bb\u00b9\u0001\u0000\u0000\u0000\u00bb\u00bc\u0001\u0000\u0000\u0000"+
+		"\u00bc\u0019\u0001\u0000\u0000\u0000\u00bd\u00bb\u0001\u0000\u0000\u0000"+
+		"\r\u001d,=HVjsw\u0083\u009f\u00ae\u00b9\u00bb";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

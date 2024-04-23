@@ -3,7 +3,8 @@ bpm (113);
 sample test (Guitar) {
     let chord1 = [3A3,4C3,2D5];
     let note1 = 3A3;
-    note1;
+    let int1 = 22;
+    note1 = 4A3;
     note1;
     note1 = 2 * (note1 + 2);
     if (note1 > 1) {

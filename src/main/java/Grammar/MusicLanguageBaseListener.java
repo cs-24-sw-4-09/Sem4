@@ -1,6 +1,6 @@
 // Generated from MusicLanguage.g4 by ANTLR 4.13.1
 package Grammar;
-
+ 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -125,6 +125,18 @@ public class MusicLanguageBaseListener implements MusicLanguageListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterAssignementStatement(MusicLanguageParser.AssignementStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAssignementStatement(MusicLanguageParser.AssignementStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterExpressionStatement(MusicLanguageParser.ExpressionStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -137,49 +149,13 @@ public class MusicLanguageBaseListener implements MusicLanguageListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPause(MusicLanguageParser.PauseContext ctx) { }
+	@Override public void enterSoundStatement(MusicLanguageParser.SoundStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPause(MusicLanguageParser.PauseContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterNotOperation(MusicLanguageParser.NotOperationContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitNotOperation(MusicLanguageParser.NotOperationContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterString(MusicLanguageParser.StringContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitString(MusicLanguageParser.StringContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterAssignment(MusicLanguageParser.AssignmentContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitAssignment(MusicLanguageParser.AssignmentContext ctx) { }
+	@Override public void exitSoundStatement(MusicLanguageParser.SoundStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -209,6 +185,18 @@ public class MusicLanguageBaseListener implements MusicLanguageListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterPause(MusicLanguageParser.PauseContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPause(MusicLanguageParser.PauseContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterNumber(MusicLanguageParser.NumberContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -233,6 +221,18 @@ public class MusicLanguageBaseListener implements MusicLanguageListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterNotOperation(MusicLanguageParser.NotOperationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNotOperation(MusicLanguageParser.NotOperationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterNote(MusicLanguageParser.NoteContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -252,6 +252,18 @@ public class MusicLanguageBaseListener implements MusicLanguageListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitSampleCall(MusicLanguageParser.SampleCallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterString(MusicLanguageParser.StringContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitString(MusicLanguageParser.StringContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

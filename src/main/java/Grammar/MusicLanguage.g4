@@ -26,8 +26,9 @@ statement //: noteStatement
           | ifStatement
           | whileStatement
           | repeatStatement
-          | expression
           | expressionStatement
+          | assignementStatement
+          | soundStatement
           ;
 
 // noteStatement :  'note' octave=NOTE ';';
@@ -44,16 +45,19 @@ playStatement : 'play' '{' statement* '}' ENDLINE;
 
 repeatStatement : 'repeat' '(' INT ')' '{' statement* '}'ENDLINE;
 
-letStatement : 'let' expression ENDLINE;
+letStatement : 'let' variable=STRING '=' value=expression ENDLINE;
 
 ifStatement : 'if' '(' expression ')' '{' statement* '}' ('else' '{' statement* '}')?ENDLINE;
 
 whileStatement : 'while' '(' expression ')' '{' statement* '}'ENDLINE;
 
+assignementStatement : variable=STRING '=' value=expression ENDLINE;
+
 expressionStatement : expression ENDLINE;
 
+soundStatement : 'sound' '(' variable=STRING ')'ENDLINE;
+
 expression : STRING '()' ('&' STRING'()')*                                          #SampleCall
-           | STRING '=' expression                                                  #Assignment
            | expression op=( '+' | '-' | '*' | '/' ) expression                     #ArithmeticOperation
            | expression op=( '==' | '!=' | '<' | '<=' | '>=' | '>' ) expression     #Comparison
            | expression op=( '&&' | '||' ) expression                               #LogicalOperation

@@ -25,8 +25,142 @@ public class ASTNode {
     public List<ASTNode> getChildren() {
         return children;
     }
+}
 
-    
+class LetStatement extends ASTNode {
+    private String variableName;
+    private ASTNode value;    
+
+    public LetStatement(String variableName, ASTNode value) {
+        super("letStatement");
+        this.variableName = variableName;
+        this.value = value;
+    }
+
+    public String getLet() {
+        return variableName;
+    }
+
+    public void setLet(String variableName) {
+        this.variableName = variableName;
+    }
+
+    public ASTNode getExpression() {
+        return value;
+    }
+
+    public void setExpression(ASTNode value) {
+        this.value = value;
+    }
+}
+
+class ExpressionStatement extends ASTNode {
+    private String expression;
+
+    public ExpressionStatement(String expression) {
+        super("expressionStatement");
+        this.expression = expression;
+    }
+
+    public String getExpression() {
+        return expression;
+    }
+
+    public void setExpression(String expression) {
+        this.expression = expression;
+    }
+
+}
+
+class SoundStatement extends ASTNode {
+    private String sound;
+
+    public SoundStatement(String sound) {
+        super("soundStatement");
+        this.sound = sound;
+    }
+
+    public String getSound() {
+        return sound;
+    }
+
+    public void setSound(String sound) {
+        this.sound = sound;
+    }
+
+}
+
+class IntegerValueNode extends ExpressionStatement {
+    private int value;
+
+    public IntegerValueNode(int value) {
+        super("integerValueNode");
+        this.value = value;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
+}
+
+class BooleanValueNode extends ExpressionStatement {
+    private boolean value;
+
+    public BooleanValueNode(boolean value) {
+        super("booleanValueNode");
+        this.value = value;
+    }
+
+    public boolean getValue() {
+        return value;
+    }
+
+    public void setValue(boolean value) {
+        this.value = value;
+    }
+}
+
+class noteValueNode extends ExpressionStatement {
+    private String note;
+
+    public noteValueNode(String note) {
+        super("noteValueNode");
+        this.note = note;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNoteValue(String note) {
+        this.note = note;
+    }
+}
+
+class stringValueNode extends ExpressionStatement {
+    private String value;
+
+    public stringValueNode(String value) {
+        super("stringValueNode");
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
 
 }
 
