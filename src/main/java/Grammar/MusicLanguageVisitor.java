@@ -1,6 +1,5 @@
-// Generated from ./MusicLanguage.g4 by ANTLR 4.13.1
+// Generated from MusicLanguage.g4 by ANTLR 4.13.1
 package Grammar;
-
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -24,35 +23,11 @@ public interface MusicLanguageVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStatement(MusicLanguageParser.StatementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MusicLanguageParser#noteStatement}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitNoteStatement(MusicLanguageParser.NoteStatementContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link MusicLanguageParser#pauseStatement}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPauseStatement(MusicLanguageParser.PauseStatementContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link MusicLanguageParser#chordStatement}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitChordStatement(MusicLanguageParser.ChordStatementContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link MusicLanguageParser#bpmStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitBpmStatement(MusicLanguageParser.BpmStatementContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link MusicLanguageParser#timeSignatureStatement}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitTimeSignatureStatement(MusicLanguageParser.TimeSignatureStatementContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MusicLanguageParser#sampleStatement}.
 	 * @param ctx the parse tree
@@ -66,21 +41,124 @@ public interface MusicLanguageVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPlayStatement(MusicLanguageParser.PlayStatementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MusicLanguageParser#instrument}.
+	 * Visit a parse tree produced by {@link MusicLanguageParser#repeatStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitInstrument(MusicLanguageParser.InstrumentContext ctx);
+	T visitRepeatStatement(MusicLanguageParser.RepeatStatementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MusicLanguageParser#noteList}.
+	 * Visit a parse tree produced by {@link MusicLanguageParser#letStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitNoteList(MusicLanguageParser.NoteListContext ctx);
+	T visitLetStatement(MusicLanguageParser.LetStatementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MusicLanguageParser#note}.
+	 * Visit a parse tree produced by {@link MusicLanguageParser#ifStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIfStatement(MusicLanguageParser.IfStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MusicLanguageParser#whileStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWhileStatement(MusicLanguageParser.WhileStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MusicLanguageParser#expressionStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpressionStatement(MusicLanguageParser.ExpressionStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Pause}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPause(MusicLanguageParser.PauseContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code notOperation}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNotOperation(MusicLanguageParser.NotOperationContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code String}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitString(MusicLanguageParser.StringContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Assignment}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAssignment(MusicLanguageParser.AssignmentContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code LogicalOperation}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLogicalOperation(MusicLanguageParser.LogicalOperationContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Parenthesis}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParenthesis(MusicLanguageParser.ParenthesisContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Number}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNumber(MusicLanguageParser.NumberContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Comparison}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitComparison(MusicLanguageParser.ComparisonContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Note}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitNote(MusicLanguageParser.NoteContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SampleCall}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSampleCall(MusicLanguageParser.SampleCallContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Boolean}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBoolean(MusicLanguageParser.BooleanContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ArithmeticOperation}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArithmeticOperation(MusicLanguageParser.ArithmeticOperationContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Chord}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitChord(MusicLanguageParser.ChordContext ctx);
 }

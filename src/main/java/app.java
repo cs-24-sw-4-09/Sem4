@@ -1,6 +1,7 @@
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 import Grammar.*;
+
 import Interpreter.*;
 
 import java.io.*;
@@ -39,7 +40,7 @@ public class app {
         System.out.println("Interpretation result:");
         System.out.println(interpreter.getInterpretationResult());
         System.out.println();
-    }
+    };
 
     // Helper method to read the content of a file as a string
     private static String readFile(String fileName) throws IOException {

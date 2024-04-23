@@ -1,4 +1,4 @@
-// Generated from ./MusicLanguage.g4 by ANTLR 4.13.1
+// Generated from MusicLanguage.g4 by ANTLR 4.13.1
 package Grammar;
 
 import org.antlr.v4.runtime.tree.ParseTreeListener;
@@ -29,36 +29,6 @@ public interface MusicLanguageListener extends ParseTreeListener {
 	 */
 	void exitStatement(MusicLanguageParser.StatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MusicLanguageParser#noteStatement}.
-	 * @param ctx the parse tree
-	 */
-	void enterNoteStatement(MusicLanguageParser.NoteStatementContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MusicLanguageParser#noteStatement}.
-	 * @param ctx the parse tree
-	 */
-	void exitNoteStatement(MusicLanguageParser.NoteStatementContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link MusicLanguageParser#pauseStatement}.
-	 * @param ctx the parse tree
-	 */
-	void enterPauseStatement(MusicLanguageParser.PauseStatementContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MusicLanguageParser#pauseStatement}.
-	 * @param ctx the parse tree
-	 */
-	void exitPauseStatement(MusicLanguageParser.PauseStatementContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link MusicLanguageParser#chordStatement}.
-	 * @param ctx the parse tree
-	 */
-	void enterChordStatement(MusicLanguageParser.ChordStatementContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MusicLanguageParser#chordStatement}.
-	 * @param ctx the parse tree
-	 */
-	void exitChordStatement(MusicLanguageParser.ChordStatementContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link MusicLanguageParser#bpmStatement}.
 	 * @param ctx the parse tree
 	 */
@@ -68,16 +38,6 @@ public interface MusicLanguageListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitBpmStatement(MusicLanguageParser.BpmStatementContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link MusicLanguageParser#timeSignatureStatement}.
-	 * @param ctx the parse tree
-	 */
-	void enterTimeSignatureStatement(MusicLanguageParser.TimeSignatureStatementContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MusicLanguageParser#timeSignatureStatement}.
-	 * @param ctx the parse tree
-	 */
-	void exitTimeSignatureStatement(MusicLanguageParser.TimeSignatureStatementContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MusicLanguageParser#sampleStatement}.
 	 * @param ctx the parse tree
@@ -99,33 +59,209 @@ public interface MusicLanguageListener extends ParseTreeListener {
 	 */
 	void exitPlayStatement(MusicLanguageParser.PlayStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MusicLanguageParser#instrument}.
+	 * Enter a parse tree produced by {@link MusicLanguageParser#repeatStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterInstrument(MusicLanguageParser.InstrumentContext ctx);
+	void enterRepeatStatement(MusicLanguageParser.RepeatStatementContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MusicLanguageParser#instrument}.
+	 * Exit a parse tree produced by {@link MusicLanguageParser#repeatStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitInstrument(MusicLanguageParser.InstrumentContext ctx);
+	void exitRepeatStatement(MusicLanguageParser.RepeatStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MusicLanguageParser#noteList}.
+	 * Enter a parse tree produced by {@link MusicLanguageParser#letStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterNoteList(MusicLanguageParser.NoteListContext ctx);
+	void enterLetStatement(MusicLanguageParser.LetStatementContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MusicLanguageParser#noteList}.
+	 * Exit a parse tree produced by {@link MusicLanguageParser#letStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitNoteList(MusicLanguageParser.NoteListContext ctx);
+	void exitLetStatement(MusicLanguageParser.LetStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MusicLanguageParser#note}.
+	 * Enter a parse tree produced by {@link MusicLanguageParser#ifStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterIfStatement(MusicLanguageParser.IfStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MusicLanguageParser#ifStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitIfStatement(MusicLanguageParser.IfStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MusicLanguageParser#whileStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterWhileStatement(MusicLanguageParser.WhileStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MusicLanguageParser#whileStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitWhileStatement(MusicLanguageParser.WhileStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MusicLanguageParser#expressionStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpressionStatement(MusicLanguageParser.ExpressionStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MusicLanguageParser#expressionStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpressionStatement(MusicLanguageParser.ExpressionStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Pause}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterPause(MusicLanguageParser.PauseContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Pause}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitPause(MusicLanguageParser.PauseContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code notOperation}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterNotOperation(MusicLanguageParser.NotOperationContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code notOperation}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitNotOperation(MusicLanguageParser.NotOperationContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code String}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterString(MusicLanguageParser.StringContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code String}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitString(MusicLanguageParser.StringContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Assignment}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterAssignment(MusicLanguageParser.AssignmentContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Assignment}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitAssignment(MusicLanguageParser.AssignmentContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code LogicalOperation}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterLogicalOperation(MusicLanguageParser.LogicalOperationContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code LogicalOperation}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitLogicalOperation(MusicLanguageParser.LogicalOperationContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Parenthesis}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterParenthesis(MusicLanguageParser.ParenthesisContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Parenthesis}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitParenthesis(MusicLanguageParser.ParenthesisContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Number}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterNumber(MusicLanguageParser.NumberContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Number}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitNumber(MusicLanguageParser.NumberContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Comparison}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterComparison(MusicLanguageParser.ComparisonContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Comparison}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitComparison(MusicLanguageParser.ComparisonContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Note}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
 	 * @param ctx the parse tree
 	 */
 	void enterNote(MusicLanguageParser.NoteContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MusicLanguageParser#note}.
+	 * Exit a parse tree produced by the {@code Note}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
 	 * @param ctx the parse tree
 	 */
 	void exitNote(MusicLanguageParser.NoteContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code SampleCall}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterSampleCall(MusicLanguageParser.SampleCallContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SampleCall}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitSampleCall(MusicLanguageParser.SampleCallContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Boolean}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterBoolean(MusicLanguageParser.BooleanContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Boolean}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitBoolean(MusicLanguageParser.BooleanContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ArithmeticOperation}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterArithmeticOperation(MusicLanguageParser.ArithmeticOperationContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ArithmeticOperation}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitArithmeticOperation(MusicLanguageParser.ArithmeticOperationContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Chord}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterChord(MusicLanguageParser.ChordContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Chord}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitChord(MusicLanguageParser.ChordContext ctx);
 }

@@ -20,24 +20,24 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
         int bpm = Integer.parseInt(ctx.INT().getText());
         return new BpmStatement(bpm);
     }
-
+/*
     @Override
     public ASTNode visitNoteStatement(MusicLanguageParser.NoteStatementContext ctx) {
         String note = ctx.NOTE().getText();
         return new NoteStatement(note);
     }
-
+*/
     @Override
     public ASTNode visitSampleStatement(MusicLanguageParser.SampleStatementContext ctx) {
         String sample = ctx.STRING().getText();
-        String instrument = ctx.instrument().getText();
+        String instrument = ctx.INSTRUMENT().getText();
         SampleStatement sampleStatement = new SampleStatement(sample, instrument);
         for (MusicLanguageParser.StatementContext statementContext : ctx.statement()) {
             sampleStatement.addChild(visit(statementContext));
         }
         return sampleStatement;
     }
-
+    /*
     @Override
     public ASTNode visitPlayStatement(MusicLanguageParser.PlayStatementContext ctx) {
         String sample = ctx.getText();
@@ -47,11 +47,13 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
         }
         return playStatement;
     }
-
+    */
+    /*
     @Override
     public ASTNode visitPauseStatement(MusicLanguageParser.PauseStatementContext ctx) {
         int duration = Integer.parseInt(ctx.INT().getText());
         PauseStatement pauseStatement = new PauseStatement(duration);
         return pauseStatement;
     }
+    */
 }

@@ -1,16 +1,29 @@
 bpm (113);
-time (4/4);
-sample test (Guitar) {note 2A3; note 3B3; note 3C3;};
-play {
-    sample test (Guitar) {
-        
-note 1D5;
-pause 10;
-note 1D5;
-pause 20;
-note 1D5;
-pause 30;
-note 1D5;
-pause 40;
+
+sample test (Guitar) {
+    let chord1 = [3A3,4C3,2D5];
+    let note1 = 3A3;
+    note1;
+    note1;
+    note1 = 2 * (note1 + 2);
+    if (note1 > 1) {
+        note1;
     };
+};
+
+sample test2 (Piano) {
+    let note1 = 3A4;
+    while (note1 < 90) {
+        note1;
+        note1 = note1 + 1;
+    };
+
+    repeat (10){
+        note1;
+    };
+};
+
+play {
+    test();
+    test2();
 };
