@@ -32,15 +32,15 @@ public class app {
 
         // Build the AST from the parse tree
         ASTNode ast = astBuilder.visit(tree);
-        MidiInterpreter interpreter = new MidiInterpreter();
-        interpreter.interpretAST(ast);
+       // MidiInterpreter interpreter = new MidiInterpreter();
+       // interpreter.interpretAST(ast);
 
         // Print the parse tree to the console
-        System.out.println(tree.toStringTree(parser));
-        System.out.println(ast.toString());
-        System.out.println("Interpretation result:");
-        System.out.println(interpreter.getInterpretationResult());
-        System.out.println();
+        //System.out.println(tree.toStringTree(parser));
+        //System.out.println(ast.toString());
+        //System.out.println("Interpretation result:");
+       // System.out.println(interpreter.getInterpretationResult());
+        //System.out.println();
     };
 
     // Helper method to read the content of a file as a string

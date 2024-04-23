@@ -16,9 +16,11 @@ public class MidiInterpreter {
     private int bpm;
     private StringBuilder interpretationResult;
     private TimingHandler timingHandler;
+    private final SymbolTable symbolTable;
 
     public MidiInterpreter() {
         this.interpretationResult = new StringBuilder();
+        this.symbolTable = new SymbolTable();
 
     }
 
@@ -29,6 +31,10 @@ public class MidiInterpreter {
 
         if (node instanceof BpmStatement) {
             interpretBPMStatement((BpmStatement) node);
+        } else if (node instanceof SampleStatement){
+            interpretSampleStatement((SampleStatement) node);
+        } else if (node instanceof ExpressionStatement){
+            interpretExpressionStatement((ExpressionStatement) node);
         } else if (node instanceof PlayStatement) {
             interpretPlayStatement((PlayStatement) node);
         } else {
@@ -64,12 +70,20 @@ public class MidiInterpreter {
         for (ASTNode statement : statements) {
             if (statement instanceof NoteStatement) {
                 interpretNoteStatement((NoteStatement) statement);
+            } else if (statement instanceof ExpressionStatement){
+            interpretExpressionStatement((ExpressionStatement) statement);
             } else if (statement instanceof PauseStatement) {
                 interpretPauseStatement((PauseStatement) statement);
             } else {
                 interpretAST(statement);
             }
         }
+    }
+
+    private void interpretExpressionStatement(ExpressionStatement node) {
+        String expression = node.getExpression();
+        System.out.println("Expression: " + expression);
+        interpretationResult.append("Expression: ").append(expression).append("\n");
     }
 
     private void interpretNoteStatement(NoteStatement node) {

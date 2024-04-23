@@ -13,9 +13,9 @@ sample test (Guitar) {
 };
 
 sample test2 (Piano) {
-    let note1 = 3A4;
-    while (note1 < 90) {
-        note1;
+    let note2 = 3A4;
+    while (note1 < 90) { 
+        note2;
         note1 = note1 + 1;
     };
 
