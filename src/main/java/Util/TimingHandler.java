@@ -23,33 +23,39 @@ public class TimingHandler { // Name is up for debate, pls
     }
   }
 
-  public void addNote(Note note, String trackName) {
-    // We need an algorithm for determining which channel to use when :T
+  public void addNote(Note note, String trackName, int channel) {
     long eventDelay;
 
     if (pauses.get(trackName) == null) {
-      eventDelay = 0;
+        eventDelay = 0;
     } else {
-      eventDelay = pauses.get(trackName);
-      System.out.println("Added pause: " + eventDelay);
+        eventDelay = pauses.get(trackName);
+        System.out.println("Added pause: " + eventDelay);
     }
 
     try {
-      Track track = tracks.get(trackName);
-      track.add(note.getStartEvent(track.ticks() + eventDelay, tracks.size() - 1));
-      track.add(note.getEndEvent());
+        Track track = tracks.get(trackName);
+        track.add(note.getStartEvent(track.ticks() + eventDelay, channel));
+        track.add(note.getEndEvent());
     } catch (Exception e) {
-      System.out.println("Created Track: " + trackName);
-      tracks.put(trackName, sequence.createTrack());
-      Track track = tracks.get(trackName);
-      track.add(note.getStartEvent(0 + eventDelay, tracks.size() - 1));
-      track.add(note.getEndEvent());
+        System.out.println("Created Track: " + trackName);
+        tracks.put(trackName, sequence.createTrack());
+        Track track = tracks.get(trackName);
+        track.add(note.getStartEvent(0 + eventDelay, channel));
+        track.add(note.getEndEvent());
     } finally {
-      if (eventDelay != 0) {
-        pauses.put(trackName, 0L);
-      }
+        if (eventDelay != 0) {
+            pauses.put(trackName, 0L);
+        }
     }
+}
+
+public void playChord(Note[] notes, String trackName) {
+  for (int i = 0; i < notes.length; i++) {
+      addNote(notes[i], trackName+i, i % 16);
+      System.out.println("Added note: " + notes[i] + " to track: " + trackName+ " on channel: " + (i % 16));
   }
+}
 
   public void addNote(Note[] notes, String trackName) { // USED EXCLUSIVELY FOR RICKROLL; DO NOT ASK ABOUT IT
     for (Note note : notes) {

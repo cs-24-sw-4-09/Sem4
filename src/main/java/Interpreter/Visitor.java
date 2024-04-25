@@ -2,8 +2,13 @@ package Interpreter;
 
 import Grammar.*;
 import Models.*;
+
+import java.util.Arrays;
+
 import javax.sound.midi.*;
 import Util.*;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
     private final SymbolTable symbolTable;
@@ -61,19 +66,37 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
     @Override
     public ASTNode visitExpressionStatement(MusicLanguageParser.ExpressionStatementContext ctx) {
         String variable = ctx.expression().getText();
+        //ASTNode symbolValue = symbolTable.retrieveSymbolValue(variable);
         //System.out.println(symbolTable.retrieveSymbol(variable));
-        if (symbolTable.retrieveSymbol(variable) instanceof NoteStatement) {
-            System.out.println("PG13 comment :)"+symbolTable.retrieveSymbolValue(variable));
+        if (symbolTable.retrieveSymbolValue(variable) instanceof NoteStatement) {
+            System.out.println("PG13 comment :)  "+symbolTable.retrieveSymbolValue(variable));
             String note = symbolTable.retrieveSymbolValue(variable).toString();
-          
             int duration = Integer.parseInt(note.substring(0, 1));
             note = note.substring(1);
             System.out.println(" HERHE HREHRHEHREHREHNote: " + note);
-            timingHandler.addNote(new Note(100, noteToMidi(note), duration), "default");
-            
-        }
-        ExpressionStatement expressionStatement = new ExpressionStatement(variable);
+            timingHandler.addNote(new Note(100, noteToMidi(note), duration), "default", 0);
 
+        }else if(symbolTable.retrieveSymbolValue(variable) instanceof ChordStatement) {
+            System.out.println("1!!!!)"+symbolTable.retrieveSymbolValue(variable));
+            ChordStatement chord = (ChordStatement) symbolTable.retrieveSymbolValue(variable);
+
+            List<String> allNotes = new ArrayList<>();
+            for (String notesString : chord.getNotes()) {
+                notesString = notesString.replace("[", "").replace("]", "");
+                List<String> notes = Arrays.asList(notesString.split(", "));
+                allNotes.addAll(notes);
+            }
+
+            Note[] noteArray = new Note[allNotes.size()];
+            for (int i = 0; i < allNotes.size(); i++) {
+                String note = allNotes.get(i);
+                int duration = Integer.parseInt(note.substring(0, 1));
+                note = note.substring(1);
+                noteArray[i] = new Note(100, noteToMidi(note), duration);
+            }
+            timingHandler.playChord(noteArray, "default");
+        } 
+        ExpressionStatement expressionStatement = new ExpressionStatement(variable);
         return expressionStatement;
     }
 
@@ -96,6 +119,15 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
         NoteStatement noteStatement = new NoteStatement(note);
         System.out.println("kig lgie din dejlige person: " + note);
         return noteStatement;
+    }
+
+    @Override
+    public ASTNode visitChord(MusicLanguageParser.ChordContext ctx) {
+        String chord = ctx.getText();
+        String[] notes = chord.split(",");
+        ChordStatement chordStatement = new ChordStatement(Arrays.asList(notes));
+        System.out.println("Chord: " + chord);
+        return chordStatement;
     }
 
     @Override
