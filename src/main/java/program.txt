@@ -6,6 +6,8 @@ sample test (Guitar) {
     let int1 = 22;
     note1;
     note1;
+    note1;
+    note1;
     int1;
     
     if (note1 > 1) {

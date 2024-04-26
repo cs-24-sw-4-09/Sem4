@@ -1,5 +1,6 @@
 package Interpreter;
 
+import Interpreter.Nodes.*;
 import java.util.*;
 
 public class SymbolTable {

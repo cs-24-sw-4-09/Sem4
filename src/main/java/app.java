@@ -1,6 +1,7 @@
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 import Grammar.*;
+import Interpreter.Nodes.*;
 
 import Interpreter.*;
 

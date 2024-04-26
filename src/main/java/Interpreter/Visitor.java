@@ -1,7 +1,7 @@
 package Interpreter;
 
 import Grammar.*;
-import Models.*;
+import Interpreter.Nodes.*;
 
 import java.util.Arrays;
 
@@ -96,7 +96,7 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
             }
             timingHandler.playChord(noteArray, "default");
         } 
-        ExpressionStatement expressionStatement = new ExpressionStatement(variable);
+        Expressions expressionStatement = new Expressions(variable);
         return expressionStatement;
     }
 
@@ -110,7 +110,7 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
     @Override
     public ASTNode visitString(MusicLanguageParser.StringContext ctx) {
         String stringName = ctx.getText();
-        return new stringValueNode(stringName);
+        return new StringValueNode(stringName);
     }
 
     @Override
