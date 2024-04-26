@@ -164,6 +164,29 @@ class stringValueNode extends ExpressionStatement {
 
 }
 
+class ChordStatement extends ASTNode{
+    private List<String> notes;
+
+    public ChordStatement(List<String> notes) {
+        super("chordStatement");
+        this.notes = notes;
+    }
+
+    public List<String> getNotes() {
+        return notes;
+    }
+
+    public void setNotes(List<String> notes) {
+        this.notes = notes;
+    }
+
+    @Override
+    public String toString() {
+        return notes.toString();
+    }
+}
+
+
 class NoteStatement extends ASTNode {
     private String note;
 
@@ -171,7 +194,6 @@ class NoteStatement extends ASTNode {
         super("noteStatement");
         this.note = note;
     }
-
 
     public String getNote() {
         return note;
@@ -187,32 +209,32 @@ class NoteStatement extends ASTNode {
     }
 }
 
-class ChordStatement extends ASTNode {
-    private List<String> notes;
-    private int octave;
+// class ChordStatement extends ASTNode {
+//     private List<String> notes;
+//     private int octave;
 
-    public ChordStatement(List<String> notes, int octave) {
-        super("chordStatement");
-        this.notes = notes;
-        this.octave = octave;
-    }
+//     public ChordStatement(List<String> notes, int octave) {
+//         super("chordStatement");
+//         this.notes = notes;
+//         this.octave = octave;
+//     }
 
-    public List<String> getNotes() {
-        return notes;
-    }
+//     public List<String> getNotes() {
+//         return notes;
+//     }
 
-    public void setNotes(List<String> notes) {
-        this.notes = notes;
-    }
+//     public void setNotes(List<String> notes) {
+//         this.notes = notes;
+//     }
 
-    public int getOctave() {
-        return octave;
-    }
+//     public int getOctave() {
+//         return octave;
+//     }
 
-    public void setOctave(int octave) {
-        this.octave = octave;
-    }
-}
+//     public void setOctave(int octave) {
+//         this.octave = octave;
+//     }
+// }
 
 class BpmStatement extends ASTNode {
     private int bpm;
