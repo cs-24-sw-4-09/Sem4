@@ -2,6 +2,15 @@ package Interpreter;
 
 import Grammar.*;
 import Interpreter.Nodes.*;
+import Interpreter.Nodes.ASTNode;
+import Interpreter.Nodes.BooleanValueNode;
+import Interpreter.Nodes.BpmStatement;
+import Interpreter.Nodes.ChordStatement;
+import Interpreter.Nodes.IntegerValueNode;
+import Interpreter.Nodes.LetStatement;
+import Interpreter.Nodes.NoteStatement;
+import Interpreter.Nodes.SampleStatement;
+import Interpreter.Nodes.PauseStatement;
 
 import java.util.Arrays;
 
@@ -128,6 +137,15 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
         ChordStatement chordStatement = new ChordStatement(Arrays.asList(notes));
         System.out.println("Chord: " + chord);
         return chordStatement;
+    }
+
+    @Override
+    public ASTNode visitPause (MusicLanguageParser.PauseContext ctx){
+      String text = ctx.getText();
+        int duration = Integer.parseInt(text.substring(0, text.length() - 1)); // remove the '-' and parse the number
+        System.out.println("Pause: "+ duration);
+        PauseStatement pauseStatement = new PauseStatement(duration);
+        return pauseStatement;
     }
 
     @Override
