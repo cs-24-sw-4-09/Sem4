@@ -10,7 +10,7 @@ import java.io.*;
 
 public class app {
     public static void main(String[] args) throws IOException {
-
+    try {
         // Read the content of the text file
         String inputFile = "src/main/java/program.txt";
         String inputText = readFile(inputFile);
@@ -20,13 +20,16 @@ public class app {
 
         // Create a lexer
         MusicLanguageLexer lexer = new MusicLanguageLexer(input);
-
+        lexer.removeErrorListeners();
+        lexer.addErrorListener(ErrorChecker.INSTANCE);
         // Create a token stream from the lexer
         CommonTokenStream tokens = new CommonTokenStream(lexer);
 
         // Create a parser
         MusicLanguageParser parser = new MusicLanguageParser(tokens);
         // Parse the input and build the parse tree
+        parser.removeErrorListeners();
+        parser.addErrorListener(ErrorChecker.INSTANCE);
         ParseTree tree = parser.program();
 
         Visitor astBuilder = new Visitor();
@@ -42,6 +45,9 @@ public class app {
         //System.out.println("Interpretation result:");
        // System.out.println(interpreter.getInterpretationResult());
         //System.out.println();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     };
 
     // Helper method to read the content of a file as a string
