@@ -2,6 +2,15 @@ package Interpreter;
 
 import Grammar.*;
 import Interpreter.Nodes.*;
+import Interpreter.Nodes.ASTNode;
+import Interpreter.Nodes.BooleanValueNode;
+import Interpreter.Nodes.BpmStatement;
+import Interpreter.Nodes.ChordStatement;
+import Interpreter.Nodes.IntegerValueNode;
+import Interpreter.Nodes.LetStatement;
+import Interpreter.Nodes.NoteStatement;
+import Interpreter.Nodes.SampleStatement;
+import Interpreter.Nodes.PauseStatement;
 
 import java.util.Arrays;
 
@@ -65,10 +74,16 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
 
     @Override
     public ASTNode visitExpressionStatement(MusicLanguageParser.ExpressionStatementContext ctx) {
+        System.out.println("visitExpressionStatement called");
         String variable = ctx.expression().getText();
+        System.out.println("Variable: " + variable);
+        visit(ctx.expression());
+        int lineNumber = ctx.getStart().getLine();
+        //System.out.println("Retrieving PauseStatement with key: " + "pause" + lineNumber);
+        System.out.println("Retrieved PauseStatement: " + symbolTable.retrieveSymbol("pause" + lineNumber));
         //ASTNode symbolValue = symbolTable.retrieveSymbolValue(variable);
         //System.out.println(symbolTable.retrieveSymbol(variable));
-        if (symbolTable.retrieveSymbolValue(variable) instanceof NoteStatement) {
+        if (symbolTable.retrieveSymbol(variable) instanceof NoteStatement) {
             System.out.println("PG13 comment :)  "+symbolTable.retrieveSymbolValue(variable));
             String note = symbolTable.retrieveSymbolValue(variable).toString();
             int duration = Integer.parseInt(note.substring(0, 1));
@@ -76,7 +91,7 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
             System.out.println(" HERHE HREHRHEHREHREHNote: " + note);
             timingHandler.addNote(new Note(100, noteToMidi(note), duration), "default", 0);
 
-        }else if(symbolTable.retrieveSymbolValue(variable) instanceof ChordStatement) {
+        }else if(symbolTable.retrieveSymbol(variable) instanceof ChordStatement) {
             System.out.println("1!!!!)"+symbolTable.retrieveSymbolValue(variable));
             ChordStatement chord = (ChordStatement) symbolTable.retrieveSymbolValue(variable);
 
@@ -93,9 +108,21 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
                 int duration = Integer.parseInt(note.substring(0, 1));
                 note = note.substring(1);
                 noteArray[i] = new Note(100, noteToMidi(note), duration);
-            }
+            }    
             timingHandler.playChord(noteArray, "default");
-        } 
+
+        } else if (symbolTable.retrieveSymbol("pause" + lineNumber) instanceof PauseStatement) {
+            System.out.println("PauseStatement encountered");
+            PauseStatement pause = (PauseStatement) symbolTable.retrieveSymbolValue("pause" + lineNumber);
+            int duration = pause.getDuration();
+            timingHandler.addPause(duration,"default");
+
+        } else if (symbolTable.retrieveSymbol(variable) instanceof PauseStatement) {
+            PauseStatement pause = (PauseStatement) symbolTable.retrieveSymbol(variable);
+            int duration = pause.getDuration();
+            timingHandler.addPause(duration, "default");
+        }
+
         Expressions expressionStatement = new Expressions(variable);
         return expressionStatement;
     }
@@ -128,6 +155,20 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
         ChordStatement chordStatement = new ChordStatement(Arrays.asList(notes));
         System.out.println("Chord: " + chord);
         return chordStatement;
+    }
+
+    @Override
+    public ASTNode visitPause (MusicLanguageParser.PauseContext ctx){
+        System.out.println("VistitPause called");
+        String text = ctx.getText();
+        int duration = Integer.parseInt(text.substring(0, text.length() - 1)); // remove the '-' and parse the number
+        PauseStatement pauseStatement = new PauseStatement(duration);
+
+        int lineNumber = ctx.getStart().getLine();
+        System.out.println("Adding PauseStatement with key: " + "pause" + lineNumber);
+        symbolTable.enterSymbol("pause" + lineNumber, pauseStatement);
+
+        return pauseStatement;
     }
 
     @Override

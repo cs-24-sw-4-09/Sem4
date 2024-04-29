@@ -1,4 +1,4 @@
-// Generated from c:/Users/wojte/OneDrive - Aalborg Universitet/Documents/GitHub/Sem4/src/main/java/Grammar/MusicLanguage.g4 by ANTLR 4.13.1
+// Generated from c:/Users/lundh/Sem4/src/main/java/Grammar/MusicLanguage.g4 by ANTLR 4.13.1
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -117,14 +117,6 @@ public class MusicLanguageParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_program; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).enterProgram(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).exitProgram(this);
-		}
 	}
 
 	public final ProgramContext program() throws RecognitionException {
@@ -199,14 +191,6 @@ public class MusicLanguageParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_statement; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).enterStatement(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).exitStatement(this);
-		}
 	}
 
 	public final StatementContext statement() throws RecognitionException {
@@ -307,14 +291,6 @@ public class MusicLanguageParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_bpmStatement; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).enterBpmStatement(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).exitBpmStatement(this);
-		}
 	}
 
 	public final BpmStatementContext bpmStatement() throws RecognitionException {
@@ -361,14 +337,6 @@ public class MusicLanguageParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_sampleStatement; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).enterSampleStatement(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).exitSampleStatement(this);
-		}
 	}
 
 	public final SampleStatementContext sampleStatement() throws RecognitionException {
@@ -434,14 +402,6 @@ public class MusicLanguageParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_playStatement; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).enterPlayStatement(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).exitPlayStatement(this);
-		}
 	}
 
 	public final PlayStatementContext playStatement() throws RecognitionException {
@@ -500,14 +460,6 @@ public class MusicLanguageParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_repeatStatement; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).enterRepeatStatement(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).exitRepeatStatement(this);
-		}
 	}
 
 	public final RepeatStatementContext repeatStatement() throws RecognitionException {
@@ -571,14 +523,6 @@ public class MusicLanguageParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_letStatement; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).enterLetStatement(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).exitLetStatement(this);
-		}
 	}
 
 	public final LetStatementContext letStatement() throws RecognitionException {
@@ -626,14 +570,6 @@ public class MusicLanguageParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_ifStatement; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).enterIfStatement(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).exitIfStatement(this);
-		}
 	}
 
 	public final IfStatementContext ifStatement() throws RecognitionException {
@@ -728,14 +664,6 @@ public class MusicLanguageParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_whileStatement; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).enterWhileStatement(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).exitWhileStatement(this);
-		}
 	}
 
 	public final WhileStatementContext whileStatement() throws RecognitionException {
@@ -799,14 +727,6 @@ public class MusicLanguageParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_assignementStatement; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).enterAssignementStatement(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).exitAssignementStatement(this);
-		}
 	}
 
 	public final AssignementStatementContext assignementStatement() throws RecognitionException {
@@ -846,14 +766,6 @@ public class MusicLanguageParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_expressionStatement; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).enterExpressionStatement(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).exitExpressionStatement(this);
-		}
 	}
 
 	public final ExpressionStatementContext expressionStatement() throws RecognitionException {
@@ -888,14 +800,6 @@ public class MusicLanguageParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_soundStatement; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).enterSoundStatement(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).exitSoundStatement(this);
-		}
 	}
 
 	public final SoundStatementContext soundStatement() throws RecognitionException {
@@ -949,14 +853,6 @@ public class MusicLanguageParser extends Parser {
 			return getRuleContext(ExpressionContext.class,i);
 		}
 		public LogicalOperationContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).enterLogicalOperation(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).exitLogicalOperation(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class ParenthesisContext extends ExpressionContext {
@@ -964,40 +860,16 @@ public class MusicLanguageParser extends Parser {
 			return getRuleContext(ExpressionContext.class,0);
 		}
 		public ParenthesisContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).enterParenthesis(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).exitParenthesis(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class PauseContext extends ExpressionContext {
 		public TerminalNode PAUSE() { return getToken(MusicLanguageParser.PAUSE, 0); }
 		public PauseContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).enterPause(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).exitPause(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class NumberContext extends ExpressionContext {
 		public TerminalNode INT() { return getToken(MusicLanguageParser.INT, 0); }
 		public NumberContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).enterNumber(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).exitNumber(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class ComparisonContext extends ExpressionContext {
@@ -1009,14 +881,6 @@ public class MusicLanguageParser extends Parser {
 			return getRuleContext(ExpressionContext.class,i);
 		}
 		public ComparisonContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).enterComparison(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).exitComparison(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class NotOperationContext extends ExpressionContext {
@@ -1024,27 +888,11 @@ public class MusicLanguageParser extends Parser {
 			return getRuleContext(ExpressionContext.class,0);
 		}
 		public NotOperationContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).enterNotOperation(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).exitNotOperation(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class NoteContext extends ExpressionContext {
 		public TerminalNode NOTE() { return getToken(MusicLanguageParser.NOTE, 0); }
 		public NoteContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).enterNote(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).exitNote(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class SampleCallContext extends ExpressionContext {
@@ -1053,40 +901,16 @@ public class MusicLanguageParser extends Parser {
 			return getToken(MusicLanguageParser.STRING, i);
 		}
 		public SampleCallContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).enterSampleCall(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).exitSampleCall(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class StringContext extends ExpressionContext {
 		public TerminalNode STRING() { return getToken(MusicLanguageParser.STRING, 0); }
 		public StringContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).enterString(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).exitString(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class BooleanContext extends ExpressionContext {
 		public TerminalNode BOOL() { return getToken(MusicLanguageParser.BOOL, 0); }
 		public BooleanContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).enterBoolean(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).exitBoolean(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class ArithmeticOperationContext extends ExpressionContext {
@@ -1098,27 +922,11 @@ public class MusicLanguageParser extends Parser {
 			return getRuleContext(ExpressionContext.class,i);
 		}
 		public ArithmeticOperationContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).enterArithmeticOperation(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).exitArithmeticOperation(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class ChordContext extends ExpressionContext {
 		public TerminalNode CHORD() { return getToken(MusicLanguageParser.CHORD, 0); }
 		public ChordContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).enterChord(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).exitChord(this);
-		}
 	}
 
 	public final ExpressionContext expression() throws RecognitionException {

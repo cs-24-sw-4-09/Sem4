@@ -4,8 +4,11 @@ sample test (Guitar) {
     let chord1 = [3A3,4C3,2D5,4G6];
     let note1 = 3A3;
     let int1 = 22;
+    let pause1 = 9-;
     note1;
+    5-;
     note1;
+    pause1;
     note1;
     note1;
     int1;

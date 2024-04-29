@@ -19,7 +19,7 @@ public class SymbolTable {
 
     public ASTNode retrieveSymbol(String name){
         if (hashmap.containsKey(name)) {
-            System.out.println("Retrieving symbol: " + name + " from the symbol table");
+            System.out.println("Retrieving symbol: " + name + " from the symbol table " + hashmap.get(name).value.toString());
             return hashmap.get(name).value;
         } else {
             System.out.println("Symbol: " + name + " not found in the symbol table");
