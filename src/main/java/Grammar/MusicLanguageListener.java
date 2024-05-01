@@ -1,4 +1,6 @@
-// Generated from MusicLanguage.g4 by ANTLR 4.7.2
+// Generated from MusicLanguage.g4 by ANTLR 4.13.1
+package Grammar;
+
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
