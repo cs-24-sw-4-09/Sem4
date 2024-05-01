@@ -6,7 +6,6 @@ sample test (Guitar) {
     let int1 = 22;
     let pause1 = 9-;
     note1;
-    5-;
     note1;
     pause1;
     note1;

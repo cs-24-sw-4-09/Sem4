@@ -4,9 +4,18 @@ import Util.Flag;
 import Util.PlaybackHandler;
 
 public class Pause extends Notation{
-    private final Flag flag;
+    private Flag flag;
+
+    private long duration;
+    private final int lengthInBeats;
 
     public Pause(int lengthInMilli){
+        this.lengthInBeats = lengthInMilli;
+    }
+
+    @Override
+    public void applyBpm(long tickDelay) {
+        this.duration = tickDelay * lengthInBeats;
         this.flag = new Flag() {
 
             @Override
@@ -14,7 +23,7 @@ public class Pause extends Notation{
                 try {
                     playbackHandler.registerFlag(this);
 
-                    Thread.sleep(lengthInMilli);
+                    Thread.sleep(duration);
 
                     playbackHandler.unregisterFlag(this);
                     playbackHandler.resumePlayback(trackName);

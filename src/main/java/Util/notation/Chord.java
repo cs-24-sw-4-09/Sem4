@@ -7,8 +7,18 @@ import javax.sound.midi.ShortMessage;
 
 public class Chord extends Notation {
     private Flag flag;
+    private long duration;
+    private final int lengthInBeats;
+    int[] tones;
 
-    public Chord(int[] tones, int lengthInMilli, int velocity) {
+    public Chord(int[] tones, int lengthInBeats) {
+        this.lengthInBeats = lengthInBeats;
+        this.tones = tones;
+    }
+
+    @Override
+    public void applyBpm(long tickDelay) {
+        this.duration = tickDelay * lengthInBeats;
         this.flag = new Flag() {
             @Override
             public void play(PlaybackHandler playbackHandler, String trackName) {
@@ -22,7 +32,7 @@ public class Chord extends Notation {
                         int channel = playbackHandler.requestChannel();
 
                         ShortMessage startMessage = new ShortMessage();
-                        startMessage.setMessage(ShortMessage.NOTE_ON, channel, tones[i], velocity);
+                        startMessage.setMessage(ShortMessage.NOTE_ON, channel, tones[i], 100);
                         startMessages[i] = startMessage;
 
                         ShortMessage endMessage = new ShortMessage();
@@ -34,7 +44,7 @@ public class Chord extends Notation {
                         playbackHandler.passToReceiver(message);
                     }
 
-                    Thread.sleep(lengthInMilli);
+                    Thread.sleep(duration);
 
                     for (ShortMessage message : endMessages) {
                         playbackHandler.passToReceiver(message);
