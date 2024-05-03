@@ -5,19 +5,12 @@ sample test (Guitar) {
     let note1 = 3A3;
     let int1 = 22;
     let pause1 = 9-;
-    note1;
-    note1;
+    chord1;
     pause1;
     note1;
     note1;
     int1;
-    
-    if (note1 > 1) {
-       
-    };
 };
 
 
-play {
-
-};
+play {};

@@ -5,24 +5,31 @@ import Util.PlaybackHandler;
 
 import javax.sound.midi.ShortMessage;
 
-public class Note extends Notation{
-    private final Flag flag;
+public class Note extends Notation {
+    private int tone;
 
-    public Note(int tone, int lengthInMilli, int velocity){
-        this.flag = new Flag() {
-            private int channel;
+    public Note(int tone, int lengthInBeats) {
+        this.tone = tone;
+        this.setLengthInBeats(lengthInBeats);
+        this.buildFlag();
+    }
 
+    @Override
+    protected void buildFlag() {
+        this.setFlag(new Flag() {
             @Override
-            public void play(PlaybackHandler playbackHandler, String trackName){
+            public void play(PlaybackHandler playbackHandler, String trackName) {
                 try {
-                    channel = playbackHandler.requestChannel();
+                    int channel = playbackHandler.requestChannel();
                     playbackHandler.registerFlag(this);
 
                     ShortMessage startMessage = new ShortMessage();
-                    startMessage.setMessage(ShortMessage.NOTE_ON, channel, tone, velocity);
+                    startMessage.setMessage(ShortMessage.NOTE_ON, channel, tone, 100);
                     playbackHandler.passToReceiver(startMessage);
 
-                    Thread.sleep(lengthInMilli);
+                    System.out.println("Thread Sleep: " + this.getDuration());
+                    Thread.sleep(this.getDuration());
+                    System.out.println("Thread Awake");
 
                     ShortMessage endMessage = new ShortMessage();
                     endMessage.setMessage(ShortMessage.NOTE_OFF, channel, tone, 0);
@@ -31,15 +38,10 @@ public class Note extends Notation{
                     playbackHandler.unregisterFlag(this);
                     playbackHandler.freeChannel(channel);
                     playbackHandler.resumePlayback(trackName);
-                }catch (Exception e){
+                } catch (Exception e) {
                     System.out.println("Yep. That wasn't supposed to happen. (Error in Notation) " + e.getMessage());
                 }
             }
-        };
-    }
-
-    @Override
-    public Flag getFlag() {
-        return flag;
+        });
     }
 }

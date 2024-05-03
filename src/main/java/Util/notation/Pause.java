@@ -3,39 +3,31 @@ package Util.notation;
 import Util.Flag;
 import Util.PlaybackHandler;
 
-public class Pause extends Notation{
-    private Flag flag;
+public class Pause extends Notation {
 
-    private long duration;
-    private final int lengthInBeats;
-
-    public Pause(int lengthInMilli){
-        this.lengthInBeats = lengthInMilli;
+    public Pause(int lengthInMilli) {
+        this.setLengthInBeats(lengthInMilli);
+        this.buildFlag();
     }
 
     @Override
-    public void applyBpm(long tickDelay) {
-        this.duration = tickDelay * lengthInBeats;
-        this.flag = new Flag() {
-
+    protected void buildFlag() {
+        this.setFlag(new Flag() {
             @Override
-            public void play(PlaybackHandler playbackHandler, String trackName){
+            public void play(PlaybackHandler playbackHandler, String trackName) {
                 try {
                     playbackHandler.registerFlag(this);
 
-                    Thread.sleep(duration);
+                    System.out.println("Thread Sleep: " + this.getDuration());
+                    Thread.sleep(this.getDuration());
+                    System.out.println("Thread Awake");
 
                     playbackHandler.unregisterFlag(this);
                     playbackHandler.resumePlayback(trackName);
-                }catch (Exception e){
+                } catch (Exception e) {
                     System.out.println("Yep. That wasn't supposed to happen. (Error in Notation) " + e.getMessage());
                 }
             }
-        };
-    }
-
-    @Override
-    public Flag getFlag() {
-        return flag;
+        });
     }
 }

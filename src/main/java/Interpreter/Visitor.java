@@ -43,7 +43,7 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
         }
         try {
             System.out.println("Start Playback");
-            playbackHandler.startPlayback();
+            new Thread(() -> playbackHandler.startPlayback()).start();
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
@@ -92,9 +92,9 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
             String note = symbolTable.retrieveSymbolValue(variable).toString();
             int duration = Integer.parseInt(note.substring(0, 1));
             note = note.substring(1);
-            System.out.println(" HERHE HREHRHEHREHREHNote: " + note);
+            System.out.println("Note: " + note);
 
-            playbackHandler.addNotation("default", new Util.notation.Note(100, noteToMidi(note), duration));
+            playbackHandler.addNotation("default", new Util.notation.Note(noteToMidi(note), duration));
             //timingHandler.addNote(new Note(100, noteToMidi(note), duration), "default", 0);
 
         } else if (symbolTable.retrieveSymbol(variable) instanceof ChordStatement) {

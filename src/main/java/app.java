@@ -31,12 +31,10 @@ public class app {
         parser.removeErrorListeners();
         parser.addErrorListener(ErrorChecker.INSTANCE);
         ParseTree tree = parser.program();
-        System.out.println(parser);
         Visitor astBuilder = new Visitor();
 
         // Build the AST from the parse tree
         ASTNode ast = astBuilder.visit(tree);
-        System.out.println(ast);
        // MidiInterpreter interpreter = new MidiInterpreter();
        // interpreter.interpretAST(ast);
 

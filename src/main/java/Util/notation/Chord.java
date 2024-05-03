@@ -6,20 +6,17 @@ import Util.Flag;
 import javax.sound.midi.ShortMessage;
 
 public class Chord extends Notation {
-    private Flag flag;
-    private long duration;
-    private final int lengthInBeats;
     int[] tones;
 
     public Chord(int[] tones, int lengthInBeats) {
-        this.lengthInBeats = lengthInBeats;
+        this.setLengthInBeats(lengthInBeats);
         this.tones = tones;
+        buildFlag();
     }
 
     @Override
-    public void applyBpm(long tickDelay) {
-        this.duration = tickDelay * lengthInBeats;
-        this.flag = new Flag() {
+    protected void buildFlag(){
+        this.setFlag(new Flag() {
             @Override
             public void play(PlaybackHandler playbackHandler, String trackName) {
                 try {
@@ -44,7 +41,7 @@ public class Chord extends Notation {
                         playbackHandler.passToReceiver(message);
                     }
 
-                    Thread.sleep(duration);
+                    Thread.sleep(this.getDuration());
 
                     for (ShortMessage message : endMessages) {
                         playbackHandler.passToReceiver(message);
@@ -58,11 +55,6 @@ public class Chord extends Notation {
                     System.out.println("Yep. That wasn't supposed to happen. (Error in Notation) " + e.getMessage());
                 }
             }
-        };
-    }
-
-    @Override
-    public Flag getFlag() {
-        return flag;
+        });
     }
 }
