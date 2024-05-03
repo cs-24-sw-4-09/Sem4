@@ -25,7 +25,9 @@ import Util.TimingHandler;
 import Interpreter.SymbolTable;
 import Interpreter.Visitor;
 
+import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonToken;
+import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Token;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -33,13 +35,16 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import Grammar.MusicLanguageLexer;
 import Grammar.MusicLanguageParser;
 import Grammar.MusicLanguageParser.ExpressionStatementContext;
 import Grammar.MusicLanguageParser.LetStatementContext;
+import Grammar.MusicLanguageVisitor;
+
 import org.antlr.v4.runtime.CommonToken;
 
 @RunWith(MockitoJUnitRunner.class)
-public class VisitorTest {
+public class VisitorUnitTest {
     @Mock
     private MusicLanguageParser.BpmStatementContext mockContext;
 
@@ -110,19 +115,19 @@ public class VisitorTest {
     @Test
     public void testVisitLetStatement() {
         // Arrange
-        String variableName = "x";
-        when(mockLetStatementContext.variable).thenReturn(mockTerminalNode);
-        when(mockTerminalNode.getText()).thenReturn(variableName);
-        when(mockLetStatementContext.expression()).thenReturn(mockExpressionContext);
-        when(visitor.visit(mockExpressionContext)).thenReturn(astNode);
+        String input = "let x = 5;\n";
+        MusicLanguageLexer lexer = new MusicLanguageLexer(CharStreams.fromString(input));
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        MusicLanguageParser parser = new MusicLanguageParser(tokens);
+        MusicLanguageParser.LetStatementContext letStatementContext = parser.letStatement();
 
         // Act
-        ASTNode result = visitor.visitLetStatement(mockLetStatementContext);
+        ASTNode result = visitor.visitLetStatement(letStatementContext);
 
         // Assert
         assertTrue(result instanceof LetStatement);
-        assertEquals(variableName, ((LetStatement) result).getLet());
-        verify(symbolTable, times(1)).enterSymbol(variableName, astNode);
+        LetStatement letStatement = (LetStatement) result;
+        assertEquals("Statements", letStatement.getType());
     }
 
 

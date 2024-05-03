@@ -33,6 +33,10 @@ import java.util.Arrays;
             this.timingHandler = timingHandler;
         }
 
+        public SymbolTable getSymbolTable() {
+            return symbolTable;
+        }
+
         
         @Override
         public ASTNode visitProgram(MusicLanguageParser.ProgramContext ctx) {
