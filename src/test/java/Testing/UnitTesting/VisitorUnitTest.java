@@ -6,29 +6,16 @@ import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 
 import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
 
-import java.beans.Expression;
-import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.List;
 
 import Interpreter.Nodes.*;
-import Util.Note;
 import Util.TimingHandler;
 import Interpreter.SymbolTable;
 import Interpreter.Visitor;
 
 import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonToken;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.Token;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -37,11 +24,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import Grammar.MusicLanguageLexer;
 import Grammar.MusicLanguageParser;
-import Grammar.MusicLanguageParser.ExpressionStatementContext;
-import Grammar.MusicLanguageParser.LetStatementContext;
-import Grammar.MusicLanguageVisitor;
 
-import org.antlr.v4.runtime.CommonToken;
 
 @RunWith(MockitoJUnitRunner.class)
 public class VisitorUnitTest {
