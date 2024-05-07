@@ -77,6 +77,22 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
     }
 
     @Override
+    public ASTNode visitWhileStatement(MusicLanguageParser.WhileStatementContext ctx) {
+        System.out.println("VisitWhileStatement called");
+        ASTNode condition = visit(ctx.expression());
+        List<ASTNode> statements = new ArrayList<>();
+        for (MusicLanguageParser.StatementContext statementContext : ctx.statement()) {
+            statements.add(visit(statementContext));
+
+        }
+        WhileStatement whileStatement = new WhileStatement(condition, statements);
+        return whileStatement;
+    }
+
+
+    
+
+    @Override
     public ASTNode visitExpressionStatement(MusicLanguageParser.ExpressionStatementContext ctx) {
         System.out.println("visitExpressionStatement called");
         String variable = ctx.expression().getText();
