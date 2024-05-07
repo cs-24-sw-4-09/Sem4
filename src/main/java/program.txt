@@ -5,9 +5,13 @@ sample test (Guitar) {
     let note1 = 3A3;
     let int1 = 22;
     let pause1 = 9-;
+    let pause2 = 2-;
     chord1;
     pause1;
     note1;
+    pause1 = pause2;
+    note1;
+    pause1;
     note1;
     int1;
 };
