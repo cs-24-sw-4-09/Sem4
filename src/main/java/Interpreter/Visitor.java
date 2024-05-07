@@ -244,11 +244,10 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
 
         ASTNode value = visit(ctx.expression()); // Get the value of the variable
         System.out.println("Value: " + value);
-        
+
         AssignementStatement assignementStatement = new AssignementStatement(variableName, value);
         symbolTable.enterSymbol(variableName, value);
-        
-        return null;
+        return assignementStatement;
     }
 
     public int noteToMidi(String note) {

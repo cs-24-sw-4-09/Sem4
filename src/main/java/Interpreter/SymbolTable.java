@@ -9,7 +9,7 @@ public class SymbolTable {
     public void enterSymbol(String name, ASTNode value) {
         Symbol newSymbol = new Symbol(name, value);
 
-        if (containsSymbol(symbol.name)) {
+        if (containsSymbol(newSymbol.name)) {
             delete(newSymbol.name);
         } 
         add(newSymbol);
@@ -19,6 +19,11 @@ public class SymbolTable {
     public void add(Symbol symbol){
         System.out.println("Adding symbol: " + symbol.name + " to the symbol table");
         hashmap.put(symbol.name, symbol);
+    }
+
+    public void delete(String name){
+        System.out.println("Deleting symbol: " + name + " from the symbol table");
+        hashmap.remove(name);
     }
 
     public ASTNode retrieveSymbol(String name){
