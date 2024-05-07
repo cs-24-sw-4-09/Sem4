@@ -8,6 +8,10 @@ public class SymbolTable {
 
     public void enterSymbol(String name, ASTNode value) {
         Symbol newSymbol = new Symbol(name, value);
+
+        if (containsSymbol(symbol.name)) {
+            delete(newSymbol.name);
+        } 
         add(newSymbol);
     }
 
@@ -29,6 +33,10 @@ public class SymbolTable {
 
     public ASTNode retrieveSymbolValue(String name){
         return hashmap.get(name).value;
+    }
+    
+    public boolean containsSymbol(String name){
+        return hashmap.containsKey(name);
     }
 
     // public ASTNode retrieveSymbolValue(Symbol symbol){

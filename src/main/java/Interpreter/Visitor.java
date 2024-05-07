@@ -77,17 +77,254 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
     }
 
     @Override
+    public ASTNode visitArithmeticOperation(MusicLanguageParser.ArithmeticOperationContext ctx){
+        System.out.println("VisitArithmeticOperation called");
+        String expressionText = ctx.getText();
+        System.out.println("Expression: " + expressionText);
+        IntegerValueNode integerValueNode = new IntegerValueNode(0);
+        if(expressionText != null) {
+            String[] components = expressionText.split("(?<=\\w)(?=\\+|\\-|\\*|\\/)");
+            if (components.length != 3) {
+                System.err.println("Invalid expression format: " + expressionText);
+                return null;
+            }
+            String firstVariable = components[0].trim();
+            String operator = components[1].trim();
+            String secondVariable = components[2].trim();
+            ASTNode firstValue = symbolTable.retrieveSymbol(firstVariable);
+            ASTNode secondValue = symbolTable.retrieveSymbol(secondVariable);
+            System.out.println("First value: " + firstValue + " Second value: " + secondValue);
+            if (firstValue instanceof IntegerValueNode && secondValue instanceof IntegerValueNode) {
+                int firstInt = ((IntegerValueNode) firstValue).getValue();
+                int secondInt = ((IntegerValueNode) secondValue).getValue();
+                switch (operator) {
+                    case "+":
+                        integerValueNode.setValue(firstInt + secondInt);
+                        break;
+                    case "-":
+                        integerValueNode.setValue(firstInt - secondInt);
+                        break;
+                    case "*":
+                        integerValueNode.setValue(firstInt * secondInt);
+                        break;
+                    case "/":
+                        integerValueNode.setValue(firstInt / secondInt);
+                        break;
+                    default:
+                        System.err.println("Invalid operator: " + operator);
+                        return null;
+                }
+            } else {
+                System.err.println("Invalid arithmetic operation: " + firstVariable + " " + operator + " " + secondVariable);
+                return null;
+            }
+        }
+        return integerValueNode;
+    }
+
+    @Override
+    public ASTNode visitLogicalOperation(MusicLanguageParser.LogicalOperationContext ctx){
+        System.out.println("VisitLogicalOperation called");
+        String expressionText = ctx.getText();
+        System.out.println("Expression: " + expressionText);
+        BooleanValueNode booleanValueNode = new BooleanValueNode(false);
+        if(expressionText != null) {
+            String[] components = expressionText.split("(?<=\\w)(?=(&&|\\|\\|))|(?<=(&&|\\|\\|))(?=\\w)");
+            if (components.length != 3) {
+                System.err.println("Invalid expression format: " + expressionText);
+                return null;
+            }
+            String firstVariable = components[0].trim();
+            String operator = components[1].trim();
+            String secondVariable = components[2].trim();
+            ASTNode firstValue = symbolTable.retrieveSymbol(firstVariable);
+            ASTNode secondValue = symbolTable.retrieveSymbol(secondVariable);
+            if (firstValue instanceof BooleanValueNode && secondValue instanceof BooleanValueNode) {
+                boolean firstBool = ((BooleanValueNode) firstValue).getValue();
+                boolean secondBool = ((BooleanValueNode) secondValue).getValue();
+                switch (operator) {
+                    case "&&":
+                        booleanValueNode.setValue(firstBool && secondBool);
+                        break;
+                    case "||":
+                        booleanValueNode.setValue(firstBool || secondBool);
+                        break;
+                    default:
+                        System.err.println("Invalid operator: " + operator);
+                        return null;
+                }
+            } else {
+                System.err.println("Invalid logical operation: " + firstVariable + " " + operator + " " + secondVariable);
+                return null;
+            }
+        }
+        return booleanValueNode;
+    }
+
+    @Override
+    public ASTNode visitParenthesis(MusicLanguageParser.ParenthesisContext ctx) {
+        System.out.println("VisitParenthesis called");
+
+        return null;
+    }
+
+    @Override
+    public ASTNode visitNotOperation(MusicLanguageParser.NotOperationContext ctx){
+        System.out.println("VisitNotOperation called");
+        String expressionText = ctx.getText();
+        System.out.println("Expression: " + expressionText);
+        BooleanValueNode booleanValueNode = new BooleanValueNode(false);
+        if(expressionText != null) {
+            String[] components = expressionText.split("!");
+            if (components.length != 2) {
+                System.err.println("Invalid expression format: " + expressionText);
+                return null;
+            }
+            String operator = components[0].trim();
+            String variable = components[1].trim();
+            ASTNode value = symbolTable.retrieveSymbol(variable);
+            if (value instanceof BooleanValueNode) {
+                boolean bool = ((BooleanValueNode) value).getValue();
+                booleanValueNode.setValue(!bool);
+            } else {
+                System.err.println("Invalid logical operation: " + operator + " " + variable);
+                return null;
+            }
+        }
+        return booleanValueNode;
+    }
+    
+    @Override
+    public ASTNode visitComparison(MusicLanguageParser.ComparisonContext ctx) {
+        System.out.println("VisitComparison called");
+        String expressionText = ctx.getText();
+        System.out.println("Expression: " + expressionText);
+        BooleanValueNode booleanValueNode = new BooleanValueNode(false);
+        if(expressionText != null) {
+            String[] components = expressionText.split("(?<=\\w)(?=([<>!=]=|[<>]))|(?<=[<>!=]=|[<>])(?=\\w)");
+            if (components.length != 3) {
+                System.err.println("Invalid expression format: " + expressionText);
+                return null;
+            }
+            String firstVariable = components[0].trim();
+            String operator = components[1].trim();
+            String secondVariable = components[2].trim();
+            ASTNode firstValue = symbolTable.retrieveSymbol(firstVariable);
+            ASTNode secondValue = symbolTable.retrieveSymbol(secondVariable);
+            if (firstValue instanceof IntegerValueNode && secondValue instanceof IntegerValueNode) {
+                int firstInt = ((IntegerValueNode) firstValue).getValue();
+                int secondInt = ((IntegerValueNode) secondValue).getValue();
+                switch (operator) {
+                    case "<":
+                        booleanValueNode.setValue(firstInt < secondInt);
+                        break;
+                    case "<=":
+                        booleanValueNode.setValue(firstInt <= secondInt);
+                        break;
+                    case ">":
+                        booleanValueNode.setValue(firstInt > secondInt);
+                        break;
+                    case ">=":
+                        booleanValueNode.setValue(firstInt >= secondInt);
+                        break;
+                    case "==":
+                        booleanValueNode.setValue(firstInt == secondInt);
+                        break;
+                    case "!=":
+                        booleanValueNode.setValue(firstInt != secondInt);
+                        break;
+                    default:
+                        System.err.println("Invalid operator: " + operator);
+                        return null;
+                }
+            } else {
+                System.err.println("Invalid comparison: " + firstVariable + " " + operator + " " + secondVariable);
+                return null;
+            }
+        }
+
+        return booleanValueNode;
+    }
+
+    @Override
     public ASTNode visitWhileStatement(MusicLanguageParser.WhileStatementContext ctx) {
         System.out.println("VisitWhileStatement called");
-        ASTNode condition = visit(ctx.expression());
-        List<ASTNode> statements = new ArrayList<>();
-        for (MusicLanguageParser.StatementContext statementContext : ctx.statement()) {
-            statements.add(visit(statementContext));
+        ASTNode value = null;
 
+        while (visit(ctx.expression()) instanceof BooleanValueNode c && c.getValue()) {
+            for ( MusicLanguageParser.StatementContext statementContext : ctx.statement()) {
+                value = visit(statementContext);
+                System.out.println("Statement: " + statementContext.getText());
+            }
         }
-        WhileStatement whileStatement = new WhileStatement(condition, statements);
-        return whileStatement;
+
+        if (!(visit(ctx.expression()) instanceof BooleanValueNode))
+            throw new RuntimeException("While condition must be a boolean");
+        
+        return value;
     }
+ /* 
+    @Override
+    public ASTNode visitWhileStatement(MusicLanguageParser.WhileStatementContext ctx) {
+        System.out.println("VisitWhileStatement called" + ctx.expression());
+        String expressionText = ctx.expression().getText();
+        visit(ctx.expression());
+        String[] components = expressionText.split("(?<=\\w)(?=([<>!=]=|[<>]))|(?<=[<>!=]=|[<>])(?=\\w)");
+    
+        if (components.length != 3) {
+            System.err.println("Invalid expression format: " + expressionText);
+            return null;
+        }
+    
+        // Extract the components
+        String firstVariable = components[0].trim();
+        String operator = components[1].trim();
+        String secondVariable = components[2].trim();
+        System.out.println("First variable: " + firstVariable);
+        System.out.println("Operator: " + operator);
+        System.out.println("Second variable: " + secondVariable);
+    
+        // Evaluate the expression
+        
+        System.out.println(symbolTable.retrieveSymbol(firstVariable));
+        int secondValue;
+        if (secondVariable.matches("\\d+")) {
+            secondValue = Integer.parseInt(secondVariable);
+        }
+    
+     while (evaluateExpression(int1, operator, secondValue)) {
+            for (MusicLanguageParser.StatementContext statementContext : ctx.statement()) {
+                visit(statementContext);
+                System.out.println("Statement: " + statementContext.getText());
+            }
+            int1++;
+        }
+        
+    
+        return new ASTNode("while loop executed");
+    }
+    
+    
+    private boolean evaluateExpression(int int1, String operator, int secondValue) {
+        switch (operator) {
+            case "<":
+                return int1 < secondValue;
+            case "<=":
+                return int1 <= secondValue;
+            case ">":
+                return int1 > secondValue;
+            case ">=":
+                return int1 >= secondValue;
+            case "==":
+                return int1 == secondValue;
+            case "!=":
+                return int1 != secondValue;
+            default:
+                System.err.println("Invalid operator: " + operator);
+                return false;
+        }
+    }
+    */
 
 
     
