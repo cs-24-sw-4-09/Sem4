@@ -215,12 +215,24 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
         for (MusicLanguageParser.StatementContext statementContext : ctx.statement()) {
             sampleStatement.addChild(visit(statementContext));
         }
+        symbolTable.enterSymbol(sample, sampleStatement);
+        symbolTable.retrieveSymbol(sample);
         return sampleStatement;
+    }
+
+    @Override
+    public ASTNode visitSampleCallStatement(MusicLanguageParser.SampleCallStatementContext ctx) {
+        String sample = ctx.STRING().getText();
+        
+        
+        return null;
+        
     }
     /*
     @Override
     public ASTNode visitPlayStatement(MusicLanguageParser.PlayStatementContext ctx) {
         String sample = ctx.getText();
+        symbolTable.retrieveSymbol(sample);
         PlayStatement playStatement = new PlayStatement(sample);
         for (MusicLanguageParser.SampleStatementContext sampleStatementContext : ctx.sampleStatement()) {
             playStatement.addChild(visit(sampleStatementContext));

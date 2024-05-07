@@ -29,6 +29,7 @@ statement //: noteStatement
           | expressionStatement
           | assignementStatement
           | soundStatement
+          | sampleCallStatement
           ;
 
 // noteStatement :  'note' octave=NOTE ';';
@@ -57,8 +58,9 @@ expressionStatement : expression ENDLINE;
 
 soundStatement : 'sound' '(' variable=STRING ')'ENDLINE;
 
-expression : STRING '()' ('&' STRING'()')*                                          #SampleCall
-           | expression op=( '+' | '-' | '*' | '/' ) expression                     #ArithmeticOperation
+sampleCallStatement : STRING '()' ('&' STRING'()')* ENDLINE;
+
+expression : expression op=( '+' | '-' | '*' | '/' ) expression                     #ArithmeticOperation
            | expression op=( '==' | '!=' | '<' | '<=' | '>=' | '>' ) expression     #Comparison
            | expression op=( '&&' | '||' ) expression                               #LogicalOperation
            | '!' expression                                                         #notOperation 

@@ -1,8 +1,11 @@
 package Interpreter.Nodes;
+import java.util.List;
+
 
 public class SampleStatement extends Statements {
     private String sample;
     private String instrument;
+    private List<Statements> statements;
 
     public SampleStatement(String sample, String instrument) {
         super("sampleStatement");
@@ -24,5 +27,13 @@ public class SampleStatement extends Statements {
 
     public void setInstrument(String instrument) {
         this.instrument = instrument;
+    }
+
+    public void setStatements(List<Statements> statements) {
+        this.statements = statements;
+    }
+
+    public List<Statements> getStatements() {
+        return statements;
     }
 }
