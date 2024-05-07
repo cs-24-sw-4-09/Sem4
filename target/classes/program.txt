@@ -4,11 +4,12 @@ sample test (Guitar) {
     let chord1 = [3A3,4C3,2D5,4G6];
     let note1 = 3A3;
     let int1 = 1;
-    let int2 = 3;
-    while(int1 < int2){
+    let int3 = 1;
+    let int2 = 2;
+    while(int1 <= int2){
     chord1;
     note1;
-    int1 = int1 + int2; 
+    int1 = int1 + 1 + 2; 
     };
 };
 
