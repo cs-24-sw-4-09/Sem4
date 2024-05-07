@@ -6,8 +6,6 @@ import Interpreter.Nodes.*;
 
 import java.util.Arrays;
 
-import javax.sound.midi.*;
-
 import Util.*;
 import Util.notation.Chord;
 import Util.notation.Pause;
@@ -135,7 +133,6 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
             // timingHandler.addPause(duration, "default");
 
             playbackHandler.addNotation("default", new Pause(pause.getDuration()));
-
         } else if (symbolTable.retrieveSymbol(variable) instanceof PauseStatement) {
             PauseStatement pause = (PauseStatement) symbolTable.retrieveSymbol(variable);
             // int duration = pause.getDuration();
@@ -165,7 +162,7 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
     public ASTNode visitNote(MusicLanguageParser.NoteContext ctx) {
         String note = ctx.getText();
         NoteStatement noteStatement = new NoteStatement(note);
-        System.out.println("kig lgie din dejlige person: " + note);
+        System.out.println("Visited Note: " + note);
         return noteStatement;
     }
 
@@ -174,13 +171,13 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
         String chord = ctx.getText();
         String[] notes = chord.split(",");
         ChordStatement chordStatement = new ChordStatement(Arrays.asList(notes));
-        System.out.println("Chord: " + chord);
+        System.out.println("Visited Chord: " + chord);
         return chordStatement;
     }
 
     @Override
     public ASTNode visitPause(MusicLanguageParser.PauseContext ctx) {
-        System.out.println("VistitPause called");
+        System.out.println("Pause Visited");
         String text = ctx.getText();
         int duration = Integer.parseInt(text.substring(0, text.length() - 1)); // remove the '-' and parse the number
         PauseStatement pauseStatement = new PauseStatement(duration);

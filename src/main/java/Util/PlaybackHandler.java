@@ -77,7 +77,7 @@ public class PlaybackHandler extends Thread {
          * @param message The message to be passed to the receiver
          */
 
-        System.out.println("Passed message: " + message.getCommand() + ", channel: " + message.getChannel() + " Data1: " + message.getData1());
+        // System.out.println("Passed message: " + message.getCommand() + ", channel: " + message.getChannel() + " Data1: " + message.getData1());
         this.receiver.send(message, 0);
     }
 
@@ -86,7 +86,7 @@ public class PlaybackHandler extends Thread {
          * Adds a flag to the list of active flags.
          * @param flag The flag to be registered
          */
-        //System.out.println("Registered: " + flag);
+        System.out.println(flag);
         this.activeFlags.add(flag);
     }
 
@@ -107,6 +107,7 @@ public class PlaybackHandler extends Thread {
         try {
             int channel = this.freeChannels.get(0);
             this.freeChannels.remove(0);
+            // System.out.println("Requested Channel: " + channel);
             return channel;
         } catch (Exception e){
             throw new Exception("No further channels are available for playback.");
@@ -118,6 +119,8 @@ public class PlaybackHandler extends Thread {
          * Adds a channel back to the pool of channels with no playback.
          * @param channel The channel to be added back to the pool
          */
+
+        // System.out.println("Freed Channel: " + channel);
         this.freeChannels.add(channel, channel);
     }
 
