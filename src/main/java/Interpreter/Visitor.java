@@ -490,6 +490,20 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
     }
     */
 
+    @Override
+    public ASTNode visitAssignementStatement(MusicLanguageParser.AssignementStatementContext ctx) {
+        String variableName = ctx.STRING().getText(); // Get the variable name
+        System.out.println("Variable name: " + variableName);  
+
+        ASTNode value = visit(ctx.expression()); // Get the value of the variable
+        System.out.println("Value: " + value);
+        
+        AssignementStatement assignementStatement = new AssignementStatement(variableName, value);
+        symbolTable.enterSymbol(variableName, value);
+        
+        return null;
+    }
+
     public int noteToMidi(String note) {
         char noteName;
         int octave;
