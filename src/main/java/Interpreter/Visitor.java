@@ -210,11 +210,15 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
     public ASTNode visitSampleStatement(MusicLanguageParser.SampleStatementContext ctx) {
         String sample = ctx.STRING().getText();
         String instrument = ctx.INSTRUMENT().getText();
-        SampleStatement sampleStatement = new SampleStatement(sample, instrument);
+        List<MusicLanguageParser.StatementContext> statements = ctx.statement();
+        SampleStatement sampleStatement = new SampleStatement(sample, instrument, statements);
         System.out.println("Sample: " + sample + " Instrument: " + instrument);
+        /* 
         for (MusicLanguageParser.StatementContext statementContext : ctx.statement()) {
             sampleStatement.addChild(visit(statementContext));
         }
+        */
+        
         symbolTable.enterSymbol(sample, sampleStatement);
         symbolTable.retrieveSymbol(sample);
         return sampleStatement;
@@ -222,8 +226,17 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
 
     @Override
     public ASTNode visitSampleCallStatement(MusicLanguageParser.SampleCallStatementContext ctx) {
-        String sample = ctx.STRING().getText();
-        
+        String sample = ctx.getText();
+        sample = sample.substring(0, sample.length() - 3); // remove the semicolon
+        System.out.println("SampleCall: " + sample);
+        symbolTable.retrieveSymbol(sample);
+        SampleStatement sampleStatement = (SampleStatement) symbolTable.retrieveSymbolValue(sample);
+        for (MusicLanguageParser.StatementContext statementContext : sampleStatement.getStatements()) {
+            System.out.println("visiting");
+            visit(sampleStatement.getStatements().get(sampleStatement.getStatements().indexOf(statementContext)));
+            System.out.println("done visiting");
+        }
+        System.out.println("SampleStatement: " + sampleStatement);
         
         return null;
         
