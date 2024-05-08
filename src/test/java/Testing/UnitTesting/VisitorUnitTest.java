@@ -6,8 +6,10 @@ import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.util.Collections;
 
 import Interpreter.Nodes.*;
 import Util.TimingHandler;
@@ -24,7 +26,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import Grammar.MusicLanguageLexer;
 import Grammar.MusicLanguageParser;
-
 
 @RunWith(MockitoJUnitRunner.class)
 public class VisitorUnitTest {
@@ -46,7 +47,7 @@ public class VisitorUnitTest {
     @Mock
     private MusicLanguageParser.StringContext mockStringContext;
 
-    @Mock 
+    @Mock
     private MusicLanguageParser.NoteContext mockNoteContext;
 
     @Mock
@@ -57,6 +58,36 @@ public class VisitorUnitTest {
 
     @Mock
     private MusicLanguageParser.SampleStatementContext mockSampleStatementContext;
+
+    @Mock
+    private MusicLanguageParser.WhileStatementContext mockWhileStatementContext;
+
+    @Mock
+    private MusicLanguageParser.IfStatementContext mockIfStatementContext;
+
+    @Mock
+    private MusicLanguageParser.RepeatStatementContext mockRepeatStatementContext;
+
+    @Mock
+    private MusicLanguageParser.ElseStatementContext mockElseStatementContext;
+
+    @Mock
+    private MusicLanguageParser.ArithmeticOperationContext mockArithmeticOperationContext;
+
+    @Mock
+    private MusicLanguageParser.LogicalOperationContext mockLogicalOperationContext;
+
+    @Mock
+    private MusicLanguageParser.ParenthesisContext mockParenthesisContext;
+
+    @Mock
+    private MusicLanguageParser.NotOperationContext mockNotOperationContext;
+
+    @Mock
+    private MusicLanguageParser.ComparisonContext mockComparisonContext;
+
+    @Mock
+    private MusicLanguageParser.StatementContext mockStatementContext;
 
     @Mock
     private TerminalNode mockTerminalNode;
@@ -70,26 +101,24 @@ public class VisitorUnitTest {
     @Mock
     private SymbolTable symbolTable;
 
-    @InjectMocks   
+    @InjectMocks
     Visitor visitor = new Visitor();
 
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
         visitor = new Visitor();
-        visitor.setTimingHandler(mockTimingHandler);
     }
-
 
     @Test
     public void testVisitBpmStatement() {
-        //Arrange
+        // Arrange
         when(mockContext.INT()).thenReturn(mockTerminalNode);
         when(mockTerminalNode.getText()).thenReturn("120");
-        
+
         // Act
         ASTNode result = visitor.visitBpmStatement(mockContext);
-        
+
         // Assert
         assertTrue(result instanceof BpmStatement);
         assertEquals(120, ((BpmStatement) result).getBpm());
@@ -112,7 +141,6 @@ public class VisitorUnitTest {
         LetStatement letStatement = (LetStatement) result;
         assertEquals("Statements", letStatement.getType());
     }
-
 
     @Test
     public void testVisitNumber() {
@@ -143,7 +171,7 @@ public class VisitorUnitTest {
     }
 
     @Test
-    public void testVisitNote(){
+    public void testVisitNote() {
         // Arrange
         String expectedNote = "C";
         when(mockNoteContext.getText()).thenReturn(expectedNote);
@@ -156,7 +184,7 @@ public class VisitorUnitTest {
     }
 
     @Test
-    public void testVisitChord(){
+    public void testVisitChord() {
         // Arrange
         String expectedChord = "C, D, E";
         when(mockChordContext.getText()).thenReturn(expectedChord);
@@ -182,7 +210,7 @@ public class VisitorUnitTest {
     }
 
     @Test
-    public void testVisitSampleStatement(){
+    public void testVisitSampleStatement() {
         // Arrange
         String expectedSample = "sample";
         String expectedInstrument = "instrument";
@@ -196,6 +224,23 @@ public class VisitorUnitTest {
 
         // Assert
         assertEquals(SampleStatement.class, result.getClass());
+    }
+
+    @Test
+    public void testVisitWhileStatement() {
+        MusicLanguageParser.WhileStatementContext mockWhileStatementContext = mock(
+                MusicLanguageParser.WhileStatementContext.class);
+        MusicLanguageParser.ExpressionContext mockExpressionContext = mock(MusicLanguageParser.ExpressionContext.class);
+        when(mockWhileStatementContext.expression()).thenReturn(mockExpressionContext);
+
+        BooleanValueNode booleanValueNode = new BooleanValueNode(false);
+        when(visitor.visit(mockExpressionContext)).thenReturn(booleanValueNode);
+
+        // Act
+        ASTNode result = visitor.visitWhileStatement(mockWhileStatementContext);
+
+        // Assert
+        assertEquals(WhileStatement.class, result.getClass());
     }
 
 }
