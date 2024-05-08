@@ -80,36 +80,23 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
         String expressionText = ctx.getText();
         System.out.println("Expression: " + expressionText);
         IntegerValueNode integerValueNode = new IntegerValueNode(0);
-        int firstInt = 0;
-        int secondInt = 0;
         if (expressionText != null) {
             String[] components = expressionText.split("\\s*(?=[-+*/])|(?<=[-+*/])\\s*");
             System.out.println("Components: " + Arrays.toString(components));
-            if (components.length > 1) {
+            if (components.length != 3) {
                 System.err.println("Invalid expression format: " + expressionText);
                 return null;
             }
             String firstVariable = components[0].trim();
             String operator = components[1].trim();
             String secondVariable = components[2].trim();
-            
-            if (symbolTable.containsSymbol(firstVariable)) {
-                ASTNode firstValue = symbolTable.retrieveSymbol(firstVariable);
-                firstInt = ((IntegerValueNode) firstValue).getValue();
-            } else if(firstVariable.matches("\\d+")) {
-                firstInt = Integer.parseInt(firstVariable);
-            } else {
-                System.err.println("Invalid arithmetic operation: " + firstVariable + " " + operator + " " + secondVariable);
-                return null;
-            }
 
-            if(symbolTable.containsSymbol(secondVariable)) {
-                ASTNode secondValue = symbolTable.retrieveSymbol(secondVariable);
-                secondInt = ((IntegerValueNode) secondValue).getValue();
-            } else if(secondVariable.matches("\\d+")) {
-                secondInt = Integer.parseInt(secondVariable);
-            } else {
-                System.err.println("Invalid arithmetic operation: " + firstVariable + " " + operator + " " + secondVariable);
+            int firstInt = getIntegerValue(firstVariable);
+            int secondInt = getIntegerValue(secondVariable);
+
+            if (firstInt == Integer.MIN_VALUE || secondInt == Integer.MIN_VALUE) {
+                System.err.println(
+                        "Invalid arithmetic operation: " + firstVariable + " " + operator + " " + secondVariable);
                 return null;
             }
 
@@ -132,6 +119,22 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
             }
         }
         return integerValueNode;
+    }
+
+    private int getIntegerValue(String variable) {
+        if (symbolTable.containsSymbol(variable)) {
+            ASTNode value = symbolTable.retrieveSymbol(variable);
+            if (value instanceof IntegerValueNode) {
+                return ((IntegerValueNode) value).getValue();
+            } else {
+                System.err.println("Invalid arithmetic operation: " + variable + " is not an integer value");
+                return Integer.MIN_VALUE;
+            }
+        } else if (variable.matches("\\d+")) {
+            return Integer.parseInt(variable);
+        } else {
+            return Integer.MIN_VALUE;
+        }
     }
 
     @Override
@@ -282,10 +285,26 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
         System.out.println("VisitIfStatement called");
         ASTNode value = null;
 
+        List<MusicLanguageParser.StatementContext> statements = ctx.statement();
+        int elseIndex = -1;
+
+        for (int i = 0; i < statements.size(); i++) {
+            if (statements.get(i).getText().equals("else")) {
+                System.out.println(statements.get(i).getText());
+                elseIndex = i;
+                break;
+            }
+        }
+
         if (visit(ctx.expression()) instanceof BooleanValueNode c && c.getValue()) {
-            for (MusicLanguageParser.StatementContext statementContext : ctx.statement()) {
-                value = visit(statementContext);
-                System.out.println("Statement: " + statementContext.getText());
+            for (int i = 0; i < (elseIndex != -1 ? elseIndex : statements.size()); i++) {
+                value = visit(statements.get(i));
+                System.out.println("Statement: " + statements.get(i).getText());
+            }
+        } else if (elseIndex != -1) {
+            for (int i = elseIndex + 1; i < statements.size(); i++) {
+                value = visit(statements.get(i));
+                System.out.println("Else Statement: " + statements.get(i).getText());
             }
         }
 

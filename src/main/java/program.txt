@@ -6,10 +6,15 @@ sample test (Guitar) {
     let int1 = 1;
     let int3 = 1;
     let int2 = 2;
-    while(int1 <= int2){
+    if(int1 >= int2){
     chord1;
     note1;
-    int1 = int1 + 1 + 2; 
+    int1 = int1 + 1;
+    }
+    else{
+    note1;  
+    note1;
+    note1;
     };
 };
 
