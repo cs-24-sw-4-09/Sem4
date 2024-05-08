@@ -5,7 +5,7 @@ sample test (Guitar) {
     let note1 = 3A3;
     let int1 = 22;
     let pause1 = 1;
-    note1;
+    chord1;
     int1;
 };
 
@@ -18,12 +18,12 @@ sample test2 (Guitar) {
     int1;
 };
 
-let note5 = 1D4;
-note5;
+let note6 = 6D7;
+note6;
 
 play {
-    test();
     test2();
+    test();
     let note3 = 3B2;
     note3;
 };

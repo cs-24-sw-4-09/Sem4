@@ -22,6 +22,7 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
     //private TimingHandler timingHandler;
 
     private PlaybackHandler playbackHandler;
+    private boolean insidePlayBlock = false;
 
 
     public Visitor() {
@@ -33,9 +34,8 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
     public ASTNode visitProgram(MusicLanguageParser.ProgramContext ctx) {
         System.out.println("kigher");
         ASTNode program = new ASTNode("program");
-
         for (MusicLanguageParser.StatementContext statementContext : ctx.statement()) {
-            System.out.println("kigher 2 " + statementContext);
+            System.out.println("kigher 2 " + statementContext.getText());
             visit(statementContext);
         }
         try {
@@ -84,6 +84,9 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
         System.out.println("Retrieved PauseStatement: " + symbolTable.retrieveSymbol("pause" + lineNumber));
         //ASTNode symbolValue = symbolTable.retrieveSymbolValue(variable);
         //System.out.println(symbolTable.retrieveSymbol(variable));
+        if(!insidePlayBlock){
+            return null;
+        }
         if (symbolTable.retrieveSymbol(variable) instanceof NoteStatement) {
             System.out.println("PG13 comment :)  " + symbolTable.retrieveSymbolValue(variable));
             String note = symbolTable.retrieveSymbolValue(variable).toString();
@@ -239,6 +242,7 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
     
     @Override
     public ASTNode visitPlayStatement(MusicLanguageParser.PlayStatementContext ctx) {
+        insidePlayBlock = true;
         String sample = ctx.getText();
         PlayStatement playStatement = new PlayStatement(sample);
         for (MusicLanguageParser.StatementContext statementContext : ctx.statement()) {
@@ -246,6 +250,7 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
             playStatement.addChild(visit(statementContext));
             System.out.println("not Running");
         }
+        insidePlayBlock = false;
         return playStatement;
     }
     
