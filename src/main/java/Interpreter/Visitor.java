@@ -35,11 +35,8 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
         ASTNode program = new ASTNode("program");
 
         for (MusicLanguageParser.StatementContext statementContext : ctx.statement()) {
+            System.out.println("kigher 2 " + statementContext);
             visit(statementContext);
-            //program.addChild(visit(statementContext));
-
-            //ASTNode statementNode = visit(statementContext);
-            // program.addChild(visit(statementContext));
         }
         try {
             System.out.println("Start Playback");
@@ -232,27 +229,26 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
         symbolTable.retrieveSymbol(sample);
         SampleStatement sampleStatement = (SampleStatement) symbolTable.retrieveSymbolValue(sample);
         for (MusicLanguageParser.StatementContext statementContext : sampleStatement.getStatements()) {
-            System.out.println("visiting");
             visit(sampleStatement.getStatements().get(sampleStatement.getStatements().indexOf(statementContext)));
-            System.out.println("done visiting");
         }
         System.out.println("SampleStatement: " + sampleStatement);
         
         return null;
         
     }
-    /*
+    
     @Override
     public ASTNode visitPlayStatement(MusicLanguageParser.PlayStatementContext ctx) {
         String sample = ctx.getText();
-        symbolTable.retrieveSymbol(sample);
         PlayStatement playStatement = new PlayStatement(sample);
-        for (MusicLanguageParser.SampleStatementContext sampleStatementContext : ctx.sampleStatement()) {
-            playStatement.addChild(visit(sampleStatementContext));
+        for (MusicLanguageParser.StatementContext statementContext : ctx.statement()) {
+            System.out.println("Running" + statementContext.getText());
+            playStatement.addChild(visit(statementContext));
+            System.out.println("not Running");
         }
         return playStatement;
     }
-    */
+    
     /*
     @Override
     public ASTNode visitPauseStatement(MusicLanguageParser.PauseStatementContext ctx) {

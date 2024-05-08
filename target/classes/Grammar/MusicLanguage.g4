@@ -58,7 +58,7 @@ expressionStatement : expression ENDLINE;
 
 soundStatement : 'sound' '(' variable=STRING ')'ENDLINE;
 
-sampleCallStatement : STRING '()' ('&' STRING'()')* ENDLINE;
+sampleCallStatement : (STRING'()')* ENDLINE;
 
 expression : expression op=( '+' | '-' | '*' | '/' ) expression                     #ArithmeticOperation
            | expression op=( '==' | '!=' | '<' | '<=' | '>=' | '>' ) expression     #Comparison
