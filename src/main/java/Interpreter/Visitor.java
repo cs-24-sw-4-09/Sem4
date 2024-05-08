@@ -1,6 +1,7 @@
 package Interpreter;
 
 import Grammar.*;
+import Grammar.MusicLanguageParser.StatementContext;
 import Interpreter.Nodes.*;
 
 import java.util.Arrays;
@@ -180,34 +181,21 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
     @Override
     public ASTNode visitParenthesis(MusicLanguageParser.ParenthesisContext ctx) {
         System.out.println("VisitParenthesis called");
-
-        return null;
+        return visit(ctx.expression());
     }
 
     @Override
     public ASTNode visitNotOperation(MusicLanguageParser.NotOperationContext ctx) {
         System.out.println("VisitNotOperation called");
-        String expressionText = ctx.getText();
-        System.out.println("Expression: " + expressionText);
-        BooleanValueNode booleanValueNode = new BooleanValueNode(false);
-        if (expressionText != null) {
-            String[] components = expressionText.split("!");
-            if (components.length != 2) {
-                System.err.println("Invalid expression format: " + expressionText);
-                return null;
-            }
-            String operator = components[0].trim();
-            String variable = components[1].trim();
-            ASTNode value = symbolTable.retrieveSymbol(variable);
-            if (value instanceof BooleanValueNode) {
-                boolean bool = ((BooleanValueNode) value).getValue();
-                booleanValueNode.setValue(!bool);
-            } else {
-                System.err.println("Invalid logical operation: " + operator + " " + variable);
-                return null;
-            }
+        ASTNode value = this.visit(ctx.expression());
+        if (value instanceof BooleanValueNode) {
+            boolean bool = ((BooleanValueNode) value).getValue();
+            BooleanValueNode booleanValueNode = new BooleanValueNode(!bool);
+            return booleanValueNode;
+        } else {
+            System.err.println("Invalid logical operation: " + ctx.getText());
+            return null;
         }
-        return booleanValueNode;
     }
 
     @Override
@@ -225,40 +213,39 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
             String firstVariable = components[0].trim();
             String operator = components[1].trim();
             String secondVariable = components[2].trim();
-            ASTNode firstValue = symbolTable.retrieveSymbol(firstVariable);
-            ASTNode secondValue = symbolTable.retrieveSymbol(secondVariable);
-            if (firstValue instanceof IntegerValueNode && secondValue instanceof IntegerValueNode) {
-                int firstInt = ((IntegerValueNode) firstValue).getValue();
-                int secondInt = ((IntegerValueNode) secondValue).getValue();
-                switch (operator) {
-                    case "<":
-                        booleanValueNode.setValue(firstInt < secondInt);
-                        break;
-                    case "<=":
-                        booleanValueNode.setValue(firstInt <= secondInt);
-                        break;
-                    case ">":
-                        booleanValueNode.setValue(firstInt > secondInt);
-                        break;
-                    case ">=":
-                        booleanValueNode.setValue(firstInt >= secondInt);
-                        break;
-                    case "==":
-                        booleanValueNode.setValue(firstInt == secondInt);
-                        break;
-                    case "!=":
-                        booleanValueNode.setValue(firstInt != secondInt);
-                        break;
-                    default:
-                        System.err.println("Invalid operator: " + operator);
-                        return null;
-                }
-            } else {
+    
+            int firstInt = getIntegerValue(firstVariable);
+            int secondInt = getIntegerValue(secondVariable);
+    
+            if (firstInt == Integer.MIN_VALUE || secondInt == Integer.MIN_VALUE) {
                 System.err.println("Invalid comparison: " + firstVariable + " " + operator + " " + secondVariable);
                 return null;
             }
+    
+            switch (operator) {
+                case "<":
+                    booleanValueNode.setValue(firstInt < secondInt);
+                    break;
+                case "<=":
+                    booleanValueNode.setValue(firstInt <= secondInt);
+                    break;
+                case ">":
+                    booleanValueNode.setValue(firstInt > secondInt);
+                    break;
+                case ">=":
+                    booleanValueNode.setValue(firstInt >= secondInt);
+                    break;
+                case "==":
+                    booleanValueNode.setValue(firstInt == secondInt);
+                    break;
+                case "!=":
+                    booleanValueNode.setValue(firstInt != secondInt);
+                    break;
+                default:
+                    System.err.println("Invalid operator: " + operator);
+                    return null;
+            }
         }
-
         return booleanValueNode;
     }
 
@@ -285,31 +272,33 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
         System.out.println("VisitIfStatement called");
         ASTNode value = null;
 
-        List<MusicLanguageParser.StatementContext> statements = ctx.statement();
-        int elseIndex = -1;
-
-        for (int i = 0; i < statements.size(); i++) {
-            if (statements.get(i).getText().equals("else")) {
-                System.out.println(statements.get(i).getText());
-                elseIndex = i;
-                break;
-            }
-        }
-
         if (visit(ctx.expression()) instanceof BooleanValueNode c && c.getValue()) {
-            for (int i = 0; i < (elseIndex != -1 ? elseIndex : statements.size()); i++) {
-                value = visit(statements.get(i));
-                System.out.println("Statement: " + statements.get(i).getText());
+            for (MusicLanguageParser.StatementContext statementContext : ctx.statement()) {
+                value = visit(statementContext);
+                System.out.println("Statement: " + statementContext.getText());
             }
-        } else if (elseIndex != -1) {
-            for (int i = elseIndex + 1; i < statements.size(); i++) {
-                value = visit(statements.get(i));
-                System.out.println("Else Statement: " + statements.get(i).getText());
+        } else if (ctx.elseStatement() != null) {
+            for (MusicLanguageParser.StatementContext elseStatementContext : ctx.elseStatement().statement()) {
+                value = visit(elseStatementContext);
+                System.out.println("ElseStatement: " + elseStatementContext.getText());
             }
         }
 
         if (!(visit(ctx.expression()) instanceof BooleanValueNode))
             throw new RuntimeException("If condition must be a boolean");
+
+        return value;
+    }
+
+    @Override
+    public ASTNode visitElseStatement(MusicLanguageParser.ElseStatementContext ctx) {
+        System.out.println("VisitElseStatement called");
+        ASTNode value = null;
+
+        for (MusicLanguageParser.StatementContext statementContext : ctx.statement()) {
+            value = visit(statementContext);
+            System.out.println("Statement: " + statementContext.getText());
+        }
 
         return value;
     }

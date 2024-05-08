@@ -5,16 +5,16 @@ sample test (Guitar) {
     let note1 = 3A3;
     let int1 = 1;
     let int3 = 1;
-    let int2 = 2;
-    if(int1 >= int2){
-    chord1;
-    note1;
-    int1 = int1 + 1;
-    }
-    else{
-    note1;  
-    note1;
-    note1;
+    let int2 = 4;
+    let bool = false;
+    let bool2 = false;
+    while(!(int1 > int2)){
+        chord1;
+        note1;
+        int1 = (int1 + 1);
+        if (int1 < 5) {
+            int1 = int1 + 1;
+        };
     };
 };
 

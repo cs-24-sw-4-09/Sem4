@@ -89,6 +89,16 @@ public interface MusicLanguageListener extends ParseTreeListener {
 	 */
 	void exitIfStatement(MusicLanguageParser.IfStatementContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link MusicLanguageParser#elseStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterElseStatement(MusicLanguageParser.ElseStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MusicLanguageParser#elseStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitElseStatement(MusicLanguageParser.ElseStatementContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link MusicLanguageParser#whileStatement}.
 	 * @param ctx the parse tree
 	 */

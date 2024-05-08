@@ -1,8 +1,7 @@
 // Generated from MusicLanguage.g4 by ANTLR 4.13.1
+import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 package Grammar;
 
-
-import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
  * This interface defines a complete generic visitor for a parse tree produced
@@ -60,6 +59,12 @@ public interface MusicLanguageVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitIfStatement(MusicLanguageParser.IfStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MusicLanguageParser#elseStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitElseStatement(MusicLanguageParser.ElseStatementContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MusicLanguageParser#whileStatement}.
 	 * @param ctx the parse tree

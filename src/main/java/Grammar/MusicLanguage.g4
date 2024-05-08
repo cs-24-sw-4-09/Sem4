@@ -47,7 +47,9 @@ repeatStatement : 'repeat' '(' INT ')' '{' statement* '}'ENDLINE;
 
 letStatement : 'let' variable=STRING '=' value=expression ENDLINE;
 
-ifStatement : 'if' '(' expression ')' '{' statement* '}' ('else' '{' statement* '}')?ENDLINE;
+ifStatement : 'if' '(' expression ')' '{' statement* '}' elseStatement?ENDLINE;
+
+elseStatement : 'else' '{' statement* '}';
 
 whileStatement : 'while' '(' expression ')' '{' statement* '}'ENDLINE;
 
@@ -58,11 +60,11 @@ expressionStatement : expression ENDLINE;
 soundStatement : 'sound' '(' variable=STRING ')'ENDLINE;
 
 expression : STRING '()' ('&' STRING'()')*                                          #SampleCall
-           | expression op=( '+' | '-' | '*' | '/' ) expression                     #ArithmeticOperation
+           | '(' expression ')'                                                     #Parenthesis
+           | '!' expression                                                         #notOperation 
+           | expression op=( '*' | '/' | '+' | '-' ) expression                     #ArithmeticOperation
            | expression op=( '==' | '!=' | '<' | '<=' | '>=' | '>' ) expression     #Comparison
            | expression op=( '&&' | '||' ) expression                               #LogicalOperation
-           | '!' expression                                                         #notOperation 
-           | '(' expression ')'                                                     #Parenthesis
            | CHORD                                                                  #Chord
            | NOTE                                                                   #Note
            | PAUSE                                                                  #Pause
