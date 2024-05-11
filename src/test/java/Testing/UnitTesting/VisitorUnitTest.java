@@ -228,19 +228,42 @@ public class VisitorUnitTest {
 
     @Test
     public void testVisitWhileStatement() {
-        MusicLanguageParser.WhileStatementContext mockWhileStatementContext = mock(
-                MusicLanguageParser.WhileStatementContext.class);
+        // Arrange
+        MusicLanguageParser.WhileStatementContext mockWhileStatementContext = mock(MusicLanguageParser.WhileStatementContext.class);
         MusicLanguageParser.ExpressionContext mockExpressionContext = mock(MusicLanguageParser.ExpressionContext.class);
         when(mockWhileStatementContext.expression()).thenReturn(mockExpressionContext);
 
-        BooleanValueNode booleanValueNode = new BooleanValueNode(false);
+        BooleanValueNode booleanValueNode = new BooleanValueNode(true);
         when(visitor.visit(mockExpressionContext)).thenReturn(booleanValueNode);
 
         // Act
         ASTNode result = visitor.visitWhileStatement(mockWhileStatementContext);
 
         // Assert
-        assertEquals(WhileStatement.class, result.getClass());
+        assertTrue(result instanceof WhileStatement);
+        WhileStatement whileStatement = (WhileStatement) result;
+        assertEquals("Statements", whileStatement.getType());
     }
+
+    @Test
+    public void testVisitIfStatement() {
+        // Arrange
+        when(mockIfStatementContext.expression()).thenReturn(mockExpressionContext);
+    
+        BooleanValueNode booleanValueNode = new BooleanValueNode(true);
+        when(visitor.visit(mockExpressionContext)).thenReturn(booleanValueNode);
+    
+        when(mockIfStatementContext.statement()).thenReturn(Collections.singletonList(mockStatementContext));
+    
+        when(visitor.visit(mockStatementContext)).thenReturn(astNode);
+    
+        // Act
+        ASTNode result = visitor.visitIfStatement(mockIfStatementContext);
+    
+        // Assert
+        assertEquals(astNode, result);
+    }
+
+    @Test
 
 }
