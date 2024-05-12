@@ -146,6 +146,7 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
         BooleanValueNode booleanValueNode = new BooleanValueNode(false);
         if (expressionText != null) {
             String[] components = expressionText.split("(?<=\\w)(?=(&&|\\|\\|))|(?<=(&&|\\|\\|))(?=\\w)");
+            System.out.println("Components: " + Arrays.toString(components));
             if (components.length != 3) {
                 System.err.println("Invalid expression format: " + expressionText);
                 return null;
@@ -153,11 +154,15 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
             String firstVariable = components[0].trim();
             String operator = components[1].trim();
             String secondVariable = components[2].trim();
-            ASTNode firstValue = symbolTable.retrieveSymbol(firstVariable);
-            ASTNode secondValue = symbolTable.retrieveSymbol(secondVariable);
-            if (firstValue instanceof BooleanValueNode && secondValue instanceof BooleanValueNode) {
-                boolean firstBool = ((BooleanValueNode) firstValue).getValue();
-                boolean secondBool = ((BooleanValueNode) secondValue).getValue();
+
+            Object firstValue = getValue(firstVariable);
+            Object secondValue = getValue(secondVariable);
+
+            if (firstValue instanceof Boolean || firstValue instanceof BooleanValueNode) {
+                boolean firstBool = (firstValue instanceof Boolean) ? (Boolean) firstValue
+                        : ((BooleanValueNode) firstValue).getValue();
+                boolean secondBool = (secondValue instanceof Boolean) ? (Boolean) secondValue
+                        : ((BooleanValueNode) secondValue).getValue();
                 switch (operator) {
                     case "&&":
                         booleanValueNode.setValue(firstBool && secondBool);
@@ -176,6 +181,21 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
             }
         }
         return booleanValueNode;
+    }
+
+    private Object getValue(String variable) {
+        if (symbolTable.containsSymbol(variable)) {
+            ASTNode value = symbolTable.retrieveSymbol(variable);
+            if (value instanceof BooleanValueNode || value instanceof BooleanValueNode) {
+                return value;
+            }
+        } else if (variable.equals("true")) {
+            return true;
+        } else if (variable.equals("false")) {
+            return false;
+        }
+        System.err.println("Invalid value for variable: " + variable);
+        return null;
     }
 
     @Override
@@ -213,15 +233,15 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
             String firstVariable = components[0].trim();
             String operator = components[1].trim();
             String secondVariable = components[2].trim();
-    
+
             int firstInt = getIntegerValue(firstVariable);
             int secondInt = getIntegerValue(secondVariable);
-    
+
             if (firstInt == Integer.MIN_VALUE || secondInt == Integer.MIN_VALUE) {
                 System.err.println("Invalid comparison: " + firstVariable + " " + operator + " " + secondVariable);
                 return null;
             }
-    
+
             switch (operator) {
                 case "<":
                     booleanValueNode.setValue(firstInt < secondInt);

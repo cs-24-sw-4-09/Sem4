@@ -7,8 +7,11 @@ import org.junit.jupiter.api.BeforeEach;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 import Interpreter.Nodes.*;
@@ -23,6 +26,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 
 import Grammar.MusicLanguageLexer;
 import Grammar.MusicLanguageParser;
@@ -229,7 +234,8 @@ public class VisitorUnitTest {
     @Test
     public void testVisitWhileStatement() {
         // Arrange
-        MusicLanguageParser.WhileStatementContext mockWhileStatementContext = mock(MusicLanguageParser.WhileStatementContext.class);
+        MusicLanguageParser.WhileStatementContext mockWhileStatementContext = mock(
+                MusicLanguageParser.WhileStatementContext.class);
         MusicLanguageParser.ExpressionContext mockExpressionContext = mock(MusicLanguageParser.ExpressionContext.class);
         when(mockWhileStatementContext.expression()).thenReturn(mockExpressionContext);
 
@@ -246,24 +252,166 @@ public class VisitorUnitTest {
     }
 
     @Test
+    public void testVisitRepeatStatement() {
+        // Arrange
+        MusicLanguageParser.RepeatStatementContext mockRepeatStatementContext = mock(MusicLanguageParser.RepeatStatementContext.class);
+        MusicLanguageParser.StatementContext mockStatementContext1 = mock(MusicLanguageParser.StatementContext.class);
+
+        TerminalNode mockINTTerminalNode = mock(TerminalNode.class);
+        when(mockRepeatStatementContext.INT()).thenReturn(mockINTTerminalNode);
+        when(mockINTTerminalNode.getText()).thenReturn("2"); 
+
+        when(mockRepeatStatementContext.statement()).thenReturn(Arrays.asList(mockStatementContext1, mockStatementContext));
+
+        ASTNode mockResult1 = mock(ASTNode.class);
+        ASTNode mockResult2 = mock(ASTNode.class);
+        when(visitor.visit(mockStatementContext)).thenReturn(mockResult1);
+        when(visitor.visit(mockStatementContext1)).thenReturn(mockResult2);
+
+        // Act
+        ASTNode result = visitor.visitRepeatStatement(mockRepeatStatementContext);
+
+        // Assert
+        assertNotNull(result);
+        assertTrue(result instanceof ASTNode); 
+        }
+
+
+
+    @Test
     public void testVisitIfStatement() {
         // Arrange
         when(mockIfStatementContext.expression()).thenReturn(mockExpressionContext);
-    
+
         BooleanValueNode booleanValueNode = new BooleanValueNode(true);
         when(visitor.visit(mockExpressionContext)).thenReturn(booleanValueNode);
-    
+
         when(mockIfStatementContext.statement()).thenReturn(Collections.singletonList(mockStatementContext));
-    
+
         when(visitor.visit(mockStatementContext)).thenReturn(astNode);
-    
+
         // Act
         ASTNode result = visitor.visitIfStatement(mockIfStatementContext);
-    
+
         // Assert
         assertEquals(astNode, result);
     }
 
     @Test
+    public void testVisitElseStatement() {
+        // Arrange
+        when(mockElseStatementContext.statement()).thenReturn(Collections.singletonList(mockStatementContext));
+
+        when(visitor.visit(mockStatementContext)).thenReturn(astNode);
+
+        // Act
+        ASTNode result = visitor.visitElseStatement(mockElseStatementContext);
+
+        // Assert
+        assertEquals(astNode, result);
+    }
+
+    @Test
+    public void testVisitArithmeticOperation() {
+        // Arrange
+        MusicLanguageParser.ArithmeticOperationContext mockArithmeticOperationContext = mock(
+                MusicLanguageParser.ArithmeticOperationContext.class);
+        when(mockArithmeticOperationContext.getText()).thenReturn("5+3");
+
+        // Mock the symbol table to return an IntegerValueNode when retrieveSymbol is
+        // called
+        when(symbolTable.retrieveSymbol(toString())).thenAnswer(invocation -> {
+            String arg = invocation.getArgument(0);
+            if (arg.matches("\\d+")) {
+                return new IntegerValueNode(Integer.parseInt(arg));
+            } else {
+                return null;
+            }
+        });
+
+        // Act
+        ASTNode result = visitor.visitArithmeticOperation(mockArithmeticOperationContext);
+
+        // Assert
+        assertTrue(result instanceof IntegerValueNode);
+        assertEquals(8, ((IntegerValueNode) result).getValue());
+    }
+
+    @Test
+    public void testVisitLogicalOperation() {
+        // Arrange
+        when(mockLogicalOperationContext.getText()).thenReturn("true&&false");
+
+        // Mock the symbol table to return a BooleanValueNode when retrieveSymbol is
+        // called
+        when(symbolTable.retrieveSymbol(anyString())).thenAnswer(invocation -> {
+            String arg = invocation.getArgument(0);
+            if (arg.equals("true") || arg.equals("false")) {
+                return new BooleanValueNode(Boolean.parseBoolean(arg));
+            } else {
+                return null;
+            }
+        });
+
+        // Act
+        ASTNode result = visitor.visitLogicalOperation(mockLogicalOperationContext);
+
+        // Assert
+        assertTrue(result instanceof BooleanValueNode);
+        assertEquals(false, ((BooleanValueNode) result).getValue());
+    }
+
+    @Test
+    public void testVisitParenthesis() {
+        // Arrange
+        when(mockParenthesisContext.expression()).thenReturn(mockExpressionContext);
+
+        IntegerValueNode integerValueNode = new IntegerValueNode(5);
+        when(visitor.visit(mockExpressionContext)).thenReturn(integerValueNode);
+
+        // Act
+        ASTNode result = visitor.visitParenthesis(mockParenthesisContext);
+
+        // Assert
+        assertEquals(IntegerValueNode.class, result.getClass());
+        assertEquals(5, ((IntegerValueNode) result).getValue());
+    }
+
+    @Test
+    public void testVisitNotOperation() {
+        // Arrange
+        when(mockNotOperationContext.expression()).thenReturn(mockExpressionContext);
+
+        BooleanValueNode booleanValueNode = new BooleanValueNode(true);
+        when(visitor.visit(mockExpressionContext)).thenReturn(booleanValueNode);
+
+        // Act
+        ASTNode result = visitor.visitNotOperation(mockNotOperationContext);
+
+        // Assert
+        assertEquals(BooleanValueNode.class, result.getClass());
+    }
+
+    @Test
+    public void testVisitComparison() {
+        // Arrange
+        when(mockComparisonContext.getText()).thenReturn("3>=5");
+
+        when(symbolTable.retrieveSymbol(anyString())).thenAnswer(invocation -> {
+            String arg = invocation.getArgument(0);
+            if (arg.matches("\\d+")) {
+                return new IntegerValueNode(Integer.parseInt(arg));
+            } else {
+                return null;
+            }
+        });
+
+        // Act
+        ASTNode result = visitor.visitComparison(mockComparisonContext);
+
+        // Assert
+        assertTrue(result instanceof BooleanValueNode);
+        assertEquals(false, ((BooleanValueNode) result).getValue());
+    }
 
 }
