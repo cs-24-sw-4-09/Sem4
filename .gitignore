@@ -1,3 +1,9 @@
 /.vscode
 /.idea
 /target
+
+# ANTLR generated files
+/gen/
+*.tokens
+*Lexer.java
+*Parser.java
