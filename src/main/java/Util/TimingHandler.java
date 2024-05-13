@@ -74,7 +74,11 @@ public void playChord(Note[] notes, String trackName) {
 
   public void play() throws InterruptedException, InvalidMidiDataException, MidiUnavailableException {
     sequencer.open();
+    try {
     Thread.sleep(100);
+    } catch (InterruptedException e) {
+      throw new InterruptedException("Thread was interrupted while sleeping.");
+    }
     // Set the sequence in the sequencer and start playback
     sequencer.setSequence(sequence);
     sequencer.start();
