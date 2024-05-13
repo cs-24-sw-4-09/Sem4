@@ -20,6 +20,7 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
     //private TimingHandler timingHandler;
 
     private PlaybackHandler playbackHandler;
+    private boolean insidePlayBlock = false;
 
 
     public Visitor() {
@@ -31,13 +32,9 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
     public ASTNode visitProgram(MusicLanguageParser.ProgramContext ctx) {
         System.out.println("kigher");
         ASTNode program = new ASTNode("program");
-
         for (MusicLanguageParser.StatementContext statementContext : ctx.statement()) {
+            System.out.println("kigher 2 " + statementContext.getText());
             visit(statementContext);
-            //program.addChild(visit(statementContext));
-
-            //ASTNode statementNode = visit(statementContext);
-            // program.addChild(visit(statementContext));
         }
         try {
             System.out.println("Start Playback");
@@ -85,6 +82,9 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
         System.out.println("Retrieved PauseStatement: " + symbolTable.retrieveSymbol("pause" + lineNumber));
         //ASTNode symbolValue = symbolTable.retrieveSymbolValue(variable);
         //System.out.println(symbolTable.retrieveSymbol(variable));
+        if(!insidePlayBlock){
+            return null;
+        }
         if (symbolTable.retrieveSymbol(variable) instanceof NoteStatement) {
             System.out.println("PG13 comment :)  " + symbolTable.retrieveSymbolValue(variable));
             String note = symbolTable.retrieveSymbolValue(variable).toString();
@@ -207,24 +207,50 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
     public ASTNode visitSampleStatement(MusicLanguageParser.SampleStatementContext ctx) {
         String sample = ctx.STRING().getText();
         String instrument = ctx.INSTRUMENT().getText();
-        SampleStatement sampleStatement = new SampleStatement(sample, instrument);
+        List<MusicLanguageParser.StatementContext> statements = ctx.statement();
+        SampleStatement sampleStatement = new SampleStatement(sample, instrument, statements);
         System.out.println("Sample: " + sample + " Instrument: " + instrument);
+        /* 
         for (MusicLanguageParser.StatementContext statementContext : ctx.statement()) {
             sampleStatement.addChild(visit(statementContext));
         }
+        */
+        
+        symbolTable.enterSymbol(sample, sampleStatement);
+        symbolTable.retrieveSymbol(sample);
         return sampleStatement;
     }
-    /*
+
+    @Override
+    public ASTNode visitSampleCallStatement(MusicLanguageParser.SampleCallStatementContext ctx) {
+        String sample = ctx.getText();
+        sample = sample.substring(0, sample.length() - 3); // remove the semicolon
+        System.out.println("SampleCall: " + sample);
+        symbolTable.retrieveSymbol(sample);
+        SampleStatement sampleStatement = (SampleStatement) symbolTable.retrieveSymbolValue(sample);
+        for (MusicLanguageParser.StatementContext statementContext : sampleStatement.getStatements()) {
+            visit(sampleStatement.getStatements().get(sampleStatement.getStatements().indexOf(statementContext)));
+        }
+        System.out.println("SampleStatement: " + sampleStatement);
+        
+        return null;
+        
+    }
+    
     @Override
     public ASTNode visitPlayStatement(MusicLanguageParser.PlayStatementContext ctx) {
+        insidePlayBlock = true;
         String sample = ctx.getText();
         PlayStatement playStatement = new PlayStatement(sample);
-        for (MusicLanguageParser.SampleStatementContext sampleStatementContext : ctx.sampleStatement()) {
-            playStatement.addChild(visit(sampleStatementContext));
+        for (MusicLanguageParser.StatementContext statementContext : ctx.statement()) {
+            System.out.println("Running" + statementContext.getText());
+            playStatement.addChild(visit(statementContext));
+            System.out.println("not Running");
         }
+        insidePlayBlock = false;
         return playStatement;
     }
-    */
+    
     /*
     @Override
     public ASTNode visitPauseStatement(MusicLanguageParser.PauseStatementContext ctx) {

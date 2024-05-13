@@ -4,13 +4,26 @@ sample test (Guitar) {
     let chord1 = [3A3,4C3,2D5,4G6];
     let note1 = 3A3;
     let int1 = 22;
-    let pause1 = 9-;
+    let pause1 = 1;
     chord1;
-    pause1;
-    note1;
+    int1;
+};
+
+sample test2 (Guitar) {
+    let chord1 = [3A3,4C3,2D5,4G6];
+    let note1 = 3A1;
+    let int1 = 22;
+    let pause1 = 1;
     note1;
     int1;
 };
 
+let note6 = 6D7;
+note6;
 
-play {};
+play {
+    test2();
+    test();
+    let note3 = 3B2;
+    note3;
+};

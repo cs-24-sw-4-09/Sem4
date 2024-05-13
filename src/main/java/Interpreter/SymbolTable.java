@@ -28,7 +28,16 @@ public class SymbolTable {
     }
 
     public ASTNode retrieveSymbolValue(String name){
+        System.out.println("Den eksistere ikke"+hashmap.containsKey(name));
         return hashmap.get(name).value;
+    }
+
+    //system.out.print the whole system table 
+    public void printSymbolTable(){
+        System.out.println("Printing the symbol table");
+        for (Map.Entry<String, Symbol> entry : hashmap.entrySet()) {
+            System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().value);
+        }
     }
 
     // public ASTNode retrieveSymbolValue(Symbol symbol){

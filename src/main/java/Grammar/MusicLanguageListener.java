@@ -1,6 +1,5 @@
 // Generated from MusicLanguage.g4 by ANTLR 4.13.1
 package Grammar;
-
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -129,6 +128,16 @@ public interface MusicLanguageListener extends ParseTreeListener {
 	 */
 	void exitSoundStatement(MusicLanguageParser.SoundStatementContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link MusicLanguageParser#sampleCallStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterSampleCallStatement(MusicLanguageParser.SampleCallStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MusicLanguageParser#sampleCallStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitSampleCallStatement(MusicLanguageParser.SampleCallStatementContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code LogicalOperation}
 	 * labeled alternative in {@link MusicLanguageParser#expression}.
 	 * @param ctx the parse tree
@@ -212,18 +221,6 @@ public interface MusicLanguageListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitNote(MusicLanguageParser.NoteContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code SampleCall}
-	 * labeled alternative in {@link MusicLanguageParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterSampleCall(MusicLanguageParser.SampleCallContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code SampleCall}
-	 * labeled alternative in {@link MusicLanguageParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitSampleCall(MusicLanguageParser.SampleCallContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code String}
 	 * labeled alternative in {@link MusicLanguageParser#expression}.

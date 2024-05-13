@@ -1,7 +1,5 @@
 // Generated from MusicLanguage.g4 by ANTLR 4.13.1
 package Grammar;
-
-
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -85,6 +83,12 @@ public interface MusicLanguageVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSoundStatement(MusicLanguageParser.SoundStatementContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link MusicLanguageParser#sampleCallStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSampleCallStatement(MusicLanguageParser.SampleCallStatementContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code LogicalOperation}
 	 * labeled alternative in {@link MusicLanguageParser#expression}.
 	 * @param ctx the parse tree
@@ -133,13 +137,6 @@ public interface MusicLanguageVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitNote(MusicLanguageParser.NoteContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code SampleCall}
-	 * labeled alternative in {@link MusicLanguageParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSampleCall(MusicLanguageParser.SampleCallContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code String}
 	 * labeled alternative in {@link MusicLanguageParser#expression}.
