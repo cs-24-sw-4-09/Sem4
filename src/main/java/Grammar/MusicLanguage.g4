@@ -2,7 +2,7 @@ grammar MusicLanguage;
 INSTRUMENT : 'Piano' | 'Guitar' | 'Bass' | 'Drums';
 //No octave means standard octave = 4
 //No duration means standard duration = 4
-NOTE : [0-9]?[A-G][0-9]?;
+NOTE : [0-9]?[A-G][#]?[0-9]?;
 PAUSE : [0-9]+'-';
 CHORD : '[' NOTE (',' NOTE)* ']';
 INT : [0-9]+;

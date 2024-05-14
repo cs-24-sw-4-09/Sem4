@@ -227,7 +227,7 @@ public class VisitorUnitTest {
         assertEquals(SampleStatement.class, result.getClass());
     }
 
-    @Test
+    @Test(timeout = 5000)
     public void testVisitWhileStatement() {
         // Arrange
         MusicLanguageParser.WhileStatementContext mockWhileStatementContext = mock(

@@ -12,7 +12,7 @@ sample test (Guitar) {
     while(int1 < int2){
         note1;
         int1 = int1 + 1;
-        note1 = (note1 + 1);
+        note1 = note1 + 1;
         note1;
         chord1;
     };

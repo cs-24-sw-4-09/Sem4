@@ -1,7 +1,6 @@
 package Interpreter;
 
 import Grammar.*;
-
 import Interpreter.Nodes.*;
 
 
@@ -526,33 +525,49 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
      * }
      */
 
-    @Override
-    public ASTNode visitAssignmentStatement(MusicLanguageParser.AssignmentStatementContext ctx) {
-        String variableName = ctx.STRING().getText(); // Get the variable name
-        boolean notebool = false;
-        ASTNode note = symbolTable.retrieveSymbol(variableName);
-        String duration = "";
-        
-        if(note instanceof NoteStatement){
-            System.out.println("Is here");
-            duration = note.toString().substring(0,1);
-            notebool = true;
-            
-        }
-
-        ASTNode value = visit(ctx.expression()); // Get the value of the variable
-        AssignmentStatement assignmentStatement = new AssignmentStatement(variableName, value);
-        if (notebool) {
-            String intValue = midiToNote(((IntegerValueNode) value).getValue());
-            symbolTable.enterSymbol(variableName, new NoteStatement(duration + intValue));
-        }   else {
-            // Update the symbol table with the new value
-            symbolTable.enterSymbol(variableName, value);
-        
-        }
-        return null;
-        
-    }
+     @Override
+     public ASTNode visitAssignmentStatement(MusicLanguageParser.AssignmentStatementContext ctx) {
+         String variableName = ctx.STRING().getText();
+         boolean notebool = false;
+         String duration = "";
+         String[] components = ctx.expression().getText().split("\\s*(?=[-+;])|(?<=[-+;])\\s*");
+ 
+         for (String component : components) {
+             ASTNode possibleNote = symbolTable.retrieveSymbol(component);
+             System.out.println("hey buddy" + possibleNote);
+             if (possibleNote instanceof NoteStatement) {
+                 duration = possibleNote.toString().substring(0, 1);
+                 notebool = true;
+             }
+         }
+ 
+         if (components.length == 1) {
+             ASTNode findValue = visit(ctx.expression());
+             if (findValue instanceof StringValueNode) {
+                 findValue = symbolTable.retrieveSymbol(((StringValueNode) findValue).getValue());
+                 AssignmentStatement assignementStatement = new AssignmentStatement(variableName, findValue);
+                 if (notebool) {
+                     String intValue = findValue.toString().substring(1);
+                     symbolTable.enterSymbol(variableName, new NoteStatement(duration + intValue));
+                     
+                 } else {
+                     symbolTable.enterSymbol(variableName, findValue);
+                 }
+                 return assignementStatement;
+             }
+         } else {
+             ASTNode value = visit(ctx.expression()); // Get the value of the variable
+             AssignmentStatement assignementStatement = new AssignmentStatement(variableName, value);
+             if (notebool) {
+                 String intValue = midiToNote(((IntegerValueNode) value).getValue());
+                 symbolTable.enterSymbol(variableName, new NoteStatement(duration + intValue));
+             } else {
+                 symbolTable.enterSymbol(variableName, value);
+             }
+             return assignementStatement;
+         }
+         return null;
+     }
     
     
     
@@ -566,94 +581,110 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
     */
 
     public int noteToMidi(String note) {
-        char noteName;
+        String noteName;
         int octave;
         int noteValue = 0;
+
         if (note.contains("#")) {
-            noteName = note.charAt(0);
-            noteValue += 1;
+            noteName = note.substring(0, 2);
             octave = Integer.parseInt(note.substring(2));
         } else {
-            noteName = note.charAt(0);
+            noteName = note.substring(0, 1);
             octave = Integer.parseInt(note.substring(1));
         }
 
         switch (noteName) {
-            case 'A':
+            case "A":
                 noteValue += 1;
                 break;
-            case 'B':
+            case "A#":
+                noteValue += 2;
+                break;
+            case "B":
                 noteValue += 3;
                 break;
-            case 'C':
+            case "C":
                 noteValue += 4;
                 break;
-            case 'D':
+            case "C#":
+                noteValue += 5;
+                break;
+            case "D":
                 noteValue += 6;
                 break;
-            case 'E':
+            case "D#":
+                noteValue += 7;
+                break;
+            case "E":
                 noteValue += 8;
                 break;
-            case 'F':
+            case "F":
                 noteValue += 9;
                 break;
-            case 'G':
+            case "F#":
+                noteValue += 10;
+                break;
+            case "G":
                 noteValue += 11;
                 break;
+            case "G#":
+                noteValue += 0;
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid note name: " + noteName);
         }
 
-        return noteValue + (octave * 12) + 20 - 12; // Note value from parsed from A-G + octave * 12 (there are 12
-        // different
-        // tones) + 20 (The Scale starts at 21)
+        return noteValue + (octave * 12) + 20 - 12; // Calculate MIDI value
     }
 
     public String midiToNote(int midiValue) {
         int octave = (midiValue - 8) / 12;
         int noteValue = (midiValue - 20) % 12;
-        char noteName;
-        
+        System.out.println("cancer " + noteValue + " " + octave + " " + midiValue);
+        String noteName;
+
         switch (noteValue) {
             case 1:
-                noteName = 'A';
+                noteName = "A";
                 break;
             case 2:
-                noteName = 'A';
+                noteName = "A#";
                 break;
             case 3:
-                noteName = 'B';
+                noteName = "B";
                 break;
             case 4:
-                noteName = 'C';
+                noteName = "C";
                 break;
             case 5:
-                noteName = 'C';
+                noteName = "C#";
                 break;
             case 6:
-                noteName = 'D';
+                noteName = "D";
                 break;
             case 7:
-                noteName = 'D';
+                noteName = "D#";
                 break;
             case 8:
-                noteName = 'E';
+                noteName = "E";
                 break;
             case 9:
-                noteName = 'F';
+                noteName = "F";
                 break;
             case 10:
-                noteName = 'F';
+                noteName = "F#";
                 break;
             case 11:
-                noteName = 'G';
+                noteName = "G";
                 break;
             case 0:
-                noteName = 'G';
+                noteName = "G#";
                 break;
             default:
                 throw new IllegalArgumentException("Invalid MIDI value");
         }
-        
-        return String.valueOf(noteName) + octave;
+
+        return noteName + octave;
     }
     
     
