@@ -91,5 +91,4 @@ public void playChord(Note[] notes, String trackName) {
     // Close the sequencer
     sequencer.close();
   }
-
 }

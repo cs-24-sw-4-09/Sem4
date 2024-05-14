@@ -18,15 +18,18 @@ public class Pause extends Notation {
                 try {
                     playbackHandler.registerFlag(this);
 
-                    System.out.println("Thread Sleep: " + this.getDuration());
                     Thread.sleep(this.getDuration());
-                    System.out.println("Thread Awake");
 
                     playbackHandler.unregisterFlag(this);
                     playbackHandler.resumePlayback(trackName);
                 } catch (Exception e) {
                     System.out.println("Yep. That wasn't supposed to happen. (Error in Notation) " + e.getMessage());
                 }
+            }
+
+            @Override
+            public String toString() {
+                return "Pause | L: " + getLengthInBeats();
             }
         });
     }
