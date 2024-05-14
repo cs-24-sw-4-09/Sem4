@@ -1,8 +1,7 @@
 // Generated from MusicLanguage.g4 by ANTLR 4.13.1
 package Grammar;
+
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
-
-
 
 /**
  * This interface defines a complete generic visitor for a parse tree produced
@@ -91,6 +90,34 @@ public interface MusicLanguageVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSoundStatement(MusicLanguageParser.SoundStatementContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code Pause}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPause(MusicLanguageParser.PauseContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code notOperation}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNotOperation(MusicLanguageParser.NotOperationContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AddSubOperation}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAddSubOperation(MusicLanguageParser.AddSubOperationContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code String}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitString(MusicLanguageParser.StringContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code LogicalOperation}
 	 * labeled alternative in {@link MusicLanguageParser#expression}.
 	 * @param ctx the parse tree
@@ -104,13 +131,6 @@ public interface MusicLanguageVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitParenthesis(MusicLanguageParser.ParenthesisContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code Pause}
-	 * labeled alternative in {@link MusicLanguageParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPause(MusicLanguageParser.PauseContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code Number}
 	 * labeled alternative in {@link MusicLanguageParser#expression}.
@@ -126,13 +146,6 @@ public interface MusicLanguageVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitComparison(MusicLanguageParser.ComparisonContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code notOperation}
-	 * labeled alternative in {@link MusicLanguageParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitNotOperation(MusicLanguageParser.NotOperationContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code Note}
 	 * labeled alternative in {@link MusicLanguageParser#expression}.
 	 * @param ctx the parse tree
@@ -147,13 +160,6 @@ public interface MusicLanguageVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSampleCall(MusicLanguageParser.SampleCallContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code String}
-	 * labeled alternative in {@link MusicLanguageParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitString(MusicLanguageParser.StringContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code Boolean}
 	 * labeled alternative in {@link MusicLanguageParser#expression}.
 	 * @param ctx the parse tree
@@ -161,17 +167,17 @@ public interface MusicLanguageVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBoolean(MusicLanguageParser.BooleanContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ArithmeticOperation}
-	 * labeled alternative in {@link MusicLanguageParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitArithmeticOperation(MusicLanguageParser.ArithmeticOperationContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code Chord}
 	 * labeled alternative in {@link MusicLanguageParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitChord(MusicLanguageParser.ChordContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code MultDivOperation}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMultDivOperation(MusicLanguageParser.MultDivOperationContext ctx);
 }

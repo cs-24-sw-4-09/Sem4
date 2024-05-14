@@ -6,13 +6,13 @@ sample test (Guitar) {
     let note2 = 2B1;
     let int1 = 1;
     let int3 = 2;
-    let int2 = 7;
+    let int2 = 4;
     let bool = false;
     let bool2 = false;
     while(int1 < int2){
         note1;
         int1 = int1 + 1;
-        note1 = (note1 + 1) / 2;
+        note1 = note1 + 2;
         note1;
     };
 };

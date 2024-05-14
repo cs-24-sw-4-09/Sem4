@@ -2,7 +2,7 @@ grammar MusicLanguage;
 INSTRUMENT : 'Piano' | 'Guitar' | 'Bass' | 'Drums';
 //No octave means standard octave = 4
 //No duration means standard duration = 4
-NOTE : [0-9]?[A-G][0-9]?;
+NOTE : [0-9]?[A-G][#]?[0-9]?;
 PAUSE : [0-9]+'-';
 CHORD : '[' NOTE (',' NOTE)* ']';
 INT : [0-9]+;
@@ -62,7 +62,8 @@ soundStatement : 'sound' '(' variable=STRING ')'ENDLINE;
 expression : STRING '()' ('&' STRING'()')*                                          #SampleCall
            | '(' expression ')'                                                     #Parenthesis
            | '!' expression                                                         #notOperation 
-           | expression op=( '*' | '/' | '+' | '-' ) expression                     #ArithmeticOperation
+           | expression op=('*' | '/') expression                                   #MultDivOperation
+           | expression op=('+' | '-' ) expression                                  #AddSubOperation
            | expression op=( '==' | '!=' | '<' | '<=' | '>=' | '>' ) expression     #Comparison
            | expression op=( '&&' | '||' ) expression                               #LogicalOperation
            | CHORD                                                                  #Chord

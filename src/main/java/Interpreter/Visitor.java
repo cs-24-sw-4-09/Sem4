@@ -68,20 +68,20 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
         ASTNode value = visit(expressionContext);
         // System.out.println("Variable: " + variable + " Value: " + value);
         LetStatement letStatement = new LetStatement(variable, value);
-        
+
         symbolTable.enterSymbol(variable, value);
         return letStatement;
     }
 
     @Override
-    public ASTNode visitArithmeticOperation(MusicLanguageParser.ArithmeticOperationContext ctx) {
+    public ASTNode visitAddSubOperation(MusicLanguageParser.AddSubOperationContext ctx) {
         System.out.println("VisitArithmeticOperation called");
         String expressionText = ctx.getText();
         System.out.println("Expression: " + expressionText);
         IntegerValueNode integerValueNode = new IntegerValueNode(0);
 
         if (expressionText != null) {
-            String[] components = expressionText.split("\\s*(?=[-+*/;])|(?<=[-+*/;])\\s*");
+            String[] components = expressionText.split("\\s*(?=[-+;])|(?<=[-+;])\\s*");
 
             int result = 0;
 
@@ -90,10 +90,10 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
             for (String component : components) {
                 component = component.trim();
                 if (component.isEmpty() || component.equals(";")) {
-                    continue; 
+                    continue;
                 }
 
-                if (component.equals("+") || component.equals("-") || component.equals("*") || component.equals("/")) {
+                if (component.equals("+") || component.equals("-")) {
                     operator = component;
                 } else {
                     int value = getIntegerValue(component);
@@ -108,6 +108,45 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
                         case "-":
                             result -= value;
                             break;
+                        default:
+                            result = value;
+                    }
+                }
+            }
+            integerValueNode.setValue(result);
+        }
+        return integerValueNode;
+    }
+
+    @Override
+    public ASTNode visitMultDivOperation(MusicLanguageParser.MultDivOperationContext ctx) {
+        System.out.println("VisitArithmeticOperation called");
+        String expressionText = ctx.getText();
+        System.out.println("Expression: " + expressionText);
+        IntegerValueNode integerValueNode = new IntegerValueNode(0);
+
+        if (expressionText != null) {
+            String[] components = expressionText.split("\\s*(?=[/*;])|(?<=[/*;])\\s*");
+
+            int result = 0;
+
+            String operator = "";
+
+            for (String component : components) {
+                component = component.trim();
+                if (component.isEmpty() || component.equals(";")) {
+                    continue;
+                }
+
+                if (component.equals("*") || component.equals("/")) {
+                    operator = component;
+                } else {
+                    int value = getIntegerValue(component);
+                    if (value == Integer.MIN_VALUE) {
+                        System.err.println("Invalid arithmetic operation: " + component);
+                        return null;
+                    }
+                    switch (operator) {
                         case "*":
                             result *= value;
                             break;
@@ -130,7 +169,7 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
             System.out.println("Value: BEnS" + value.toString());
             if (value instanceof IntegerValueNode) {
                 return ((IntegerValueNode) value).getValue();
-            } else if (value instanceof NoteStatement){
+            } else if (value instanceof NoteStatement) {
                 String note = value.toString().substring(1);
                 int amount = noteToMidi(note);
                 return amount;
@@ -189,7 +228,6 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
         }
         return booleanValueNode;
     }
-    
 
     private Object getValue(String variable) {
         if (symbolTable.containsSymbol(variable)) {
@@ -506,12 +544,12 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
         boolean notebool = false;
         ASTNode note = symbolTable.retrieveSymbol(variableName);
         String duration = "";
-        
-        if(note instanceof NoteStatement){
+
+        if (note instanceof NoteStatement) {
             System.out.println("Is here");
-            duration = note.toString().substring(0,1);
+            duration = note.toString().substring(0, 1);
             notebool = true;
-            
+
         }
 
         ASTNode value = visit(ctx.expression()); // Get the value of the variable
@@ -519,8 +557,7 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
         if (notebool) {
             String intValue = midiToNote(((IntegerValueNode) value).getValue());
             symbolTable.enterSymbol(variableName, new NoteStatement(duration + intValue));
-        }
-        else{
+        } else {
             symbolTable.enterSymbol(variableName, value);
         }
         return assignementStatement;
@@ -572,7 +609,7 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
         int octave = (midiValue - 8) / 12;
         int noteValue = (midiValue - 20) % 12;
         char noteName;
-        
+    
         switch (noteValue) {
             case 1:
                 noteName = 'A';
@@ -613,9 +650,12 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
             default:
                 throw new IllegalArgumentException("Invalid MIDI value");
         }
-        
+        if (noteValue == 1 || noteValue == 3 || noteValue == 6 || noteValue == 8 || noteValue == 10) {
+            noteName += '#';
+            System.out.println(noteName + noteValue);
+        }
+    
         return String.valueOf(noteName) + octave;
     }
-    
-    
+
 }
