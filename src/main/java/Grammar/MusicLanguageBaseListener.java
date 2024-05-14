@@ -113,6 +113,18 @@ public class MusicLanguageBaseListener implements MusicLanguageListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterElseStatement(MusicLanguageParser.ElseStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitElseStatement(MusicLanguageParser.ElseStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterWhileStatement(MusicLanguageParser.WhileStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -156,6 +168,18 @@ public class MusicLanguageBaseListener implements MusicLanguageListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitSoundStatement(MusicLanguageParser.SoundStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSampleCallStatement(MusicLanguageParser.SampleCallStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSampleCallStatement(MusicLanguageParser.SampleCallStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -240,18 +264,6 @@ public class MusicLanguageBaseListener implements MusicLanguageListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitNote(MusicLanguageParser.NoteContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterSampleCall(MusicLanguageParser.SampleCallContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitSampleCall(MusicLanguageParser.SampleCallContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

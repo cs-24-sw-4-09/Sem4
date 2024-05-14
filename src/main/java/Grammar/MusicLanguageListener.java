@@ -89,6 +89,16 @@ public interface MusicLanguageListener extends ParseTreeListener {
 	 */
 	void exitIfStatement(MusicLanguageParser.IfStatementContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link MusicLanguageParser#elseStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterElseStatement(MusicLanguageParser.ElseStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MusicLanguageParser#elseStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitElseStatement(MusicLanguageParser.ElseStatementContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link MusicLanguageParser#whileStatement}.
 	 * @param ctx the parse tree
 	 */
@@ -128,6 +138,16 @@ public interface MusicLanguageListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitSoundStatement(MusicLanguageParser.SoundStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MusicLanguageParser#sampleCallStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterSampleCallStatement(MusicLanguageParser.SampleCallStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MusicLanguageParser#sampleCallStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitSampleCallStatement(MusicLanguageParser.SampleCallStatementContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code LogicalOperation}
 	 * labeled alternative in {@link MusicLanguageParser#expression}.
@@ -212,18 +232,6 @@ public interface MusicLanguageListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitNote(MusicLanguageParser.NoteContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code SampleCall}
-	 * labeled alternative in {@link MusicLanguageParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterSampleCall(MusicLanguageParser.SampleCallContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code SampleCall}
-	 * labeled alternative in {@link MusicLanguageParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitSampleCall(MusicLanguageParser.SampleCallContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code String}
 	 * labeled alternative in {@link MusicLanguageParser#expression}.
