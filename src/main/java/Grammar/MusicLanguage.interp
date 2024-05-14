@@ -93,7 +93,7 @@ letStatement
 ifStatement
 elseStatement
 whileStatement
-assignementStatement
+assignmentStatement
 expressionStatement
 soundStatement
 sampleCallStatement

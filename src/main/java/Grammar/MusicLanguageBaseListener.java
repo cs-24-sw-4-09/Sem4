@@ -137,13 +137,13 @@ public class MusicLanguageBaseListener implements MusicLanguageListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAssignementStatement(MusicLanguageParser.AssignementStatementContext ctx) { }
+	@Override public void enterAssignmentStatement(MusicLanguageParser.AssignmentStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAssignementStatement(MusicLanguageParser.AssignementStatementContext ctx) { }
+	@Override public void exitAssignmentStatement(MusicLanguageParser.AssignmentStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
