@@ -27,13 +27,13 @@ public class MusicLanguageParser extends Parser {
 		RULE_program = 0, RULE_statement = 1, RULE_bpmStatement = 2, RULE_sampleStatement = 3, 
 		RULE_playStatement = 4, RULE_repeatStatement = 5, RULE_letStatement = 6, 
 		RULE_ifStatement = 7, RULE_elseStatement = 8, RULE_whileStatement = 9, 
-		RULE_assignementStatement = 10, RULE_expressionStatement = 11, RULE_soundStatement = 12, 
+		RULE_assignmentStatement = 10, RULE_expressionStatement = 11, RULE_soundStatement = 12, 
 		RULE_sampleCallStatement = 13, RULE_expression = 14;
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"program", "statement", "bpmStatement", "sampleStatement", "playStatement", 
 			"repeatStatement", "letStatement", "ifStatement", "elseStatement", "whileStatement", 
-			"assignementStatement", "expressionStatement", "soundStatement", "sampleCallStatement", 
+			"assignmentStatement", "expressionStatement", "soundStatement", "sampleCallStatement", 
 			"expression"
 		};
 	}
@@ -197,8 +197,8 @@ public class MusicLanguageParser extends Parser {
 		public ExpressionStatementContext expressionStatement() {
 			return getRuleContext(ExpressionStatementContext.class,0);
 		}
-		public AssignementStatementContext assignementStatement() {
-			return getRuleContext(AssignementStatementContext.class,0);
+		public AssignmentStatementContext assignmentStatement() {
+			return getRuleContext(AssignmentStatementContext.class,0);
 		}
 		public SoundStatementContext soundStatement() {
 			return getRuleContext(SoundStatementContext.class,0);
@@ -292,7 +292,7 @@ public class MusicLanguageParser extends Parser {
 				enterOuterAlt(_localctx, 9);
 				{
 				setState(46);
-				assignementStatement();
+				assignmentStatement();
 				}
 				break;
 			case 10:
@@ -897,7 +897,7 @@ public class MusicLanguageParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
-	public static class AssignementStatementContext extends ParserRuleContext {
+	public static class AssignmentStatementContext extends ParserRuleContext {
 		public Token variable;
 		public ExpressionContext value;
 		public TerminalNode ENDLINE() { return getToken(MusicLanguageParser.ENDLINE, 0); }
@@ -905,37 +905,37 @@ public class MusicLanguageParser extends Parser {
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
-		public AssignementStatementContext(ParserRuleContext parent, int invokingState) {
+		public AssignmentStatementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_assignementStatement; }
+		@Override public int getRuleIndex() { return RULE_assignmentStatement; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).enterAssignementStatement(this);
+			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).enterAssignmentStatement(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).exitAssignementStatement(this);
+			if ( listener instanceof MusicLanguageListener ) ((MusicLanguageListener)listener).exitAssignmentStatement(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MusicLanguageVisitor ) return ((MusicLanguageVisitor<? extends T>)visitor).visitAssignementStatement(this);
+			if ( visitor instanceof MusicLanguageVisitor ) return ((MusicLanguageVisitor<? extends T>)visitor).visitAssignmentStatement(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final AssignementStatementContext assignementStatement() throws RecognitionException {
-		AssignementStatementContext _localctx = new AssignementStatementContext(_ctx, getState());
-		enterRule(_localctx, 20, RULE_assignementStatement);
+	public final AssignmentStatementContext assignmentStatement() throws RecognitionException {
+		AssignmentStatementContext _localctx = new AssignmentStatementContext(_ctx, getState());
+		enterRule(_localctx, 20, RULE_assignmentStatement);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(144);
-			((AssignementStatementContext)_localctx).variable = match(STRING);
+			((AssignmentStatementContext)_localctx).variable = match(STRING);
 			setState(145);
 			match(T__9);
 			setState(146);
-			((AssignementStatementContext)_localctx).value = expression(0);
+			((AssignmentStatementContext)_localctx).value = expression(0);
 			setState(147);
 			match(ENDLINE);
 			}

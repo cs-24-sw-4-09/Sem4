@@ -72,11 +72,11 @@ public interface MusicLanguageVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitWhileStatement(MusicLanguageParser.WhileStatementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MusicLanguageParser#assignementStatement}.
+	 * Visit a parse tree produced by {@link MusicLanguageParser#assignmentStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAssignementStatement(MusicLanguageParser.AssignementStatementContext ctx);
+	T visitAssignmentStatement(MusicLanguageParser.AssignmentStatementContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MusicLanguageParser#expressionStatement}.
 	 * @param ctx the parse tree
