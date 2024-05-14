@@ -486,7 +486,7 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
     }
 
     @Override
-    public ASTNode visitAssignementStatement(MusicLanguageParser.AssignementStatementContext ctx) {
+    public ASTNode visitAssignmentStatement(MusicLanguageParser.AssignmentStatementContext ctx) {
         String variableName = ctx.STRING().getText(); // Get the variable name
         boolean notebool = false;
         ASTNode note = symbolTable.retrieveSymbol(variableName);
@@ -499,7 +499,7 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
         }
 
         ASTNode value = visit(ctx.expression()); // Get the value of the variable
-        AssignementStatement assignementStatement = new AssignementStatement(variableName, value);
+        AssignmentStatement assignmentStatement = new AssignmentStatement(variableName, value);
         if (notebool) {
             String intValue = midiToNote(((IntegerValueNode) value).getValue());
             symbolTable.enterSymbol(variableName, new NoteStatement(duration + intValue));

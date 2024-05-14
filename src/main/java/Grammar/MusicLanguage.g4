@@ -27,7 +27,7 @@ statement //: noteStatement
           | whileStatement
           | repeatStatement
           | expressionStatement
-          | assignementStatement
+          | assignmentStatement
           | soundStatement
           | sampleCallStatement
           ;
@@ -54,7 +54,7 @@ elseStatement : 'else' '{' statement* '}';
 
 whileStatement : 'while' '(' expression ')' '{' statement* '}'ENDLINE;
 
-assignementStatement : variable=STRING '=' value=expression ENDLINE;
+assignmentStatement : variable=STRING '=' value=expression ENDLINE;
 
 expressionStatement : expression ENDLINE;
 
