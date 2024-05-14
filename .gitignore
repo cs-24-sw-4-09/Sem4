@@ -1,0 +1,9 @@
+/.vscode/
+/.idea/
+/target/
+
+
+/gen/
+*.tokens
+*Lexer.java
+*Parser.java

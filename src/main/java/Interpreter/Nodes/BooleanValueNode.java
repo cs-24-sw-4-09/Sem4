@@ -1,6 +1,6 @@
 package Interpreter.Nodes;
 
-public class BooleanValueNode extends Expressions {
+public class BooleanValueNode extends ASTNode {
     private boolean value;
 
     public BooleanValueNode(boolean value) {

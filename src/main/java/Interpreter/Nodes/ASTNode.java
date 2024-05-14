@@ -24,4 +24,9 @@ public class ASTNode {
     public List<ASTNode> getChildren() {
         return children;
     }
+
+    @Override
+    public String toString() {
+        return type;
+    }
 }
