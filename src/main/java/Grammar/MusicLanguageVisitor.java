@@ -72,11 +72,11 @@ public interface MusicLanguageVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitWhileStatement(MusicLanguageParser.WhileStatementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MusicLanguageParser#assignmentStatement}.
+	 * Visit a parse tree produced by {@link MusicLanguageParser#assignementStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAssignmentStatement(MusicLanguageParser.AssignmentStatementContext ctx);
+	T visitAssignementStatement(MusicLanguageParser.AssignementStatementContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MusicLanguageParser#expressionStatement}.
 	 * @param ctx the parse tree
@@ -90,11 +90,33 @@ public interface MusicLanguageVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSoundStatement(MusicLanguageParser.SoundStatementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MusicLanguageParser#sampleCallStatement}.
+	 * Visit a parse tree produced by the {@code Pause}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSampleCallStatement(MusicLanguageParser.SampleCallStatementContext ctx);
+	T visitPause(MusicLanguageParser.PauseContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code notOperation}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNotOperation(MusicLanguageParser.NotOperationContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AddSubOperation}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAddSubOperation(MusicLanguageParser.AddSubOperationContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code String}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitString(MusicLanguageParser.StringContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code LogicalOperation}
 	 * labeled alternative in {@link MusicLanguageParser#expression}.
@@ -110,13 +132,6 @@ public interface MusicLanguageVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitParenthesis(MusicLanguageParser.ParenthesisContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Pause}
-	 * labeled alternative in {@link MusicLanguageParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPause(MusicLanguageParser.PauseContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code Number}
 	 * labeled alternative in {@link MusicLanguageParser#expression}.
 	 * @param ctx the parse tree
@@ -131,13 +146,6 @@ public interface MusicLanguageVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitComparison(MusicLanguageParser.ComparisonContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code notOperation}
-	 * labeled alternative in {@link MusicLanguageParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitNotOperation(MusicLanguageParser.NotOperationContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code Note}
 	 * labeled alternative in {@link MusicLanguageParser#expression}.
 	 * @param ctx the parse tree
@@ -145,19 +153,12 @@ public interface MusicLanguageVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitNote(MusicLanguageParser.NoteContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code AddSubOperation}
+	 * Visit a parse tree produced by the {@code SampleCall}
 	 * labeled alternative in {@link MusicLanguageParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAddSubOperation(MusicLanguageParser.AddSubOperationContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code String}
-	 * labeled alternative in {@link MusicLanguageParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitString(MusicLanguageParser.StringContext ctx);
+	T visitSampleCall(MusicLanguageParser.SampleCallContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code Boolean}
 	 * labeled alternative in {@link MusicLanguageParser#expression}.

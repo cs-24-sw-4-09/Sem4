@@ -1,11 +1,11 @@
 package Interpreter.Nodes;
 
-public class AssignmentStatement extends ASTNode {
+public class AssignementStatement extends ASTNode {
     private String name;
     private ASTNode value;
     
-    public AssignmentStatement(String name, ASTNode value) {
-        super("AssignmentStatement");
+    public AssignementStatement(String name, ASTNode value) {
+        super("AssignementStatement");
         this.name = name;
         this.value = value;        
     }

@@ -27,9 +27,8 @@ statement //: noteStatement
           | whileStatement
           | repeatStatement
           | expressionStatement
-          | assignmentStatement
+          | assignementStatement
           | soundStatement
-          | sampleCallStatement
           ;
 
 // noteStatement :  'note' octave=NOTE ';';
@@ -54,15 +53,14 @@ elseStatement : 'else' '{' statement* '}';
 
 whileStatement : 'while' '(' expression ')' '{' statement* '}'ENDLINE;
 
-assignmentStatement : variable=STRING '=' value=expression ENDLINE;
+assignementStatement : variable=STRING '=' value=expression ENDLINE;
 
 expressionStatement : expression ENDLINE;
 
 soundStatement : 'sound' '(' variable=STRING ')'ENDLINE;
 
-sampleCallStatement : (STRING'()')* ENDLINE;
-
-expression : '(' expression ')'                                                     #Parenthesis
+expression : STRING '()' ('&' STRING'()')*                                          #SampleCall
+           | '(' expression ')'                                                     #Parenthesis
            | '!' expression                                                         #notOperation 
            | expression op=('*' | '/') expression                                   #MultDivOperation
            | expression op=('+' | '-' ) expression                                  #AddSubOperation
