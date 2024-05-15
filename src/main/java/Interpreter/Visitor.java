@@ -414,7 +414,7 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
             playbackHandler.addNotation("default", new Pause(pause.getDuration()));
         }
 
-        Expressions expressionStatement = new Expressions(variable);
+        Statements expressionStatement = new Statements(variable);
         return expressionStatement;
     }
 

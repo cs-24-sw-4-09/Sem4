@@ -2,7 +2,7 @@ package Interpreter.Nodes;
 
 import java.util.List;
 
-public class WhileStatement extends Expressions{    
+public class WhileStatement extends Statements{    
     private ASTNode condition;
     private List<ASTNode> statements;
 
