@@ -527,46 +527,37 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
 
      @Override
      public ASTNode visitAssignmentStatement(MusicLanguageParser.AssignmentStatementContext ctx) {
-         String variableName = ctx.STRING().getText();
-         boolean notebool = false;
-         String duration = "";
-         String[] components = ctx.expression().getText().split("\\s*(?=[-+;])|(?<=[-+;])\\s*");
- 
-         for (String component : components) {
-             ASTNode possibleNote = symbolTable.retrieveSymbol(component);
-             System.out.println("hey buddy" + possibleNote);
-             if (possibleNote instanceof NoteStatement) {
-                 duration = possibleNote.toString().substring(0, 1);
-                 notebool = true;
-             }
-         }
- 
-         if (components.length == 1) {
-             ASTNode findValue = visit(ctx.expression());
-             if (findValue instanceof StringValueNode) {
-                 findValue = symbolTable.retrieveSymbol(((StringValueNode) findValue).getValue());
-                 AssignmentStatement assignementStatement = new AssignmentStatement(variableName, findValue);
-                 if (notebool) {
-                     String intValue = findValue.toString().substring(1);
-                     symbolTable.enterSymbol(variableName, new NoteStatement(duration + intValue));
-                     
-                 } else {
-                     symbolTable.enterSymbol(variableName, findValue);
-                 }
-                 return assignementStatement;
-             }
-         } else {
-             ASTNode value = visit(ctx.expression()); // Get the value of the variable
-             AssignmentStatement assignementStatement = new AssignmentStatement(variableName, value);
-             if (notebool) {
-                 String intValue = midiToNote(((IntegerValueNode) value).getValue());
-                 symbolTable.enterSymbol(variableName, new NoteStatement(duration + intValue));
-             } else {
-                 symbolTable.enterSymbol(variableName, value);
-             }
+          String variableName = ctx.STRING().getText();
+          boolean notebool = false;
+          String duration = "";
+          String[] components = ctx.expression().getText().split("\\s*(?=[-+;])|(?<=[-+;])\\s*");
+  
+          for (String component : components) {
+              ASTNode possibleNote = symbolTable.retrieveSymbol(component);
+              System.out.println("hey buddy" + possibleNote);
+              if (possibleNote instanceof NoteStatement) {
+                  duration = possibleNote.toString().substring(0, 1);
+                  notebool = true;
+              }
+          }
+  
+          if (components.length == 1) {
+             ASTNode findValue = symbolTable.retrieveSymbol(components[0]);
+             AssignmentStatement assignementStatement = new AssignmentStatement(variableName, findValue);
+             symbolTable.enterSymbol(variableName, findValue);
              return assignementStatement;
+          } else {
+              ASTNode value = visit(ctx.expression()); // Get the value of the variable
+              AssignmentStatement assignementStatement = new AssignmentStatement(variableName, value);
+              if (notebool) {
+                  String intValue = midiToNote(((IntegerValueNode) value).getValue());
+                  symbolTable.enterSymbol(variableName, new NoteStatement(duration + intValue));
+              } else {
+                  symbolTable.enterSymbol(variableName, value);
+              }
+              return assignementStatement;
          }
-         return null;
+         //return null;
      }
     
     

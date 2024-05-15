@@ -7,13 +7,15 @@ sample test (Guitar) {
     let int1 = 1;
     let int3 = 2;
     let int2 = 99;
+    let int5 = 44;
     let bool = false;
     let bool2 = false;
     while(int1 < int2){
         note1;
         int1 = int1 + 1;
-        note1 = note1 + 1;
-        note1;
+        int5 = note1;
+       
+        int5;
         chord1;
     };
 };
