@@ -2,7 +2,7 @@ package Interpreter.Nodes;
 
 import java.util.List;
 
-public class RepeatStatement  extends Expressions{
+public class RepeatStatement  extends Statements{
     private ASTNode condition;
     private List<ASTNode> statements;
 
