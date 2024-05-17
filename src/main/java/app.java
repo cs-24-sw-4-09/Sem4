@@ -15,7 +15,6 @@ public class app {
         String inputFile = "src/main/java/program.txt";
         String inputText = readFile(inputFile);
 
-
         // Create a CharStream from the input text
         CharStream input = CharStreams.fromString(inputText);
 

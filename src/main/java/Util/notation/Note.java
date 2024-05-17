@@ -8,34 +8,35 @@ import javax.sound.midi.ShortMessage;
 public class Note extends Notation {
     private final int tone;
 
-    public Note(int tone, int lengthInBeats) {
+    public Note(int tone, int lengthInBeats, Instrument instrument) {
         this.tone = tone;
         this.setLengthInBeats(lengthInBeats);
+        this.setInstrument(instrument);
         this.buildFlag();
     }
 
     @Override
     protected void buildFlag() {
         this.setFlag(new Flag() {
-            private int channel;
             @Override
             public void play(PlaybackHandler playbackHandler, String trackName) {
                 try {
-                    channel = playbackHandler.requestChannel();
+                    int channel = playbackHandler.requestChannel();
                     playbackHandler.registerFlag(this);
 
-                    ShortMessage startMessage = new ShortMessage();
-                    startMessage.setMessage(ShortMessage.NOTE_ON, this.channel, tone, 100);
+                    ShortMessage programChange = new ShortMessage(ShortMessage.PROGRAM_CHANGE, channel, getInstrument().getValue(), 0);
+                    playbackHandler.passToReceiver(programChange);
+
+                    ShortMessage startMessage = new ShortMessage(ShortMessage.NOTE_ON, channel, tone, 100);
                     playbackHandler.passToReceiver(startMessage);
 
                     Thread.sleep(this.getDuration());
 
-                    ShortMessage endMessage = new ShortMessage();
-                    endMessage.setMessage(ShortMessage.NOTE_OFF, this.channel, tone, 0);
+                    ShortMessage endMessage = new ShortMessage(ShortMessage.NOTE_OFF, channel, tone, 0);
                     playbackHandler.passToReceiver(endMessage);
 
                     playbackHandler.unregisterFlag(this);
-                    playbackHandler.freeChannel(this.channel);
+                    playbackHandler.freeChannel(channel);
                     playbackHandler.resumePlayback(trackName);
                 } catch (Exception e) {
                     System.out.println("Yep. That wasn't supposed to happen. (Error in Notation) " + e.getMessage());
