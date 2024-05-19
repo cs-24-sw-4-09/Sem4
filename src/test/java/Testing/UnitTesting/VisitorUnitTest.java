@@ -92,8 +92,8 @@ public class VisitorUnitTest {
     @Mock
     private TerminalNode mockTerminalNode;
 
-    @Mock
-    private TimingHandler mockTimingHandler;
+    // @Mock
+    // private TimingHandler mockTimingHandler;
 
     @Mock
     private ASTNode astNode;
