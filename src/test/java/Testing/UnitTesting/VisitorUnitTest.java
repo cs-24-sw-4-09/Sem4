@@ -12,7 +12,6 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import Interpreter.Nodes.*;
-import Util.TimingHandler;
 import Interpreter.SymbolTable;
 import Interpreter.Visitor;
 
