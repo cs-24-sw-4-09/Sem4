@@ -29,7 +29,12 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
         this.interpretationResult = new StringBuilder();
         this.symbolTable = new SymbolTable();
     }
-
+    public PlaybackHandler getPlaybackHandler() {
+        return playbackHandler;
+    }
+    public SymbolTable getSymbolTable() {
+        return symbolTable;
+    }
     @Override
     public ASTNode visitProgram(MusicLanguageParser.ProgramContext ctx) {
         ASTNode program = new ASTNode("program");

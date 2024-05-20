@@ -52,6 +52,13 @@ public class PlaybackHandler extends Thread {
         this.tickDelay = 60000 / bpm;
     }
 
+    public int getBpm() {
+        /**
+         * This function returns the bpm of the sheet
+         */
+        return (int) (60000 / this.tickDelay);
+    }
+
     public void startPlayback() {
         /**
          * This function starts the playback across all tracks.
@@ -136,4 +143,6 @@ public class PlaybackHandler extends Thread {
         this.trackList.putIfAbsent(trackName, new ArrayList<>());
         this.trackList.get(trackName).add(notation.getFlag());
     }
+    
+    
 }
