@@ -6,24 +6,29 @@ import org.junit.jupiter.api.BeforeEach;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.Collections;
 
 import Interpreter.Nodes.*;
-import Util.TimingHandler;
+import Util.PlaybackHandler;
 import Interpreter.SymbolTable;
 import Interpreter.Visitor;
 
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.Token;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 
 import Grammar.MusicLanguageLexer;
 import Grammar.MusicLanguageParser;
@@ -91,10 +96,13 @@ public class VisitorUnitTest {
     private MusicLanguageParser.StatementContext mockStatementContext;
 
     @Mock
+    private Token mockToken;
+
+    @Mock
     private TerminalNode mockTerminalNode;
 
     @Mock
-    private TimingHandler mockTimingHandler;
+    private PlaybackHandler mockTimingHandler;
 
     @Mock
     private ASTNode astNode;
@@ -408,6 +416,30 @@ public class VisitorUnitTest {
         // Assert
         assertTrue(result instanceof BooleanValueNode);
         assertEquals(false, ((BooleanValueNode) result).getValue());
+    }
+
+    @Test
+    public void testVisitExpressionStatement_NoteStatement() {
+        // Arrange
+        String variableName = "A";
+        NoteStatement mockNoteStatement = mock(NoteStatement.class);
+        IntegerValueNode mockNoteValue = new IntegerValueNode(42); // Adjust the mock node as needed
+
+        when(mockExpressionStatementContext.expression()).thenReturn(mockExpressionContext);
+        when(mockExpressionContext.getText()).thenReturn(variableName);
+        when(mockExpressionStatementContext.getStart()).thenReturn(mockToken);
+        when(mockToken.getLine()).thenReturn(1);
+        when(symbolTable.retrieveSymbol(variableName)).thenReturn(mockNoteStatement);
+        when(symbolTable.retrieveSymbolValue(variableName)).thenReturn(mockNoteValue);
+
+        visitor.insidePlayBlock = true;
+
+        // Act
+        ASTNode result = visitor.visitExpressionStatement(mockExpressionStatementContext);
+
+        // Assert
+        assertNotNull(result);
+        assertTrue(result instanceof Statements);
     }
 
 }
