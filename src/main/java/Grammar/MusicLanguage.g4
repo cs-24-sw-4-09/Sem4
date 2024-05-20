@@ -1,5 +1,6 @@
 grammar MusicLanguage;
-INSTRUMENT : 'Piano' | 'Guitar' | 'Bass' | 'Drums';
+INSTRUMENT : 'Piano' | 'Glockenspiel' | 'Organ' | 'Guitar' | 'Violin' | 'Harp' | 'Trumpet' | 'Saxophone' | 'Flute' | 'Recorder' | 'Synth' | 'Bagpipe';
+
 //No octave means standard octave = 4
 //No duration means standard duration = 4
 NOTE : [0-9]?[A-G][#]?[0-9]?;
