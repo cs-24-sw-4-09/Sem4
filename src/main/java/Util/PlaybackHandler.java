@@ -49,7 +49,7 @@ public class PlaybackHandler extends Thread {
          * @param bpm The desired (new) bpm
          */
         System.out.println("Set BPM: " + bpm);
-        this.tickDelay = 60000 / bpm;
+        this.tickDelay = 240000 / bpm;
     }
 
     public int getBpm() {

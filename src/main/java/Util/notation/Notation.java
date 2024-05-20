@@ -32,7 +32,7 @@ public abstract class Notation {
     }
 
     public void applyBpm(long tickDelay) {
-        this.getFlag().setDuration(tickDelay * lengthInBeats);
+        this.getFlag().setDuration(tickDelay / lengthInBeats);
     }
 
     protected abstract void buildFlag();
