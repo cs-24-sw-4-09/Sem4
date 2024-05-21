@@ -66,7 +66,8 @@ sampleCallStatement : (STRING'()')* ENDLINE;
 
 expression : '(' expression ')'                                                     #Parenthesis
            | '!' expression                                                         #notOperation 
-           | expression op=( '*' | '/' | '+' | '-' ) expression                     #ArithmeticOperation
+           | expression op=('*' | '/') expression                                   #MultDivOperation
+           | expression op=('+' | '-' ) expression                                  #AddSubOperation
            | expression op=( '==' | '!=' | '<' | '<=' | '>=' | '>' ) expression     #Comparison
            | expression op=( '&&' | '||' ) expression                               #LogicalOperation
            | CHORD                                                                  #Chord

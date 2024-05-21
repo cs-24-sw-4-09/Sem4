@@ -73,17 +73,15 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
         return letStatement;
     }
 
-    
-
     @Override
-    public ASTNode visitArithmeticOperation(MusicLanguageParser.ArithmeticOperationContext ctx) {
+    public ASTNode visitAddSubOperation(MusicLanguageParser.AddSubOperationContext ctx) {
         System.out.println("VisitArithmeticOperation called");
         String expressionText = ctx.getText();
         System.out.println("Expression: " + expressionText);
         IntegerValueNode integerValueNode = new IntegerValueNode(0);
 
         if (expressionText != null) {
-            String[] components = expressionText.split("\\s*(?=[-+*/;])|(?<=[-+*/;])\\s*");
+            String[] components = expressionText.split("\\s*(?=[+-;])|(?<=[+-;])\\s*");
 
             int result = 0;
 
@@ -92,10 +90,10 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
             for (String component : components) {
                 component = component.trim();
                 if (component.isEmpty() || component.equals(";")) {
-                    continue; 
+                    continue;
                 }
 
-                if (component.equals("+") || component.equals("-") || component.equals("*") || component.equals("/")) {
+                if (component.equals("+") || component.equals("-")) {
                     operator = component;
                 } else {
                     int value = getIntegerValue(component);
@@ -110,6 +108,46 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
                         case "-":
                             result -= value;
                             break;
+                        default:
+                            result = value;
+                    }
+                }
+            }
+            integerValueNode.setValue(result);
+        }
+        return integerValueNode;
+    }
+    
+
+    @Override
+    public ASTNode visitMultDivOperation(MusicLanguageParser.MultDivOperationContext ctx) {
+        System.out.println("VisitArithmeticOperation called");
+        String expressionText = ctx.getText();
+        System.out.println("Expression: " + expressionText);
+        IntegerValueNode integerValueNode = new IntegerValueNode(0);
+
+        if (expressionText != null) {
+            String[] components = expressionText.split("\\s*(?=[/*;])|(?<=[/*;])\\s*");
+
+            int result = 0;
+
+            String operator = "";
+
+            for (String component : components) {
+                component = component.trim();
+                if (component.isEmpty() || component.equals(";")) {
+                    continue;
+                }
+
+                if (component.equals("*") || component.equals("/")) {
+                    operator = component;
+                } else {
+                    int value = getIntegerValue(component);
+                    if (value == Integer.MIN_VALUE) {
+                        System.err.println("Invalid arithmetic operation: " + component);
+                        return null;
+                    }
+                    switch (operator) {
                         case "*":
                             result *= value;
                             break;

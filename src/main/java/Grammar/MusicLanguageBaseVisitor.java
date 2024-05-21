@@ -1,5 +1,6 @@
 // Generated from MusicLanguage.g4 by ANTLR 4.13.1
 package Grammar;
+
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**
@@ -165,6 +166,13 @@ public class MusicLanguageBaseVisitor<T> extends AbstractParseTreeVisitor<T> imp
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitAddSubOperation(MusicLanguageParser.AddSubOperationContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitString(MusicLanguageParser.StringContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
@@ -179,12 +187,12 @@ public class MusicLanguageBaseVisitor<T> extends AbstractParseTreeVisitor<T> imp
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitArithmeticOperation(MusicLanguageParser.ArithmeticOperationContext ctx) { return visitChildren(ctx); }
+	@Override public T visitChord(MusicLanguageParser.ChordContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitChord(MusicLanguageParser.ChordContext ctx) { return visitChildren(ctx); }
+	@Override public T visitMultDivOperation(MusicLanguageParser.MultDivOperationContext ctx) { return visitChildren(ctx); }
 }

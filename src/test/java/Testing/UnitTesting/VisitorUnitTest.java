@@ -78,7 +78,10 @@ public class VisitorUnitTest {
     private MusicLanguageParser.ElseStatementContext mockElseStatementContext;
 
     @Mock
-    private MusicLanguageParser.ArithmeticOperationContext mockArithmeticOperationContext;
+    private MusicLanguageParser.AddSubOperationContext mockAddSubOperationContext;
+
+    @Mock
+    private MusicLanguageParser.MultDivOperationContext mockMultDivOperationContext;
 
     @Mock
     private MusicLanguageParser.LogicalOperationContext mockLogicalOperationContext;
@@ -316,15 +319,11 @@ public class VisitorUnitTest {
     }
 
     @Test
-    public void testVisitArithmeticOperation() {
+    public void testVisitAddSubOperation() {
         // Arrange
-        MusicLanguageParser.ArithmeticOperationContext mockArithmeticOperationContext = mock(
-                MusicLanguageParser.ArithmeticOperationContext.class);
-        when(mockArithmeticOperationContext.getText()).thenReturn("5+3");
+        when(mockAddSubOperationContext.getText()).thenReturn("3+5");
 
-        // Mock the symbol table to return an IntegerValueNode when retrieveSymbol is
-        // called
-        when(symbolTable.retrieveSymbol(toString())).thenAnswer(invocation -> {
+        when(symbolTable.retrieveSymbol(anyString())).thenAnswer(invocation -> {
             String arg = invocation.getArgument(0);
             if (arg.matches("\\d+")) {
                 return new IntegerValueNode(Integer.parseInt(arg));
@@ -334,11 +333,33 @@ public class VisitorUnitTest {
         });
 
         // Act
-        ASTNode result = visitor.visitArithmeticOperation(mockArithmeticOperationContext);
+        ASTNode result = visitor.visitAddSubOperation(mockAddSubOperationContext);
 
         // Assert
         assertTrue(result instanceof IntegerValueNode);
         assertEquals(8, ((IntegerValueNode) result).getValue());
+    }
+
+    @Test
+    public void testVisitMultDivOperation() {
+        // Arrange
+        when(mockMultDivOperationContext.getText()).thenReturn("3*5");
+
+        when(symbolTable.retrieveSymbol(anyString())).thenAnswer(invocation -> {
+            String arg = invocation.getArgument(0);
+            if (arg.matches("\\d+")) {
+                return new IntegerValueNode(Integer.parseInt(arg));
+            } else {
+                return null;
+            }
+        });
+
+        // Act
+        ASTNode result = visitor.visitMultDivOperation(mockMultDivOperationContext);
+
+        // Assert
+        assertTrue(result instanceof IntegerValueNode);
+        assertEquals(15, ((IntegerValueNode) result).getValue());
     }
 
     @Test
