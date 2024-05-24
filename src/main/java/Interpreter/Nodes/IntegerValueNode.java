@@ -1,6 +1,6 @@
 package Interpreter.Nodes;
 
-public class IntegerValueNode extends Expressions {
+public class IntegerValueNode extends ASTNode {
     private int value;
 
     public IntegerValueNode(int value) {

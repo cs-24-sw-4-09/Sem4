@@ -233,6 +233,18 @@ public interface MusicLanguageListener extends ParseTreeListener {
 	 */
 	void exitNote(MusicLanguageParser.NoteContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code AddSubOperation}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterAddSubOperation(MusicLanguageParser.AddSubOperationContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code AddSubOperation}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitAddSubOperation(MusicLanguageParser.AddSubOperationContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code String}
 	 * labeled alternative in {@link MusicLanguageParser#expression}.
 	 * @param ctx the parse tree
@@ -257,18 +269,6 @@ public interface MusicLanguageListener extends ParseTreeListener {
 	 */
 	void exitBoolean(MusicLanguageParser.BooleanContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code ArithmeticOperation}
-	 * labeled alternative in {@link MusicLanguageParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterArithmeticOperation(MusicLanguageParser.ArithmeticOperationContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code ArithmeticOperation}
-	 * labeled alternative in {@link MusicLanguageParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitArithmeticOperation(MusicLanguageParser.ArithmeticOperationContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code Chord}
 	 * labeled alternative in {@link MusicLanguageParser#expression}.
 	 * @param ctx the parse tree
@@ -280,4 +280,16 @@ public interface MusicLanguageListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitChord(MusicLanguageParser.ChordContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code MultDivOperation}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterMultDivOperation(MusicLanguageParser.MultDivOperationContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code MultDivOperation}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitMultDivOperation(MusicLanguageParser.MultDivOperationContext ctx);
 }

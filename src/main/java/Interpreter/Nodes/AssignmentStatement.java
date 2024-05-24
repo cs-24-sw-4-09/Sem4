@@ -1,6 +1,6 @@
 package Interpreter.Nodes;
 
-public class AssignmentStatement extends ASTNode {
+public class AssignmentStatement extends Statements {
     private String name;
     private ASTNode value;
     

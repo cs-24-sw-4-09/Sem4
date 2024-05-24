@@ -1,6 +1,6 @@
 package Interpreter.Nodes;
 
-public class BpmStatement extends ASTNode {
+public class BpmStatement extends Statements {
     private int bpm;
 
     public BpmStatement(int bpm) {

@@ -1,7 +1,6 @@
 package Interpreter;
 
 import Grammar.*;
-
 import Interpreter.Nodes.*;
 
 
@@ -9,6 +8,7 @@ import Interpreter.Nodes.*;
 
 import Util.*;
 import Util.notation.Chord;
+import Util.notation.Notation;
 import Util.notation.Pause;
 
 import java.util.List;
@@ -17,19 +17,24 @@ import java.util.Arrays;
 
 public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
     private final SymbolTable symbolTable;
-    private int bpm;
-    private StringBuilder interpretationResult;
+    private final StringBuilder interpretationResult;
     
 
     private PlaybackHandler playbackHandler;
     private boolean insidePlayBlock = false;
+    private Notation.Instrument activeInstrument = Notation.Instrument.PIANO;
 
 
     public Visitor() {
         this.interpretationResult = new StringBuilder();
         this.symbolTable = new SymbolTable();
     }
-
+    public PlaybackHandler getPlaybackHandler() {
+        return playbackHandler;
+    }
+    public SymbolTable getSymbolTable() {
+        return symbolTable;
+    }
     @Override
     public ASTNode visitProgram(MusicLanguageParser.ProgramContext ctx) {
         ASTNode program = new ASTNode("program");
@@ -74,17 +79,15 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
         return letStatement;
     }
 
-    
-
     @Override
-    public ASTNode visitArithmeticOperation(MusicLanguageParser.ArithmeticOperationContext ctx) {
+    public ASTNode visitAddSubOperation(MusicLanguageParser.AddSubOperationContext ctx) {
         System.out.println("VisitArithmeticOperation called");
         String expressionText = ctx.getText();
         System.out.println("Expression: " + expressionText);
         IntegerValueNode integerValueNode = new IntegerValueNode(0);
 
         if (expressionText != null) {
-            String[] components = expressionText.split("\\s*(?=[-+*/;])|(?<=[-+*/;])\\s*");
+            String[] components = expressionText.split("\\s*(?=[+-;])|(?<=[+-;])\\s*");
 
             int result = 0;
 
@@ -93,10 +96,10 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
             for (String component : components) {
                 component = component.trim();
                 if (component.isEmpty() || component.equals(";")) {
-                    continue; 
+                    continue;
                 }
 
-                if (component.equals("+") || component.equals("-") || component.equals("*") || component.equals("/")) {
+                if (component.equals("+") || component.equals("-")) {
                     operator = component;
                 } else {
                     int value = getIntegerValue(component);
@@ -111,6 +114,46 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
                         case "-":
                             result -= value;
                             break;
+                        default:
+                            result = value;
+                    }
+                }
+            }
+            integerValueNode.setValue(result);
+        }
+        return integerValueNode;
+    }
+    
+
+    @Override
+    public ASTNode visitMultDivOperation(MusicLanguageParser.MultDivOperationContext ctx) {
+        System.out.println("VisitArithmeticOperation called");
+        String expressionText = ctx.getText();
+        System.out.println("Expression: " + expressionText);
+        IntegerValueNode integerValueNode = new IntegerValueNode(0);
+
+        if (expressionText != null) {
+            String[] components = expressionText.split("\\s*(?=[/*;])|(?<=[/*;])\\s*");
+
+            int result = 0;
+
+            String operator = "";
+
+            for (String component : components) {
+                component = component.trim();
+                if (component.isEmpty() || component.equals(";")) {
+                    continue;
+                }
+
+                if (component.equals("*") || component.equals("/")) {
+                    operator = component;
+                } else {
+                    int value = getIntegerValue(component);
+                    if (value == Integer.MIN_VALUE) {
+                        System.err.println("Invalid arithmetic operation: " + component);
+                        return null;
+                    }
+                    switch (operator) {
                         case "*":
                             result *= value;
                             break;
@@ -332,7 +375,7 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
 
     @Override
     public ASTNode visitRepeatStatement(MusicLanguageParser.RepeatStatementContext ctx) {
-        System.out.println("VisitRepeatStatement called");
+        
         int repeat = Integer.parseInt(ctx.INT().getText());
         ASTNode value = null;
 
@@ -346,16 +389,13 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
 
     @Override
     public ASTNode visitExpressionStatement(MusicLanguageParser.ExpressionStatementContext ctx) {
-        ///System.out.println("visitExpressionStatement called");
+        
         String variable = ctx.expression().getText();
-        System.out.println("Variable: " + variable);
+        
         visit(ctx.expression());
         
         int lineNumber = ctx.getStart().getLine();
-        // System.out.println("Retrieving PauseStatement with key: " + "pause" +
-        // lineNumber);
-        // ASTNode symbolValue = symbolTable.retrieveSymbolValue(variable);
-        // System.out.println(symbolTable.retrieveSymbol(variable));
+        
         if (!insidePlayBlock) {
             return null;
         }
@@ -364,12 +404,11 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
             int duration = Integer.parseInt(note.substring(0, 1));
             note = note.substring(1);
 
-            playbackHandler.addNotation("default", new Util.notation.Note(noteToMidi(note), duration));
-            // timingHandler.addNote(new Note(100, noteToMidi(note), duration), "default",
-            // 0);
+            playbackHandler.addNotation("default", new Util.notation.Note(noteToMidi(note), duration, activeInstrument));
+            
 
         } else if (symbolTable.retrieveSymbol(variable) instanceof ChordStatement) {
-            System.out.println("1!!!!)" + symbolTable.retrieveSymbolValue(variable));
+            
             ChordStatement chord = (ChordStatement) symbolTable.retrieveSymbolValue(variable);
 
             List<String> allNotes = new ArrayList<>();
@@ -379,15 +418,7 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
                 allNotes.addAll(notes);
             }
 
-            /*
-             * Note[] noteArray = new Note[allNotes.size()];
-             * for (int i = 0; i < allNotes.size(); i++) {
-             * String note = allNotes.get(i);
-             * int duration = Integer.parseInt(note.substring(0, 1));
-             * note = note.substring(1);
-             * noteArray[i] = new Note(100, noteToMidi(note), duration);
-             * }
-             */
+           
 
             int[] tones = new int[allNotes.size()];
             int durationInBeats = Integer.parseInt(allNotes.get(0).substring(0, 1)); // OBS DUCTTAPE LOESNING!!!!!!!
@@ -395,27 +426,25 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
                 tones[i] = noteToMidi(allNotes.get(i).substring(1));
             }
 
-            playbackHandler.addNotation("default", new Chord(tones, durationInBeats));
+            playbackHandler.addNotation("default", new Chord(tones, durationInBeats, activeInstrument));
 
-            // timingHandler.playChord(noteArray, "default");
+            
 
         } else if (symbolTable.retrieveSymbol("pause" + lineNumber) instanceof PauseStatement) {
             System.out.println("PauseStatement encountered");
             PauseStatement pause = (PauseStatement) symbolTable.retrieveSymbolValue("pause" + lineNumber);
-            // int duration = pause.getDuration();
-            // timingHandler.addPause(duration, "default");
+            
 
             playbackHandler.addNotation("default", new Pause(pause.getDuration()));
 
         } else if (symbolTable.retrieveSymbol(variable) instanceof PauseStatement) {
             PauseStatement pause = (PauseStatement) symbolTable.retrieveSymbol(variable);
-            // int duration = pause.getDuration();
-            // timingHandler.addPause(duration, "default");
+            
 
             playbackHandler.addNotation("default", new Pause(pause.getDuration()));
         }
 
-        Expressions expressionStatement = new Expressions(variable);
+        Statements expressionStatement = new Statements(variable);
         return expressionStatement;
     }
 
@@ -466,24 +495,22 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
         return new BooleanValueNode(bool);
     }
 
-    /*
-     * @Override
-     * public ASTNode visitNoteStatement(MusicLanguageParser.NoteStatementContext
-     * ctx) {
-     * String note = ctx.NOTE().getText();
-     * return new NoteStatement(note);
-     * }
-     */
+    
 
     @Override
     public ASTNode visitSampleStatement(MusicLanguageParser.SampleStatementContext ctx) {
         String sample = ctx.STRING().getText();
         String instrument = ctx.INSTRUMENT().getText();
         List<MusicLanguageParser.StatementContext> statements = ctx.statement();
+
+        activeInstrument = Notation.Instrument.parse(instrument);
+
         SampleStatement sampleStatement = new SampleStatement(sample, instrument, statements);
-        System.out.println("Sample: " + sample + " Instrument: " + instrument);
+        
         symbolTable.enterSymbol(sample, sampleStatement);
         symbolTable.retrieveSymbol(sample);
+
+        
         return sampleStatement;
     }
 
@@ -496,7 +523,7 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
         for (MusicLanguageParser.StatementContext statementContext : sampleStatement.getStatements()) {
             visit(sampleStatement.getStatements().get(sampleStatement.getStatements().indexOf(statementContext)));
         }
-        System.out.println("SampleStatement: " + sampleStatement);
+        
         
         return null;
         
@@ -516,43 +543,42 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
         return playStatement;
     }
     
-    /*
-     * @Override
-     * public ASTNode visitPauseStatement(MusicLanguageParser.PauseStatementContext
-     * ctx) {
-     * int duration = Integer.parseInt(ctx.INT().getText());
-     * PauseStatement pauseStatement = new PauseStatement(duration);
-     * return pauseStatement;
-     * }
-     */
+   
 
-    @Override
-    public ASTNode visitAssignmentStatement(MusicLanguageParser.AssignmentStatementContext ctx) {
-        String variableName = ctx.STRING().getText(); // Get the variable name
-        boolean notebool = false;
-        ASTNode note = symbolTable.retrieveSymbol(variableName);
-        String duration = "";
-        
-        if(note instanceof NoteStatement){
-            System.out.println("Is here");
-            duration = note.toString().substring(0,1);
-            notebool = true;
-            
-        }
-
-        ASTNode value = visit(ctx.expression()); // Get the value of the variable
-        AssignmentStatement assignmentStatement = new AssignmentStatement(variableName, value);
-        if (notebool) {
-            String intValue = midiToNote(((IntegerValueNode) value).getValue());
-            symbolTable.enterSymbol(variableName, new NoteStatement(duration + intValue));
-        }   else {
-            // Update the symbol table with the new value
-            symbolTable.enterSymbol(variableName, value);
-        
-        }
-        return null;
-        
-    }
+     @Override
+     public ASTNode visitAssignmentStatement(MusicLanguageParser.AssignmentStatementContext ctx) {
+          String variableName = ctx.STRING().getText();
+          boolean notebool = false;
+          String duration = "";
+          String[] components = ctx.expression().getText().split("\\s*(?=[-+;])|(?<=[-+;])\\s*");
+  
+          for (String component : components) {
+              ASTNode possibleNote = symbolTable.retrieveSymbol(component);
+              System.out.println("hey buddy" + possibleNote);
+              if (possibleNote instanceof NoteStatement) {
+                  duration = possibleNote.toString().substring(0, 1);
+                  notebool = true;
+              }
+          }
+  
+          if (components.length == 1) {
+             ASTNode findValue = symbolTable.retrieveSymbol(components[0]);
+             AssignmentStatement assignementStatement = new AssignmentStatement(variableName, findValue);
+             symbolTable.enterSymbol(variableName, findValue);
+             return assignementStatement;
+          } else {
+              ASTNode value = visit(ctx.expression()); // Get the value of the variable
+              AssignmentStatement assignementStatement = new AssignmentStatement(variableName, value);
+              if (notebool) {
+                  String intValue = midiToNote(((IntegerValueNode) value).getValue());
+                  symbolTable.enterSymbol(variableName, new NoteStatement(duration + intValue));
+              } else {
+                  symbolTable.enterSymbol(variableName, value);
+              }
+              return assignementStatement;
+         }
+         //return null;
+     }
     
     
     
@@ -566,94 +592,110 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
     */
 
     public int noteToMidi(String note) {
-        char noteName;
+        String noteName;
         int octave;
         int noteValue = 0;
+
         if (note.contains("#")) {
-            noteName = note.charAt(0);
-            noteValue += 1;
+            noteName = note.substring(0, 2);
             octave = Integer.parseInt(note.substring(2));
         } else {
-            noteName = note.charAt(0);
+            noteName = note.substring(0, 1);
             octave = Integer.parseInt(note.substring(1));
         }
 
         switch (noteName) {
-            case 'A':
+            case "A":
                 noteValue += 1;
                 break;
-            case 'B':
+            case "A#":
+                noteValue += 2;
+                break;
+            case "B":
                 noteValue += 3;
                 break;
-            case 'C':
+            case "C":
                 noteValue += 4;
                 break;
-            case 'D':
+            case "C#":
+                noteValue += 5;
+                break;
+            case "D":
                 noteValue += 6;
                 break;
-            case 'E':
+            case "D#":
+                noteValue += 7;
+                break;
+            case "E":
                 noteValue += 8;
                 break;
-            case 'F':
+            case "F":
                 noteValue += 9;
                 break;
-            case 'G':
+            case "F#":
+                noteValue += 10;
+                break;
+            case "G":
                 noteValue += 11;
                 break;
+            case "G#":
+                noteValue += 0;
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid note name: " + noteName);
         }
 
-        return noteValue + (octave * 12) + 20 - 12; // Note value from parsed from A-G + octave * 12 (there are 12
-        // different
-        // tones) + 20 (The Scale starts at 21)
+        return noteValue + (octave * 12) + 20 - 12; // Calculate MIDI value
     }
 
     public String midiToNote(int midiValue) {
         int octave = (midiValue - 8) / 12;
         int noteValue = (midiValue - 20) % 12;
-        char noteName;
-        
+        System.out.println("cancer " + noteValue + " " + octave + " " + midiValue);
+        String noteName;
+
         switch (noteValue) {
             case 1:
-                noteName = 'A';
+                noteName = "A";
                 break;
             case 2:
-                noteName = 'A';
+                noteName = "A#";
                 break;
             case 3:
-                noteName = 'B';
+                noteName = "B";
                 break;
             case 4:
-                noteName = 'C';
+                noteName = "C";
                 break;
             case 5:
-                noteName = 'C';
+                noteName = "C#";
                 break;
             case 6:
-                noteName = 'D';
+                noteName = "D";
                 break;
             case 7:
-                noteName = 'D';
+                noteName = "D#";
                 break;
             case 8:
-                noteName = 'E';
+                noteName = "E";
                 break;
             case 9:
-                noteName = 'F';
+                noteName = "F";
                 break;
             case 10:
-                noteName = 'F';
+                noteName = "F#";
                 break;
             case 11:
-                noteName = 'G';
+                noteName = "G";
                 break;
             case 0:
-                noteName = 'G';
+                noteName = "G#";
                 break;
             default:
                 throw new IllegalArgumentException("Invalid MIDI value");
         }
-        
-        return String.valueOf(noteName) + octave;
+
+        return noteName + octave;
     }
     
     

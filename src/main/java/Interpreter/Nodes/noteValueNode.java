@@ -1,6 +1,6 @@
 package Interpreter.Nodes;
 
-public class noteValueNode extends Expressions {
+public class noteValueNode extends ASTNode {
     private String note;
 
     public noteValueNode(String note) {

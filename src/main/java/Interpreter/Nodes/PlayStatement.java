@@ -1,6 +1,6 @@
 package Interpreter.Nodes;
 
-public class PlayStatement extends ASTNode {
+public class PlayStatement extends Statements {
     private String sample;
 
     public PlayStatement(String sample) {

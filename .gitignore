@@ -1,8 +1,4 @@
 /.vscode/
 /.idea/
-# ANTLR autogen files
 /target/
-/build/ 
-
-
-
+/gen/

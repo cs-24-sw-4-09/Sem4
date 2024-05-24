@@ -145,6 +145,13 @@ public interface MusicLanguageVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitNote(MusicLanguageParser.NoteContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code AddSubOperation}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAddSubOperation(MusicLanguageParser.AddSubOperationContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code String}
 	 * labeled alternative in {@link MusicLanguageParser#expression}.
 	 * @param ctx the parse tree
@@ -159,17 +166,17 @@ public interface MusicLanguageVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBoolean(MusicLanguageParser.BooleanContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ArithmeticOperation}
-	 * labeled alternative in {@link MusicLanguageParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitArithmeticOperation(MusicLanguageParser.ArithmeticOperationContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code Chord}
 	 * labeled alternative in {@link MusicLanguageParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitChord(MusicLanguageParser.ChordContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code MultDivOperation}
+	 * labeled alternative in {@link MusicLanguageParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMultDivOperation(MusicLanguageParser.MultDivOperationContext ctx);
 }

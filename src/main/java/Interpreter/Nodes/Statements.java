@@ -1,10 +1,19 @@
 package Interpreter.Nodes;
 
-public abstract class Statements extends ASTNode {
-    private String type;
+public class Statements extends ASTNode {
+    private String Statement;
 
-    public Statements(String type) {
+    public Statements(String Statement) {
         super("Statements");
-        this.type = type;
+        this.Statement = Statement;
     }
+
+    public String getStatement() {
+        return Statement;
+    }   
+
+    public void setStatement(String Statement) {
+        this.Statement = Statement;
+    }
+    
 }

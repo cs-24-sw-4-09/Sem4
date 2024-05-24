@@ -1,23 +1,63 @@
-bpm (113);
+bpm (225);
 
-sample test (Guitar) {
-    let chord1 = [1A3,1C3,1D5,1G6];
-    let note1 = 2A1;
-    let note2 = 2G1;
-    let int1 = 1;
-    let int3 = 2;
-    let int2 = 10;
-    let bool = false;
-    let bool2 = false;
-    
-    while (int1 < int2) {
-        note1;
-        note1 = note1 + note1;
-        int1 = int1 + 1; 
+sample verse (Guitar) {
+    let NoteA = 4A5;
+    let HalfNoteA = 2A5;
+    let LongNoteA = 1A5;
+    let ShortNoteB = 4B5;
+    let NotAsLongNoteB = 2B5;
+    let MediumLongNoteB = 3B5;
+    let LongNoteB = 1B5;
+    let NoteC = 4C4;
+    let NoteD = 4D4;
+    let NoteE = 4E4;
+    let LongNoteE = 2E4;
+    let NoteF = 4F4;
+    let NoteG = 4G4;
+    let LongNoteG = 2G4;
+    let HNoteD = 4D5;
+    let pause1 = 1-; 
+
+    repeat(2){
+    NoteA;
+    ShortNoteB;
+    NoteA;
+    NoteG;
+    NoteD;
+    NoteE;
+    LongNoteG;
+    LongNoteE;
+    LongNoteB;
+
+    NoteA;
+    ShortNoteB;
+    NoteA;
+    NoteG;
+    NoteD;
+    NoteE;
+    LongNoteG;
+    NoteE;
+    NotAsLongNoteB;
+    LongNoteA;
+
+    NoteA;
+    ShortNoteB;
+    NoteA;
+    NoteG;
+    NoteD;
+    NoteE;
+    LongNoteG;
+    LongNoteE;
+    NoteG;
+    HNoteD;
+    MediumLongNoteB;
+    NoteG;
+    HalfNoteA;
+    LongNoteB;
+    pause1;
     };
 };
 
-
 play {
-    test();
+    verse();
 };
