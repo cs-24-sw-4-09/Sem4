@@ -21,7 +21,7 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
     
 
     private PlaybackHandler playbackHandler;
-    private boolean insidePlayBlock = false;
+    public boolean insidePlayBlock = false;
     private Notation.Instrument activeInstrument = Notation.Instrument.PIANO;
 
 
