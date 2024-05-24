@@ -29,6 +29,7 @@ To run the tests, execute the `mvn test` command in the project directory.
 
 - [ANTLR](https://www.antlr.org/) - The parser generator used
 - [JUnit](https://junit.org/junit5/) - The testing framework used
+- [Mockito](https://site.mockito.org/) - Another testing framework
 
 ## Authors
 
