@@ -1,22 +1,22 @@
 bpm (225);
 
 sample verse (Guitar) {
-    let NoteA = 1A5;
+    let NoteA = 4A5;
     let HalfNoteA = 2A5;
-    let LongNoteA = 4A5;
-    let ShortNoteB = 1B5;
+    let LongNoteA = 1A5;
+    let ShortNoteB = 4B5;
     let NotAsLongNoteB = 2B5;
     let MediumLongNoteB = 3B5;
-    let LongNoteB = 4B5;
-    let NoteC = 1C4;
-    let NoteD = 1D4;
-    let NoteE = 1E4;
+    let LongNoteB = 1B5;
+    let NoteC = 4C4;
+    let NoteD = 4D4;
+    let NoteE = 4E4;
     let LongNoteE = 2E4;
-    let NoteF = 1F4;
-    let NoteG = 1G4;
+    let NoteF = 4F4;
+    let NoteG = 4G4;
     let LongNoteG = 2G4;
-    let HNoteD = 1D5;
-    let pause1 = 4-; 
+    let HNoteD = 4D5;
+    let pause1 = 1-; 
 
     repeat(2){
     NoteA;
