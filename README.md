@@ -23,14 +23,12 @@ To run the program, execute the `main` method in the [`app.java`](src/main/java/
 
 ## Running the tests
 
+To run the tests, execute the `mvn test` command in the project directory.
+
 ## Built With
 
 - [ANTLR](https://www.antlr.org/) - The parser generator used
 - [JUnit](https://junit.org/junit5/) - The testing framework used
-
-## Contributing
-
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Authors
 
