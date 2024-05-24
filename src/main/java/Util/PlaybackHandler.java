@@ -56,7 +56,7 @@ public class PlaybackHandler extends Thread {
         /**
          * This function returns the bpm of the sheet
          */
-        return (int) (60000 / this.tickDelay);
+        return (int) (240000 / this.tickDelay);
     }
 
     public void startPlayback() {
