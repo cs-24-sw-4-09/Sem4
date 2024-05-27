@@ -55,7 +55,7 @@ public class VisitorIntegrationTest {
     visitor.visit(ctx);
     playbackHandlerMock = visitor.getPlaybackHandler();
     
-    assertEquals(113, playbackHandlerMock.getBpm()); // Adjusted to match the expected BPM
+    assertEquals(113, playbackHandlerMock.getBpm()); 
     }
 
     @Test

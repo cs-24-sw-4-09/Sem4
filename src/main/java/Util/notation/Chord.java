@@ -54,7 +54,7 @@ public class Chord extends Notation {
                     playbackHandler.unregisterFlag(this);
                     playbackHandler.resumePlayback(trackName);
                 } catch (Exception e) {
-                    System.out.println("Yep. That wasn't supposed to happen. (Error in Notation) " + e.getMessage());
+                    System.out.println("Error: " + e.getMessage());
                 }
             }
 

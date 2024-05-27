@@ -1,64 +1,8 @@
 bpm (260);
 
-sample verse (Piano) {
-    let NoteA = 4A5;
-    let HalfNoteA = 2A5;
-    let LongNoteA = 1A5;
-    let ShortNoteB = 4B5;
-    let NotAsLongNoteB = 2B5;
-    let MediumLongNoteB = 3B5;
-    let LongNoteB = 1B5;
-    let NoteC = 4C4;
-    let NoteD = 4D4;
-    let NoteE = 4E4;
-    let LongNoteE = 2E4;
-    let NoteF = 4F4;
-    let NoteG = 4G4;
-    let LongNoteG = 2G4;
-    let HNoteD = 4D5;
-    let pause1 = 1-; 
 
-    repeat(2){
-    NoteA;
-    ShortNoteB;
-    NoteA;
-    NoteG;
-    NoteD;
-    NoteE;
-    LongNoteG;
-    LongNoteE;
-    LongNoteB;
 
-    NoteA;
-    ShortNoteB;
-    NoteA;
-    NoteG;
-    NoteD;
-    NoteE;
-    LongNoteG;
-    NoteE;
-    NotAsLongNoteB;
-    LongNoteA;
-
-    NoteA;
-    ShortNoteB;
-    NoteA;
-    NoteG;
-    NoteD;
-    NoteE;
-    LongNoteG;
-    LongNoteE;
-    NoteG;
-    HNoteD;
-    MediumLongNoteB;
-    NoteG;
-    HalfNoteA;
-    LongNoteB;
-    pause1;
-    };
-};
-
-sample CocoBambo (Piano) {
+sample CocoBambo (Glockenspiel) {
     repeat (10) {
     let 2NoteG = 4G#4;
     let 2NoteC = 4C#5;
@@ -223,21 +167,7 @@ sample CocoBambo (Piano) {
 
 };
 
-sample CocoBamboFinalle (Piano) {
-    let chordC = [4G#4,4C#3];
-    let chordCsm = [4C#5,4C#3,4E3,4G#3];
-    let chordCHigher = [4G#5,4G#5];
-    let chordCBigger = [4G#4,4C#3,4E3,4G#3];
-    let chordCs = [8C#4,4C#3];
-    
 
-    chordC;
-    chordCsm;
-    chordCHigher;
-    chordCBigger;
-    chordCs;
-
-};
 
 play {
    CocoBambo();

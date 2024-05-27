@@ -14,12 +14,9 @@ public class app {
         
         String inputFile = "src/main/java/program.txt";
         String inputText = readFile(inputFile);
-
-
         
         CharStream input = CharStreams.fromString(inputText);
 
-        
         MusicLanguageLexer lexer = new MusicLanguageLexer(input);
         lexer.removeErrorListeners();
         lexer.addErrorListener(ErrorChecker.INSTANCE);

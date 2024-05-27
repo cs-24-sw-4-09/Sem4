@@ -17,21 +17,17 @@ public class SymbolTable {
 
 
     public void add(Symbol symbol){
-        System.out.println("Adding symbol: " + symbol.name + " to the symbol table");
         hashmap.put(symbol.name, symbol);
     }
 
     public void delete(String name){
-        System.out.println("Deleting symbol: " + name + " from the symbol table");
         hashmap.remove(name);
     }
 
     public ASTNode retrieveSymbol(String name){
         if (hashmap.containsKey(name)) {
-            System.out.println("Retrieving symbol: " + name + " from the symbol table " + hashmap.get(name).value.toString());
             return hashmap.get(name).value;
         } else {
-            System.out.println("Symbol: " + name + " not found in the symbol table");
             return null;
         }
     }
@@ -43,11 +39,6 @@ public class SymbolTable {
     public boolean containsSymbol(String name){
         return hashmap.containsKey(name);
     }
-
-    // public ASTNode retrieveSymbolValue(Symbol symbol){
-    //     System.out.println(symbol.value);
-    //     return symbol.value;
-    // }
 
     private class Symbol {
         private final String name;

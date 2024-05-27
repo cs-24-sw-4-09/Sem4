@@ -23,7 +23,6 @@ public class PlaybackHandler extends Thread {
             String trackName = entry.getKey();
 
             new Thread(() -> entry.getValue().get(0).play(this, trackName)).start();
-            // Iterates through all tracks and starts playback on the first entry of all tracks, from where the playback then cascades through resumePlayback()
         }
     }
 
@@ -48,7 +47,6 @@ public class PlaybackHandler extends Thread {
          * This function sets the bpm of the sheet and the delay between ticks
          * @param bpm The desired (new) bpm
          */
-        System.out.println("Set BPM: " + bpm);
         this.tickDelay = 240000 / bpm;
     }
 
@@ -84,7 +82,6 @@ public class PlaybackHandler extends Thread {
          * @param message The message to be passed to the receiver
          */
 
-        // System.out.println("Passed message: " + message.getCommand() + ", channel: " + message.getChannel() + " Data1: " + message.getData1());
         this.receiver.send(message, 0);
     }
 
@@ -93,7 +90,6 @@ public class PlaybackHandler extends Thread {
          * Adds a flag to the list of active flags.
          * @param flag The flag to be registered
          */
-        System.out.println(flag);
         this.activeFlags.add(flag);
     }
 
@@ -102,7 +98,6 @@ public class PlaybackHandler extends Thread {
          * Removes a flag from the list of active flags.
          * @param flag The flag to be registered
          */
-        //System.out.println("Unregistered: " + flag);
         this.activeFlags.remove(flag);
     }
 
@@ -114,7 +109,6 @@ public class PlaybackHandler extends Thread {
         try {
             int channel = this.freeChannels.get(0);
             this.freeChannels.remove(0);
-            // System.out.println("Requested Channel: " + channel);
             return channel;
         } catch (Exception e){
             throw new Exception("No further channels are available for playback.");
@@ -126,8 +120,6 @@ public class PlaybackHandler extends Thread {
          * Adds a channel back to the pool of channels with no playback.
          * @param channel The channel to be added back to the pool
          */
-
-        // System.out.println("Freed Channel: " + channel);
         this.freeChannels.add(channel, channel);
     }
 
@@ -137,7 +129,6 @@ public class PlaybackHandler extends Thread {
          * @param trackName The name of the track
          * @param notation The notation to be added to the track
          */
-        System.out.println("Added: " + notation.getClass() + " | " + trackName);
         notation.applyBpm(tickDelay);
 
         this.trackList.putIfAbsent(trackName, new ArrayList<>());

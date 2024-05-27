@@ -3,9 +3,6 @@ package Interpreter;
 import Grammar.*;
 import Interpreter.Nodes.*;
 
-
-
-
 import Util.*;
 import Util.notation.Chord;
 import Util.notation.Notation;
@@ -41,10 +38,6 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
 
         for (MusicLanguageParser.StatementContext statementContext : ctx.statement()) {
             visit(statementContext);
-            // program.addChild(visit(statementContext));
-
-            // ASTNode statementNode = visit(statementContext);
-            // program.addChild(visit(statementContext));
         }
         try {
             new Thread(() -> playbackHandler.startPlayback()).start();
@@ -57,12 +50,11 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
     @Override
     public ASTNode visitBpmStatement(MusicLanguageParser.BpmStatementContext ctx) {
         int bpm = Integer.parseInt(ctx.INT().getText());
-        System.out.println("BPM: " + bpm);
         try {
             playbackHandler = new PlaybackHandler(bpm);
 
         } catch (Exception e) {
-            throw new RuntimeException("Nu-uhuh");
+            throw new RuntimeException("Error: " + e);
         }
         return new BpmStatement(bpm);
     }
@@ -72,7 +64,6 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
         String variable = ctx.variable.getText();
         MusicLanguageParser.ExpressionContext expressionContext = ctx.expression();
         ASTNode value = visit(expressionContext);
-        // System.out.println("Variable: " + variable + " Value: " + value);
         LetStatement letStatement = new LetStatement(variable, value);
         
         symbolTable.enterSymbol(variable, value);
@@ -81,9 +72,7 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
 
     @Override
     public ASTNode visitAddSubOperation(MusicLanguageParser.AddSubOperationContext ctx) {
-        System.out.println("VisitArithmeticOperation called");
         String expressionText = ctx.getText();
-        System.out.println("Expression: " + expressionText);
         IntegerValueNode integerValueNode = new IntegerValueNode(0);
 
         if (expressionText != null) {
@@ -127,9 +116,7 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
 
     @Override
     public ASTNode visitMultDivOperation(MusicLanguageParser.MultDivOperationContext ctx) {
-        System.out.println("VisitArithmeticOperation called");
         String expressionText = ctx.getText();
-        System.out.println("Expression: " + expressionText);
         IntegerValueNode integerValueNode = new IntegerValueNode(0);
 
         if (expressionText != null) {
@@ -173,7 +160,6 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
     private int getIntegerValue(String variable) {
         if (symbolTable.containsSymbol(variable)) {
             ASTNode value = symbolTable.retrieveSymbol(variable);
-            System.out.println("Value: BEnS" + value.toString());
             if (value instanceof IntegerValueNode) {
                 return ((IntegerValueNode) value).getValue();
             } else if (value instanceof NoteStatement){
@@ -193,13 +179,10 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
 
     @Override
     public ASTNode visitLogicalOperation(MusicLanguageParser.LogicalOperationContext ctx) {
-        System.out.println("VisitLogicalOperation called");
         String expressionText = ctx.getText();
-        System.out.println("Expression: " + expressionText);
         BooleanValueNode booleanValueNode = new BooleanValueNode(false);
         if (expressionText != null) {
             String[] components = expressionText.split("(?<=\\w)(?=(&&|\\|\\|))|(?<=(&&|\\|\\|))(?=\\w)");
-            System.out.println("Components: " + Arrays.toString(components));
             if (components.length != 3) {
                 System.err.println("Invalid expression format: " + expressionText);
                 return null;
@@ -254,13 +237,11 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
 
     @Override
     public ASTNode visitParenthesis(MusicLanguageParser.ParenthesisContext ctx) {
-        System.out.println("VisitParenthesis called");
         return visit(ctx.expression());
     }
 
     @Override
     public ASTNode visitNotOperation(MusicLanguageParser.NotOperationContext ctx) {
-        System.out.println("VisitNotOperation called");
         ASTNode value = this.visit(ctx.expression());
         if (value instanceof BooleanValueNode) {
             boolean bool = ((BooleanValueNode) value).getValue();
@@ -274,9 +255,7 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
 
     @Override
     public ASTNode visitComparison(MusicLanguageParser.ComparisonContext ctx) {
-        System.out.println("VisitComparison called");
         String expressionText = ctx.getText();
-        System.out.println("Expression: " + expressionText);
         BooleanValueNode booleanValueNode = new BooleanValueNode(false);
         if (expressionText != null) {
             String[] components = expressionText.split("(?<=\\w)(?=([<>!=]=|[<>]))|(?<=[<>!=]=|[<>])(?=\\w)");
@@ -325,7 +304,6 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
 
     @Override
     public ASTNode visitWhileStatement(MusicLanguageParser.WhileStatementContext ctx) {
-        System.out.println("VisitWhileStatement called");
         ASTNode value = null;
 
         while (visit(ctx.expression()) instanceof BooleanValueNode c && c.getValue()) {
@@ -342,7 +320,6 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
 
     @Override
     public ASTNode visitIfStatement(MusicLanguageParser.IfStatementContext ctx) {
-        System.out.println("VisitIfStatement called");
         ASTNode value = null;
 
         if (visit(ctx.expression()) instanceof BooleanValueNode c && c.getValue()) {
@@ -363,7 +340,6 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
 
     @Override
     public ASTNode visitElseStatement(MusicLanguageParser.ElseStatementContext ctx) {
-        System.out.println("VisitElseStatement called");
         ASTNode value = null;
 
         for (MusicLanguageParser.StatementContext statementContext : ctx.statement()) {
@@ -421,7 +397,7 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
            
 
             int[] tones = new int[allNotes.size()];
-            int durationInBeats = Integer.parseInt(allNotes.get(0).substring(0, 1)); // OBS DUCTTAPE LOESNING!!!!!!!
+            int durationInBeats = Integer.parseInt(allNotes.get(0).substring(0, 1)); 
             for (int i = 0; i < allNotes.size(); i++) {
                 tones[i] = noteToMidi(allNotes.get(i).substring(1));
             }
@@ -431,7 +407,6 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
             
 
         } else if (symbolTable.retrieveSymbol("pause" + lineNumber) instanceof PauseStatement) {
-            System.out.println("PauseStatement encountered");
             PauseStatement pause = (PauseStatement) symbolTable.retrieveSymbolValue("pause" + lineNumber);
             
 
@@ -472,15 +447,13 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
         String chord = ctx.getText();
         String[] notes = chord.split(",");
         ChordStatement chordStatement = new ChordStatement(Arrays.asList(notes));
-        System.out.println("Chord: " + chord);
         return chordStatement;
     }
 
     @Override
     public ASTNode visitPause(MusicLanguageParser.PauseContext ctx) {
-        System.out.println("VistitPause called");
         String text = ctx.getText();
-        int duration = Integer.parseInt(text.substring(0, text.length() - 1)); // remove the '-' and parse the number
+        int duration = Integer.parseInt(text.substring(0, text.length() - 1));
         PauseStatement pauseStatement = new PauseStatement(duration);
 
         int lineNumber = ctx.getStart().getLine();
@@ -517,7 +490,7 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
     @Override
     public ASTNode visitSampleCallStatement(MusicLanguageParser.SampleCallStatementContext ctx) {
         String sample = ctx.getText();
-        sample = sample.substring(0, sample.length() - 3); // remove the semicolon
+        sample = sample.substring(0, sample.length() - 3); 
         symbolTable.retrieveSymbol(sample);
         SampleStatement sampleStatement = (SampleStatement) symbolTable.retrieveSymbolValue(sample);
         for (MusicLanguageParser.StatementContext statementContext : sampleStatement.getStatements()) {
@@ -535,9 +508,7 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
         String sample = ctx.getText();
         PlayStatement playStatement = new PlayStatement(sample);
         for (MusicLanguageParser.StatementContext statementContext : ctx.statement()) {
-            System.out.println("Running" + statementContext.getText());
             playStatement.addChild(visit(statementContext));
-            System.out.println("not Running");
         }
         insidePlayBlock = false;
         return playStatement;
@@ -554,7 +525,6 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
   
           for (String component : components) {
               ASTNode possibleNote = symbolTable.retrieveSymbol(component);
-              System.out.println("hey buddy" + possibleNote);
               if (possibleNote instanceof NoteStatement) {
                   duration = possibleNote.toString().substring(0, 1);
                   notebool = true;
@@ -567,7 +537,7 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
              symbolTable.enterSymbol(variableName, findValue);
              return assignementStatement;
           } else {
-              ASTNode value = visit(ctx.expression()); // Get the value of the variable
+              ASTNode value = visit(ctx.expression()); 
               AssignmentStatement assignementStatement = new AssignmentStatement(variableName, value);
               if (notebool) {
                   String intValue = midiToNote(((IntegerValueNode) value).getValue());
@@ -577,19 +547,7 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
               }
               return assignementStatement;
          }
-         //return null;
      }
-    
-    
-    
-    /*
-    @Override
-    public ASTNode visitPauseStatement(MusicLanguageParser.PauseStatementContext ctx) {
-        int duration = Integer.parseInt(ctx.INT().getText());
-        PauseStatement pauseStatement = new PauseStatement(duration);
-        return pauseStatement;
-    }
-    */
 
     public int noteToMidi(String note) {
         String noteName;
@@ -645,13 +603,12 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
                 throw new IllegalArgumentException("Invalid note name: " + noteName);
         }
 
-        return noteValue + (octave * 12) + 20 - 12; // Calculate MIDI value
+        return noteValue + (octave * 12) + 20 - 12;
     }
 
     public String midiToNote(int midiValue) {
         int octave = (midiValue - 8) / 12;
         int noteValue = (midiValue - 20) % 12;
-        System.out.println("cancer " + noteValue + " " + octave + " " + midiValue);
         String noteName;
 
         switch (noteValue) {

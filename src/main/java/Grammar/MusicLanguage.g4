@@ -1,8 +1,6 @@
 grammar MusicLanguage;
 INSTRUMENT : 'Piano' | 'Glockenspiel' | 'Organ' | 'Guitar' | 'Violin' | 'Harp' | 'Trumpet' | 'Saxophone' | 'Flute' | 'Recorder' | 'Synth' | 'Bagpipe';
 
-//No octave means standard octave = 4
-//No duration means standard duration = 4
 NOTE : [0-9]?[A-G][#]?[0-9]?;
 PAUSE : [0-9]+'-';
 CHORD : '[' NOTE (',' NOTE)* ']';
@@ -16,11 +14,8 @@ ENDLINE : [;];
 
 program : statement* EOF;
 
-//note, pause and chrod statements changed to be variable changes.
-statement //: noteStatement
-          //| pauseStatement    
-          //| chordStatement
-          : bpmStatement
+
+statement : bpmStatement
           | sampleStatement
           | playStatement
           | letStatement
@@ -32,12 +27,6 @@ statement //: noteStatement
           | soundStatement
           | sampleCallStatement
           ;
-
-// noteStatement :  'note' octave=NOTE ';';
-
-// pauseStatement : 'pause' duration=INT ';';
-
-// chordStatement : 'chord' '[' NOTE* ']' octave=INT';';
 
 bpmStatement : 'bpm' '(' INT ')'ENDLINE;
     
