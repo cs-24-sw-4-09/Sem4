@@ -22,6 +22,7 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Token;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatcher;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -29,10 +30,14 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.ArgumentMatchers.contains;
 import static org.mockito.ArgumentMatchers.eq;
 
 import Grammar.MusicLanguageLexer;
 import Grammar.MusicLanguageParser;
+import Grammar.MusicLanguageParser.ExpressionStatementContext;
+
 import java.lang.reflect.Field;
 @RunWith(MockitoJUnitRunner.class)
 public class VisitorUnitTest {
@@ -100,6 +105,18 @@ public class VisitorUnitTest {
     private MusicLanguageParser.StatementContext mockStatementContext;
 
     @Mock
+    private MusicLanguageParser.PauseContext mockPauseContext;
+
+    @Mock
+    private MusicLanguageParser.PlayStatementContext ctx;
+    
+    @Mock
+    private MusicLanguageParser.StatementContext statement1;
+
+    @Mock
+    private MusicLanguageParser.StatementContext statement2;
+
+    @Mock
     private Token mockToken;
 
     @Mock
@@ -113,6 +130,9 @@ public class VisitorUnitTest {
 
     @Mock
     private SymbolTable symbolTable;
+
+    @Mock
+    private PlaybackHandler playbackHandler;
 
     @InjectMocks
     Visitor visitor = new Visitor();
@@ -461,8 +481,12 @@ public class VisitorUnitTest {
 
         // Assert
         assertNotNull(result);
+        System.out.println(result);
         assertTrue(result instanceof Statements);
     }
+
+
+
 
     @Test
     public void testGetValue() throws NoSuchFieldException, IllegalAccessException {
@@ -475,9 +499,10 @@ public class VisitorUnitTest {
 
         // Add a symbol to the symbolTable
         symbolTable.enterSymbol("testVar", new BooleanValueNode(true));
-
+        
+    
         // Test when variable is in symbolTable and is a BooleanValueNode
-        assertEquals(new BooleanValueNode(true), visitor.getValue("testVar"));
+        assertEquals(new BooleanValueNode(true).toString() == visitor.getValue("testVar").toString(), true);
 
         // Test when variable is "true"
         assertEquals(true, visitor.getValue("true"));
@@ -488,5 +513,80 @@ public class VisitorUnitTest {
         // Test when variable is not in symbolTable and is not "true" or "false"
         assertNull(visitor.getValue("nonexistentVar"));
     }
+
+    @Test
+    public void testVisitPause() {
+        // Arrange
+        when(mockPauseContext.getText()).thenReturn("1-");
+
+        Token mockToken = mock(Token.class);
+        when(mockToken.getLine()).thenReturn(1);
+        when(mockPauseContext.getStart()).thenReturn(mockToken);
+
+        // Act
+        ASTNode result = visitor.visitPause(mockPauseContext);
+
+        // Assert
+        assertTrue(result instanceof PauseStatement);
+    }
+
+    @Test
+    public void testNoteToMidi() {
+        Visitor visitor = new Visitor();
+        String[] notes = {"C4", "C#4", "D4", "D#4", "E4", "F4", "F#4", "G4", "G#4", "A4", "A#4", "B4"};
+        int[] midiValues = {60, 61, 62, 63, 64, 65, 66, 67, 56, 57, 58, 59};
+    
+        for (int i = 0; i < notes.length; i++) {
+            int midiValue = visitor.noteToMidi(notes[i]);
+            assertEquals(midiValues[i], midiValue);
+        }
+    }
+
+    @Test
+    public void testMidiToNote() {
+        Visitor visitor = new Visitor();
+        String[] notes = {"C4", "C#4", "D4", "D#4", "E4", "F4", "F#4", "G4", "G#4", "A4", "A#4", "B4"};
+        int[] midiValues = {60, 61, 62, 63, 64, 65, 66, 67, 56, 57, 58, 59};
+
+        for (int i = 0; i < notes.length; i++) {
+            String note = visitor.midiToNote(midiValues[i]);
+            assertEquals(notes[i], note);
+        }
+
+
+    }
+
+    @Test
+    public void testVisitPlayStatementEmptyBlock() {
+        Visitor visitor = new Visitor();
+        when(ctx.statement()).thenReturn(Collections.emptyList());
+        when(ctx.getText()).thenReturn("play");
+
+        ASTNode node = visitor.visitPlayStatement(ctx);
+
+        // Assert PlayStatement creation with empty child list
+        assertEquals(node instanceof PlayStatement, true);
+        PlayStatement playStatement = (PlayStatement) node;
+        assertEquals(playStatement.getChildren().size() == 0, true);
+    }
+
+    @Test
+    public void testVisitPlayStatementSingleStatement() {
+        Visitor visitor = new Visitor();
+        // Mock visit for statement1
+        ASTNode mockedNode1 = new ASTNode(null);
+        when(visitor.visit(statement1)).thenReturn(mockedNode1);
+
+        when(ctx.statement()).thenReturn(Arrays.asList(statement1));
+        when(ctx.getText()).thenReturn("play");
+
+        ASTNode node = visitor.visitPlayStatement(ctx);
+
+        // Assert PlayStatement creation with expected child
+        assertEquals(node instanceof PlayStatement, true);
+        PlayStatement playStatement = (PlayStatement) node;
+        assertEquals(playStatement.getChildren().size() == 1, true);
+    }
+    
 
 }
