@@ -1,8 +1,8 @@
-package Testing.UnitTesting;
+//package Testing.UnitTesting;
 
 import org.antlr.v4.runtime.tree.TerminalNode;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -16,6 +16,7 @@ import Interpreter.Nodes.*;
 import Util.PlaybackHandler;
 import Interpreter.SymbolTable;
 import Interpreter.Visitor;
+
 
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -32,7 +33,7 @@ import static org.mockito.ArgumentMatchers.eq;
 
 import Grammar.MusicLanguageLexer;
 import Grammar.MusicLanguageParser;
-
+import java.lang.reflect.Field;
 @RunWith(MockitoJUnitRunner.class)
 public class VisitorUnitTest {
     @Mock
@@ -116,7 +117,7 @@ public class VisitorUnitTest {
     @InjectMocks
     Visitor visitor = new Visitor();
 
-    @BeforeEach
+    @Before
     public void setUp() {
         MockitoAnnotations.openMocks(this);
         visitor = new Visitor();
@@ -461,6 +462,31 @@ public class VisitorUnitTest {
         // Assert
         assertNotNull(result);
         assertTrue(result instanceof Statements);
+    }
+
+    @Test
+    public void testGetValue() throws NoSuchFieldException, IllegalAccessException {
+        Visitor visitor = new Visitor();
+
+        // Use reflection to access the symbolTable field
+        Field symbolTableField = Visitor.class.getDeclaredField("symbolTable");
+        symbolTableField.setAccessible(true);
+        SymbolTable symbolTable = (SymbolTable) symbolTableField.get(visitor);
+
+        // Add a symbol to the symbolTable
+        symbolTable.enterSymbol("testVar", new BooleanValueNode(true));
+
+        // Test when variable is in symbolTable and is a BooleanValueNode
+        assertEquals(new BooleanValueNode(true), visitor.getValue("testVar"));
+
+        // Test when variable is "true"
+        assertEquals(true, visitor.getValue("true"));
+
+        // Test when variable is "false"
+        assertEquals(false, visitor.getValue("false"));
+
+        // Test when variable is not in symbolTable and is not "true" or "false"
+        assertNull(visitor.getValue("nonexistentVar"));
     }
 
 }

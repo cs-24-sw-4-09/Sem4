@@ -1,44 +1,40 @@
-package Testing.IntegrationTest;
-
+import org.junit.runner.RunWith;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.MockitoAnnotations;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mock;
-
-import Util.PlaybackHandler;
-import Interpreter.SymbolTable;
-import Interpreter.Visitor;
-import Interpreter.Nodes.SampleStatement;
-import Grammar.MusicLanguageParser;
-import Grammar.MusicLanguageLexer;
-
-import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
-
+import static org.junit.Assert.*;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.Tree;
 
+import Grammar.MusicLanguageParser;
+import Grammar.MusicLanguageLexer;
+import Interpreter.SymbolTable;
+import Interpreter.Visitor;
+import Interpreter.Nodes.BooleanValueNode;
+import Util.PlaybackHandler;
 
+@RunWith(MockitoJUnitRunner.class)
 public class VisitorIntegrationTest {
     @Mock
-    private PlaybackHandler playbackHandlerMock = mock(PlaybackHandler.class);
-    
-    private SymbolTable symbolTable = new SymbolTable();
-    private Visitor visitor = new Visitor();
+    private PlaybackHandler playbackHandlerMock;
 
+    private SymbolTable symbolTable;
+    private Visitor visitor;
+    private PlaybackHandler playbackHandler;
 
-    @BeforeEach
+    @Before
     public void setUp() throws Exception {
-        
+        MockitoAnnotations.initMocks(this);
+        visitor = new Visitor();
+        playbackHandler = new PlaybackHandler(120);
+        visitor.setPlaybackHandler(playbackHandler);
     }
 
-
-    public class TreeFromString {
+    public static class TreeFromString {
         public static MusicLanguageParser.ProgramContext getExprTreeFromString(String input) {
             var lexer = new MusicLanguageLexer(CharStreams.fromString(input));
             var parser = new MusicLanguageParser(new CommonTokenStream(lexer));
@@ -48,14 +44,11 @@ public class VisitorIntegrationTest {
 
     @Test 
     public void testBpmStatementPlaybackHandlerBpm() {
-    String testString = "bpm (113);";
-    
-    
-    MusicLanguageParser.ProgramContext ctx = TreeFromString.getExprTreeFromString(testString);
-    visitor.visit(ctx);
-    playbackHandlerMock = visitor.getPlaybackHandler();
-    
-    assertEquals(113, playbackHandlerMock.getBpm()); // Adjusted to match the expected BPM
+        String testString = "bpm (113);";
+        MusicLanguageParser.ProgramContext ctx = TreeFromString.getExprTreeFromString(testString);
+        visitor.visit(ctx);
+        playbackHandlerMock = visitor.getPlaybackHandler();
+        assertEquals(113, playbackHandlerMock.getBpm());
     }
 
     @Test
@@ -72,7 +65,6 @@ public class VisitorIntegrationTest {
         String testString = "bpm(113);\n" + "let a = 5;\n" + "let b = 10;\n" + "a = b;";
         MusicLanguageParser.ProgramContext ctx = TreeFromString.getExprTreeFromString(testString);
         visitor.visit(ctx);
-        System.out.println(visitor.visit(ctx).toString());
         symbolTable = visitor.getSymbolTable();
         assertEquals("10", symbolTable.retrieveSymbol("a").toString());
     }
@@ -86,10 +78,13 @@ public class VisitorIntegrationTest {
         System.out.println(symbolTable.retrieveSymbol("test"));
     }
 
-    
-
+    @Test
+    public void testIfStatement() {
+        String testString = "bpm(113);\n" + "let a = 5;\n" + "let b = 10;\n" + "if (a == b) {\n" + "bpm(120);\n" + "}";
+        MusicLanguageParser.ProgramContext ctx = TreeFromString.getExprTreeFromString(testString);
+        visitor.visit(ctx);
+        playbackHandlerMock = visitor.getPlaybackHandler();
+        assertEquals(113, playbackHandlerMock.getBpm());
+    }
 
 }
-    
-    
-

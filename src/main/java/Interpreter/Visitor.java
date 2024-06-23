@@ -29,6 +29,9 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
         this.interpretationResult = new StringBuilder();
         this.symbolTable = new SymbolTable();
     }
+    public void setPlaybackHandler(PlaybackHandler playbackHandler) {
+        this.playbackHandler = playbackHandler;
+    }
     public PlaybackHandler getPlaybackHandler() {
         return playbackHandler;
     }
@@ -237,7 +240,7 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
     }
     
 
-    private Object getValue(String variable) {
+    public Object getValue(String variable) {
         if (symbolTable.containsSymbol(variable)) {
             ASTNode value = symbolTable.retrieveSymbol(variable);
             if (value instanceof BooleanValueNode || value instanceof BooleanValueNode) {
@@ -697,6 +700,11 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
 
         return noteName + octave;
     }
+    
+
+   
+        
+    
     
     
 }
