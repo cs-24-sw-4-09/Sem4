@@ -1,6 +1,4 @@
-// Generated from ./MusicLanguage.g4 by ANTLR 4.13.1
-package Grammar;
-
+// Generated from c:/Users/makse/OneDrive - Aalborg Universitet/4th semester/Sem4/src/main/java/Grammar/MusicLanguage.g4 by ANTLR 4.13.1
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;

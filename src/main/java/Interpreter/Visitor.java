@@ -496,10 +496,7 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
         for (MusicLanguageParser.StatementContext statementContext : sampleStatement.getStatements()) {
             visit(sampleStatement.getStatements().get(sampleStatement.getStatements().indexOf(statementContext)));
         }
-        
-        
         return null;
-        
     }
     
     @Override
@@ -516,8 +513,8 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
     
    
 
-     @Override
-     public ASTNode visitAssignmentStatement(MusicLanguageParser.AssignmentStatementContext ctx) {
+    @Override
+    public ASTNode visitAssignmentStatement(MusicLanguageParser.AssignmentStatementContext ctx) {
           String variableName = ctx.STRING().getText();
           boolean notebool = false;
           String duration = "";

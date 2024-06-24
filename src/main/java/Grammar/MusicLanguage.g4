@@ -54,16 +54,44 @@ sampleCallStatement : (STRING'()')* ENDLINE;
 
 
 
-expression : '(' expression ')'                                                     #Parenthesis
-           | '!' expression                                                         #notOperation 
-           | expression op=('*' | '/') expression                                   #MultDivOperation
-           | expression op=('+' | '-' ) expression                                  #AddSubOperation
-           | expression op=( '==' | '!=' | '<' | '<=' | '>=' | '>' ) expression     #Comparison
-           | expression op=( '&&' | '||' ) expression                               #LogicalOperation
-           | CHORD                                                                  #Chord
-           | NOTE                                                                   #Note
-           | PAUSE                                                                  #Pause
-           | BOOL                                                                   #Boolean
-           | STRING                                                                 #String
-           | INT                                                                    #Number
-           ;
+expression: logical_or_expr;
+
+logical_or_expr
+    : logical_or_expr '||' logical_and_expr
+    | logical_and_expr
+    ;
+
+logical_and_expr
+    : logical_and_expr '&&' comparison_expr
+    | comparison_expr
+    ;
+
+comparison_expr
+    : comparison_expr ('==' | '!=' | '<' | '<=' | '>=' | '>') add_sub_expr
+    | add_sub_expr
+    ;
+
+add_sub_expr
+    : add_sub_expr ('+' | '-') mult_div_expr
+    | mult_div_expr
+    ;
+
+mult_div_expr
+    : mult_div_expr ('*' | '/') unary_expr
+    | unary_expr
+    ;
+
+unary_expr
+    : '!' primary_expr
+    | primary_expr
+    ;
+
+primary_expr
+    : '(' expression ')'
+    | CHORD
+    | NOTE
+    | PAUSE
+    | BOOL
+    | STRING
+    | INT
+    ;
