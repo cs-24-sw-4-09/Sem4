@@ -27,6 +27,18 @@ public class PlaybackHandler extends Thread {
         }
     }
 
+    public ArrayList<Flag> getActiveFlags() {
+        return activeFlags;
+    }
+
+    public ArrayList<Integer> getFreeChannels() {
+        return freeChannels;
+    }
+
+    public HashMap<String, ArrayList<Flag>> getTrackList() {
+        return trackList;
+    }
+
     public PlaybackHandler(int bpm) throws Exception{
         try {
             Synthesizer synthesizer = MidiSystem.getSynthesizer();

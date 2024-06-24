@@ -12,7 +12,10 @@ import static org.mockito.Mockito.when;
 import java.util.Arrays;
 import java.util.Collections;
 
+import javax.sound.midi.Receiver;
+
 import Interpreter.Nodes.*;
+import Util.Flag;
 import Util.PlaybackHandler;
 import Interpreter.SymbolTable;
 import Interpreter.Visitor;
@@ -133,6 +136,7 @@ public class VisitorUnitTest {
 
     @Mock
     private PlaybackHandler playbackHandler;
+
 
     @InjectMocks
     Visitor visitor = new Visitor();
@@ -490,7 +494,7 @@ public class VisitorUnitTest {
 
     @Test
     public void testGetValue() throws NoSuchFieldException, IllegalAccessException {
-        Visitor visitor = new Visitor();
+        //Visitor visitor = new Visitor();
 
         // Use reflection to access the symbolTable field
         Field symbolTableField = Visitor.class.getDeclaredField("symbolTable");
@@ -532,7 +536,7 @@ public class VisitorUnitTest {
 
     @Test
     public void testNoteToMidi() {
-        Visitor visitor = new Visitor();
+        //Visitor visitor = new Visitor();
         String[] notes = {"C4", "C#4", "D4", "D#4", "E4", "F4", "F#4", "G4", "G#4", "A4", "A#4", "B4"};
         int[] midiValues = {60, 61, 62, 63, 64, 65, 66, 67, 56, 57, 58, 59};
     
@@ -544,7 +548,7 @@ public class VisitorUnitTest {
 
     @Test
     public void testMidiToNote() {
-        Visitor visitor = new Visitor();
+        //Visitor visitor = new Visitor();
         String[] notes = {"C4", "C#4", "D4", "D#4", "E4", "F4", "F#4", "G4", "G#4", "A4", "A#4", "B4"};
         int[] midiValues = {60, 61, 62, 63, 64, 65, 66, 67, 56, 57, 58, 59};
 
@@ -558,7 +562,7 @@ public class VisitorUnitTest {
 
     @Test
     public void testVisitPlayStatementEmptyBlock() {
-        Visitor visitor = new Visitor();
+        //Visitor visitor = new Visitor();
         when(ctx.statement()).thenReturn(Collections.emptyList());
         when(ctx.getText()).thenReturn("play");
 
@@ -572,7 +576,7 @@ public class VisitorUnitTest {
 
     @Test
     public void testVisitPlayStatementSingleStatement() {
-        Visitor visitor = new Visitor();
+        //Visitor visitor = new Visitor();
         // Mock visit for statement1
         ASTNode mockedNode1 = new ASTNode(null);
         when(visitor.visit(statement1)).thenReturn(mockedNode1);
