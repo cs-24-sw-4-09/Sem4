@@ -93,10 +93,11 @@ public class PlaybackHandlerUnitTest {
     // triple check this guy
     @Test
     public void addNotationTest() {
-        playbackHandler.addNotation("track", chord);
+        Chord testChord = new Chord(new int[]{100, 200, 150}, 4, Notation.Instrument.PIANO );
+        playbackHandler.addNotation("track", testChord);
         assertEquals(1, playbackHandler.getTrackList().size());
         assertEquals(1, playbackHandler.getTrackList().get("track").size());
-        assertEquals(null, playbackHandler.getTrackList().get("track").get(0));
+        assertEquals(testChord.getFlag(), playbackHandler.getTrackList().get("track").get(0));
     }
 
     
