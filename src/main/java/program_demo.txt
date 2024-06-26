@@ -1,0 +1,34 @@
+bpm (150);
+
+sample Demo1 (Piano) {
+    let NoteA4 = 4A5;
+    let NoteB2 = 4B2;
+
+    repeat (3) {
+        NoteA4;
+        NoteB2;
+    };
+};
+
+sample Demo2 (Piano) {
+    let counter = 0;
+    let note = 4E4;
+    //Note decreasing
+    while (counter <= 10) {
+        note = note - 3;
+        note;
+        counter = counter + 1;
+    };
+};
+
+play {
+   print(Starting);
+   Demo1();
+   Demo2();
+};
+
+
+
+
+
+

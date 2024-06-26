@@ -1,3 +1,4 @@
+
 package Interpreter;
 
 import Grammar.*;
@@ -514,7 +515,12 @@ public class Visitor extends MusicLanguageBaseVisitor<ASTNode> {
         return playStatement;
     }
     
-   
+    @Override
+    public ASTNode visitPrintStatement(MusicLanguageParser.PrintStatementContext ctx) {
+        String text = ctx.STRING().getText();   
+        System.out.println(text);
+        return new PrintStatement(text);
+    }
 
      @Override
      public ASTNode visitAssignmentStatement(MusicLanguageParser.AssignmentStatementContext ctx) {

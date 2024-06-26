@@ -11,8 +11,9 @@ import java.io.*;
 public class app {
     public static void main(String[] args) throws IOException {
     try {
-        
+
         String inputFile = "src/main/java/program.txt";
+        //String inputFile = "src/main/java/program_demo.txt";
         String inputText = readFile(inputFile);
         
         CharStream input = CharStreams.fromString(inputText);

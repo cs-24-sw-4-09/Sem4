@@ -10,6 +10,7 @@ STRING : [a-zA-Z0-9_]+;
 INDENT : [ \t]+ -> skip;
 DEDENT : [ \n]+ -> skip;
 WS : [ \t\r\n]+ -> skip;
+COMMENT : '//' ~('\n'|'\r')* -> skip ;
 ENDLINE : [;];
 
 program : statement* EOF;
@@ -26,6 +27,7 @@ statement : bpmStatement
           | assignmentStatement
           | soundStatement
           | sampleCallStatement
+          | printStatement
           ;
 
 bpmStatement : 'bpm' '(' INT ')'ENDLINE;
@@ -51,6 +53,8 @@ expressionStatement : expression ENDLINE;
 soundStatement : 'sound' '(' variable=STRING ')'ENDLINE;
 
 sampleCallStatement : (STRING'()')* ENDLINE;
+
+printStatement :  'print' '(' STRING ')' ENDLINE;
 
 
 

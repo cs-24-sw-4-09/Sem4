@@ -62,7 +62,6 @@ sample CocoBambo (Glockenspiel) {
     4NoteC;
     1NoteF;
 
-
     3-;
     };
 
@@ -163,8 +162,6 @@ sample CocoBambo (Glockenspiel) {
     actualChordB;
     };
     };
-    
-
 };
 
 

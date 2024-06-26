@@ -96,6 +96,12 @@ public interface MusicLanguageVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSampleCallStatement(MusicLanguageParser.SampleCallStatementContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link MusicLanguageParser#printStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrintStatement(MusicLanguageParser.PrintStatementContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code LogicalOperation}
 	 * labeled alternative in {@link MusicLanguageParser#expression}.
 	 * @param ctx the parse tree

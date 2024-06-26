@@ -149,6 +149,16 @@ public interface MusicLanguageListener extends ParseTreeListener {
 	 */
 	void exitSampleCallStatement(MusicLanguageParser.SampleCallStatementContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link MusicLanguageParser#printStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrintStatement(MusicLanguageParser.PrintStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MusicLanguageParser#printStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrintStatement(MusicLanguageParser.PrintStatementContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code LogicalOperation}
 	 * labeled alternative in {@link MusicLanguageParser#expression}.
 	 * @param ctx the parse tree
